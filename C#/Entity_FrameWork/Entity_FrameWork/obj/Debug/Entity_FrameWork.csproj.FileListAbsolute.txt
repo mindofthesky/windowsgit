@@ -1,0 +1,9 @@
+C:\Users\mindo\source\repos\Entity_FrameWork\Entity_FrameWork\bin\Debug\Entity_FrameWork.exe.config
+C:\Users\mindo\source\repos\Entity_FrameWork\Entity_FrameWork\bin\Debug\Entity_FrameWork.exe
+C:\Users\mindo\source\repos\Entity_FrameWork\Entity_FrameWork\bin\Debug\Entity_FrameWork.pdb
+C:\Users\mindo\source\repos\Entity_FrameWork\Entity_FrameWork\obj\Debug\Entity_FrameWork.csproj.AssemblyReference.cache
+C:\Users\mindo\source\repos\Entity_FrameWork\Entity_FrameWork\obj\Debug\Entity_FrameWork.Properties.Resources.resources
+C:\Users\mindo\source\repos\Entity_FrameWork\Entity_FrameWork\obj\Debug\Entity_FrameWork.csproj.GenerateResource.cache
+C:\Users\mindo\source\repos\Entity_FrameWork\Entity_FrameWork\obj\Debug\Entity_FrameWork.csproj.CoreCompileInputs.cache
+C:\Users\mindo\source\repos\Entity_FrameWork\Entity_FrameWork\obj\Debug\Entity_FrameWork.exe
+C:\Users\mindo\source\repos\Entity_FrameWork\Entity_FrameWork\obj\Debug\Entity_FrameWork.pdb
