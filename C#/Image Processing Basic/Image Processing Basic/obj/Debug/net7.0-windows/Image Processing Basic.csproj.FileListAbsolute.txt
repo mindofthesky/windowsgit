@@ -1,0 +1,19 @@
+C:\Users\mindo\source\repos\Image Processing Basic\Image Processing Basic\bin\Debug\net7.0-windows\Image Processing Basic.exe
+C:\Users\mindo\source\repos\Image Processing Basic\Image Processing Basic\bin\Debug\net7.0-windows\Image Processing Basic.deps.json
+C:\Users\mindo\source\repos\Image Processing Basic\Image Processing Basic\bin\Debug\net7.0-windows\Image Processing Basic.runtimeconfig.json
+C:\Users\mindo\source\repos\Image Processing Basic\Image Processing Basic\bin\Debug\net7.0-windows\Image Processing Basic.dll
+C:\Users\mindo\source\repos\Image Processing Basic\Image Processing Basic\bin\Debug\net7.0-windows\Image Processing Basic.pdb
+C:\Users\mindo\source\repos\Image Processing Basic\Image Processing Basic\bin\Debug\net7.0-windows\OpenCvSharp.dll
+C:\Users\mindo\source\repos\Image Processing Basic\Image Processing Basic\obj\Debug\net7.0-windows\Image Processing Basic.csproj.AssemblyReference.cache
+C:\Users\mindo\source\repos\Image Processing Basic\Image Processing Basic\obj\Debug\net7.0-windows\Image_Processing_Basic.Form1.resources
+C:\Users\mindo\source\repos\Image Processing Basic\Image Processing Basic\obj\Debug\net7.0-windows\Image Processing Basic.csproj.GenerateResource.cache
+C:\Users\mindo\source\repos\Image Processing Basic\Image Processing Basic\obj\Debug\net7.0-windows\Image Processing Basic.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\mindo\source\repos\Image Processing Basic\Image Processing Basic\obj\Debug\net7.0-windows\Image Processing Basic.AssemblyInfoInputs.cache
+C:\Users\mindo\source\repos\Image Processing Basic\Image Processing Basic\obj\Debug\net7.0-windows\Image Processing Basic.AssemblyInfo.cs
+C:\Users\mindo\source\repos\Image Processing Basic\Image Processing Basic\obj\Debug\net7.0-windows\Image Processing Basic.csproj.CoreCompileInputs.cache
+C:\Users\mindo\source\repos\Image Processing Basic\Image Processing Basic\obj\Debug\net7.0-windows\Image Processing Basic.csproj.CopyComplete
+C:\Users\mindo\source\repos\Image Processing Basic\Image Processing Basic\obj\Debug\net7.0-windows\Image Processing Basic.dll
+C:\Users\mindo\source\repos\Image Processing Basic\Image Processing Basic\obj\Debug\net7.0-windows\refint\Image Processing Basic.dll
+C:\Users\mindo\source\repos\Image Processing Basic\Image Processing Basic\obj\Debug\net7.0-windows\Image Processing Basic.pdb
+C:\Users\mindo\source\repos\Image Processing Basic\Image Processing Basic\obj\Debug\net7.0-windows\Image Processing Basic.genruntimeconfig.cache
+C:\Users\mindo\source\repos\Image Processing Basic\Image Processing Basic\obj\Debug\net7.0-windows\ref\Image Processing Basic.dll
