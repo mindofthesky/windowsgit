@@ -12,7 +12,6 @@ namespace VMLLib.FileIO
         {
             List<double[]> resultList = new List<double[]>();
             return resultList;
-
         }
     }
 }

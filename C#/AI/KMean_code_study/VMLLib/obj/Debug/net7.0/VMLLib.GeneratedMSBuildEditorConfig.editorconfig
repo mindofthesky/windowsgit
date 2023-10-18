@@ -8,4 +8,4 @@ build_property.PlatformNeutralAssembly =
 build_property.EnforceExtendedAnalyzerRules = 
 build_property._SupportedPlatformList = Linux,macOS,Windows
 build_property.RootNamespace = VMLLib
-build_property.ProjectDir = C:\Users\mindo\Desktop\windowgit\C#\AI\KMean_code_study\VMLLib\
+build_property.ProjectDir = C:\Users\mindo\source\repos\KMean_code_study\VMLLib\

@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "yrtw6cuovwpW0fr2iPgz9W7LpZOYo+apTulN+Wy5/mTU70Gm/QdDh6sVrU9a8Pb0hsi7+rN7a0nfId+wV4r3Eg==",
+  "dgSpecHash": "SCgqKeV68Bo92BVYLTuiFzW487IkZBdJ2QW+vksozlYU0VE8d7li5+aFhA/8DQyDELve/b/CjlSdkfdHDZiWqA==",
   "success": true,
-  "projectFilePath": "C:\\Users\\mindo\\Desktop\\windowgit\\C#\\AI\\KMean_code_study\\VMLLib\\VMLLib.csproj",
+  "projectFilePath": "C:\\Users\\mindo\\source\\repos\\KMean_code_study\\VMLLib\\VMLLib.csproj",
   "expectedPackageFiles": [],
   "logs": []
 }
