@@ -1,0 +1,31 @@
+18년 딥러닝 https://www.youtube.com/watch?v=jGwO_UgTS7I&list=PLoROMvodv4rMiGQp3WXShtMGgzqpfVfbU 
+https://cs229.stanford.edu/syllabus-autumn2018.html 참고자료 
+22년 딥러닝 https://www.youtube.com/watch?v=Bl4Feh_Mjvo&list=PLoROMvodv4rNyWOpJg_Yh4NSqI4Z4vOYy
+EM 알고리즘 - 비지도학습
+
+SVM 
+로지스틱 희귀 
+
+비지도학습은 정해지지않는 데이터 x,y 를 값을 주는것이 지도학습이지만, 비지도에서는 x 값만 주는것이 비지도의 핵심 
+
+K-Means 군집 중심을 2개를 잡고 클러스트를 추정하는것 
+
+K-Mean 평균 반복형 두가지를 반복적으로 값을 계산 
+
+K-Mean 
+
+첫번째는 클러스터링 초기화 
+단 고차원적인 데이터를 할때는 무작위가아닌 정확한 하나의 기준점으로 계산하여 평균을 잡게된다
+
+두번째는 수렴할때까지 반복 
+
+비지도학습은 모호하지만 
+
+노이즈가 있는 클러스트  
+적절한 클러스터링의 갯수를 모호하나 
+AIC(Akaike Information Criterion) , BIC(Bayesian Information Criterion)로 기준으로 공식을 사용해서 클러스터링 갯수를 추정할수있으나 
+
+AIC(Akaike Information Criterion) = -2log L + 2K
+BIC(Bayesian Information Criterion) = -2log L + K log n 
+값이 작아질 수록 가장 정확한 모델링 갯수 
+그러나 일반적으로는 K-Mean 모형에서는 다운 스트림으로 하기때문에 
