@@ -1,0 +1,29 @@
+C:\Users\mindo\source\repos\Gradient desent\Gradient desent\bin\Debug\net7.0\Gradient desent.exe
+C:\Users\mindo\source\repos\Gradient desent\Gradient desent\bin\Debug\net7.0\Gradient desent.deps.json
+C:\Users\mindo\source\repos\Gradient desent\Gradient desent\bin\Debug\net7.0\Gradient desent.runtimeconfig.json
+C:\Users\mindo\source\repos\Gradient desent\Gradient desent\bin\Debug\net7.0\Gradient desent.dll
+C:\Users\mindo\source\repos\Gradient desent\Gradient desent\bin\Debug\net7.0\Gradient desent.pdb
+C:\Users\mindo\source\repos\Gradient desent\Gradient desent\bin\Debug\net7.0\Microsoft.Win32.SystemEvents.dll
+C:\Users\mindo\source\repos\Gradient desent\Gradient desent\bin\Debug\net7.0\System.Configuration.ConfigurationManager.dll
+C:\Users\mindo\source\repos\Gradient desent\Gradient desent\bin\Debug\net7.0\System.Diagnostics.EventLog.dll
+C:\Users\mindo\source\repos\Gradient desent\Gradient desent\bin\Debug\net7.0\System.Drawing.Common.dll
+C:\Users\mindo\source\repos\Gradient desent\Gradient desent\bin\Debug\net7.0\System.Security.Cryptography.ProtectedData.dll
+C:\Users\mindo\source\repos\Gradient desent\Gradient desent\bin\Debug\net7.0\System.Security.Permissions.dll
+C:\Users\mindo\source\repos\Gradient desent\Gradient desent\bin\Debug\net7.0\System.Windows.Extensions.dll
+C:\Users\mindo\source\repos\Gradient desent\Gradient desent\bin\Debug\net7.0\runtimes\win\lib\net7.0\Microsoft.Win32.SystemEvents.dll
+C:\Users\mindo\source\repos\Gradient desent\Gradient desent\bin\Debug\net7.0\runtimes\win\lib\net7.0\System.Diagnostics.EventLog.Messages.dll
+C:\Users\mindo\source\repos\Gradient desent\Gradient desent\bin\Debug\net7.0\runtimes\win\lib\net7.0\System.Diagnostics.EventLog.dll
+C:\Users\mindo\source\repos\Gradient desent\Gradient desent\bin\Debug\net7.0\runtimes\win\lib\net7.0\System.Drawing.Common.dll
+C:\Users\mindo\source\repos\Gradient desent\Gradient desent\bin\Debug\net7.0\runtimes\win\lib\net7.0\System.Security.Cryptography.ProtectedData.dll
+C:\Users\mindo\source\repos\Gradient desent\Gradient desent\bin\Debug\net7.0\runtimes\win\lib\net7.0\System.Windows.Extensions.dll
+C:\Users\mindo\source\repos\Gradient desent\Gradient desent\obj\Debug\net7.0\Gradient desent.csproj.AssemblyReference.cache
+C:\Users\mindo\source\repos\Gradient desent\Gradient desent\obj\Debug\net7.0\Gradient desent.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\mindo\source\repos\Gradient desent\Gradient desent\obj\Debug\net7.0\Gradient desent.AssemblyInfoInputs.cache
+C:\Users\mindo\source\repos\Gradient desent\Gradient desent\obj\Debug\net7.0\Gradient desent.AssemblyInfo.cs
+C:\Users\mindo\source\repos\Gradient desent\Gradient desent\obj\Debug\net7.0\Gradient desent.csproj.CoreCompileInputs.cache
+C:\Users\mindo\source\repos\Gradient desent\Gradient desent\obj\Debug\net7.0\Gradient desent.csproj.CopyComplete
+C:\Users\mindo\source\repos\Gradient desent\Gradient desent\obj\Debug\net7.0\Gradient desent.dll
+C:\Users\mindo\source\repos\Gradient desent\Gradient desent\obj\Debug\net7.0\refint\Gradient desent.dll
+C:\Users\mindo\source\repos\Gradient desent\Gradient desent\obj\Debug\net7.0\Gradient desent.pdb
+C:\Users\mindo\source\repos\Gradient desent\Gradient desent\obj\Debug\net7.0\Gradient desent.genruntimeconfig.cache
+C:\Users\mindo\source\repos\Gradient desent\Gradient desent\obj\Debug\net7.0\ref\Gradient desent.dll
