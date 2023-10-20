@@ -2,7 +2,20 @@
 https://cs229.stanford.edu/syllabus-autumn2018.html 참고자료 
 22년 딥러닝 https://www.youtube.com/watch?v=Bl4Feh_Mjvo&list=PLoROMvodv4rNyWOpJg_Yh4NSqI4Z4vOYy
 EM 알고리즘 - 비지도학습
+1강 기계학습의 정의
 
+명시적으로 프로그래밍을 하지않고 컴퓨터가 학습할수 있는 능력
+특정 유형에서는 인간보다 더 뛰어 날수가 있다 음성인식, 바둑과 같은 좁은 형식의 규칙으로 하는경우에는
+지도 학습에서 x,y 의 매핑관계를 측정하지만 가장쉬운 방식은 직선에 대하여 x,y값을 매핑하는경우 가장 단순한 매핑값일수 있으나 
+회귀문제 예시 
+회귀는 연속적인 경우에 적용 > x 집평, y가 가격 
+분류는 y가 (1,0) > 이것이 참인지 거짓인지 데이터를 분류하는것 예시 > 이것이 악성종양인지 종양인지 > 이런경우 y가 실수값 
+
+2강 선형 희귀 모델 (선형모델)
+자율주행의 경우는 학습 문제가 회귀모델  
+선형회귀모델의 수식화 
+경사하강법의 공식화
+14 강 
 SVM 
 로지스틱 희귀 
 
@@ -28,4 +41,11 @@ AIC(Akaike Information Criterion) , BIC(Bayesian Information Criterion)로 기�
 AIC(Akaike Information Criterion) = -2log L + 2K
 BIC(Bayesian Information Criterion) = -2log L + K log n 
 값이 작아질 수록 가장 정확한 모델링 갯수 
-그러나 일반적으로는 K-Mean 모형에서는 다운 스트림으로 하기때문에 
+그러나 일반적으로는 K-Mean 모형에서는 다운 스트림으로 하기때문에 AIC, BIC를 사용하지않는데 앤드류 경우
+지정되지 않는 데이터 세트가 있는 경우 x의 모델값으로 p(x)를 지정하여 계산한다면 특정 패턴값으로 추정할수있음
+
+모델링 있는 알고리즘에서 p(X) 
+ElBow Method 이유 > 두가지 이상의 가우스가 있는경에도 정확한 가우스값추정치가 없어도 p(x)값에 피팅이 가능하기때문에 사용 > 팔꿈치 모델이유
+
+
+혼합 가우시안 모델 
