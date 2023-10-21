@@ -1,0 +1,4 @@
+C:\Users\mindo\source\repos\RainForce\RainForce\obj\Debug\net7.0\RainForce.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\mindo\source\repos\RainForce\RainForce\obj\Debug\net7.0\RainForce.AssemblyInfoInputs.cache
+C:\Users\mindo\source\repos\RainForce\RainForce\obj\Debug\net7.0\RainForce.AssemblyInfo.cs
+C:\Users\mindo\source\repos\RainForce\RainForce\obj\Debug\net7.0\RainForce.csproj.CoreCompileInputs.cache
