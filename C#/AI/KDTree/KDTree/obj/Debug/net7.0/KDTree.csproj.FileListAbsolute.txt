@@ -1,0 +1,14 @@
+C:\Users\mindo\source\repos\KDTree\KDTree\obj\Debug\net7.0\KDTree.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\mindo\source\repos\KDTree\KDTree\obj\Debug\net7.0\KDTree.AssemblyInfoInputs.cache
+C:\Users\mindo\source\repos\KDTree\KDTree\obj\Debug\net7.0\KDTree.AssemblyInfo.cs
+C:\Users\mindo\source\repos\KDTree\KDTree\obj\Debug\net7.0\KDTree.csproj.CoreCompileInputs.cache
+C:\Users\mindo\source\repos\KDTree\KDTree\bin\Debug\net7.0\KDTree.exe
+C:\Users\mindo\source\repos\KDTree\KDTree\bin\Debug\net7.0\KDTree.deps.json
+C:\Users\mindo\source\repos\KDTree\KDTree\bin\Debug\net7.0\KDTree.runtimeconfig.json
+C:\Users\mindo\source\repos\KDTree\KDTree\bin\Debug\net7.0\KDTree.dll
+C:\Users\mindo\source\repos\KDTree\KDTree\bin\Debug\net7.0\KDTree.pdb
+C:\Users\mindo\source\repos\KDTree\KDTree\obj\Debug\net7.0\KDTree.dll
+C:\Users\mindo\source\repos\KDTree\KDTree\obj\Debug\net7.0\refint\KDTree.dll
+C:\Users\mindo\source\repos\KDTree\KDTree\obj\Debug\net7.0\KDTree.pdb
+C:\Users\mindo\source\repos\KDTree\KDTree\obj\Debug\net7.0\KDTree.genruntimeconfig.cache
+C:\Users\mindo\source\repos\KDTree\KDTree\obj\Debug\net7.0\ref\KDTree.dll
