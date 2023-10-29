@@ -8,7 +8,7 @@ namespace logistic_Regression
 {
     public class Data
     {
-        public double[][] data = new double[100][];
+        public double[][]? data = new double[30][];
         public Data()
         {
             data[0] = new double[] { 48, +1, 4.40, 0 };
