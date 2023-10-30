@@ -100,14 +100,11 @@ namespace logistic_Regression
                 this.weights = new double[numFeatures + 1];
                 this.error = 0.0;
             }
-            public int CompareTo(Solution other)
+            public int CompareTo(Solution? other)
             {
-                if (this.error < other.error)
-                    return -1;
-                else if (this.error > other.error)
-                    return 1;
-                else
-                    return 0;
+                if (this.error < other.error) return -1;
+                else if (this.error > other.error) return 1;
+                else return 0;
             }
         }
 

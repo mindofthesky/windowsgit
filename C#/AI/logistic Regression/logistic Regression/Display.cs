@@ -22,13 +22,17 @@ namespace logistic_Regression
             
             logisticClassifier logisticClassifier = new logisticClassifier(numOfFeatures);
             double[] bestWeights = logisticClassifier.Train(train, maxEpochs);
-            ShowData(rawData, 30, 3, true);
-            //Normalize(rawData, column);
+            double trainAccuracy = logisticClassifier.Accuracy(train, bestWeights);
+            ShowData(rawData, 5, 3, true);
+            Normalize(rawData, column);
             ShowVector(bestWeights, 4, true);
-             
+            Console.WriteLine($"Prediction accuracy on training data = {trainAccuracy.ToString("f4")}");
+            double testAccuracy = logisticClassifier.Accuracy(test, bestWeights);
+            Console.WriteLine($"Prediction accuracy on testing data = {testAccuracy.ToString("f4")}");
+
 
         }
-        static void ShowData(double[][] data , int? numRows, int?  decimals, bool indices)
+        static void ShowData(double[][] data , int numRows, int  decimals, bool indices)
         {
             // 데이터를 보여줌 
             for(int i=0; i< numRows; ++i)
@@ -47,13 +51,13 @@ namespace logistic_Regression
             Console.WriteLine(" . . . ");
             int lastRow = data.Length - 1;
 
-            if (indices == true) Console.WriteLine("[" + lastRow.ToString().PadLeft(2) + "]");
+            if (indices == true) Console.WriteLine("[" + lastRow.ToString().PadLeft(2) + "]"); // 배열 값을 가져옴
             
             for (int j= 0; j< data[lastRow].Length; ++j)
             {
-                double v = data[lastRow][j];
+                double v = data[lastRow][j];               
                 if (v >= 0.0) Console.WriteLine(" ");         
-                //Console.Write(v.ToString("D" + decimals) + " ");
+               Console.Write(v.ToString("f" + decimals) + " ");
             }
         }
         static void ShowVector(double[] vector, int decimals, bool newLine)
@@ -68,17 +72,14 @@ namespace logistic_Regression
         {
             int rows=  rawData.Length;
             int cols = rawData[0].Length;
+            
             double[][] Mean_STD = new double[2][];
-            double[][] normalizerddata = new double[rawData.Length][];
-
-            for(int i=0; i<2; i++)
-            {
-                Mean_STD[i] = new double[cols];
-            }
+            for(int i=0; i<2; i++) Mean_STD[i] = new double[cols];
+            
             for(int i=0; i< cols; i++)
             {
-                double sum = 0;
-                for(int j =0; j< rows; j++) sum += Mean_STD[j][i];
+                double sum = 0.0;
+                for(int j =0; j< rows; j++) sum += rawData[j][i];
                 double mean = sum / rows;
                 Mean_STD[0][i] = mean;
                 double sumsquares = 0;
