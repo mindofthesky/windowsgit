@@ -14,11 +14,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\mindo\\source\\repos\\logistic Regression\\logistic Regression\\logistic Regression.csproj",
+      "projectUniqueName": "C:\\Users\\mindo\\Desktop\\windowgit\\C#\\AI\\logistic Regression\\logistic Regression\\logistic Regression.csproj",
       "projectName": "logistic Regression",
-      "projectPath": "C:\\Users\\mindo\\source\\repos\\logistic Regression\\logistic Regression\\logistic Regression.csproj",
+      "projectPath": "C:\\Users\\mindo\\Desktop\\windowgit\\C#\\AI\\logistic Regression\\logistic Regression\\logistic Regression.csproj",
       "packagesPath": "C:\\Users\\mindo\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\mindo\\source\\repos\\logistic Regression\\logistic Regression\\obj\\",
+      "outputPath": "C:\\Users\\mindo\\Desktop\\windowgit\\C#\\AI\\logistic Regression\\logistic Regression\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
