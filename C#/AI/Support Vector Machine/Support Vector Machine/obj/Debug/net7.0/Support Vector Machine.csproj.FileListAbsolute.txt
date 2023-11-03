@@ -1,0 +1,14 @@
+C:\Users\mindo\source\repos\Support Vector Machine\Support Vector Machine\obj\Debug\net7.0\Support Vector Machine.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\mindo\source\repos\Support Vector Machine\Support Vector Machine\obj\Debug\net7.0\Support Vector Machine.AssemblyInfoInputs.cache
+C:\Users\mindo\source\repos\Support Vector Machine\Support Vector Machine\obj\Debug\net7.0\Support Vector Machine.AssemblyInfo.cs
+C:\Users\mindo\source\repos\Support Vector Machine\Support Vector Machine\obj\Debug\net7.0\Support Vector Machine.csproj.CoreCompileInputs.cache
+C:\Users\mindo\source\repos\Support Vector Machine\Support Vector Machine\bin\Debug\net7.0\Support Vector Machine.exe
+C:\Users\mindo\source\repos\Support Vector Machine\Support Vector Machine\bin\Debug\net7.0\Support Vector Machine.deps.json
+C:\Users\mindo\source\repos\Support Vector Machine\Support Vector Machine\bin\Debug\net7.0\Support Vector Machine.runtimeconfig.json
+C:\Users\mindo\source\repos\Support Vector Machine\Support Vector Machine\bin\Debug\net7.0\Support Vector Machine.dll
+C:\Users\mindo\source\repos\Support Vector Machine\Support Vector Machine\bin\Debug\net7.0\Support Vector Machine.pdb
+C:\Users\mindo\source\repos\Support Vector Machine\Support Vector Machine\obj\Debug\net7.0\Support Vector Machine.dll
+C:\Users\mindo\source\repos\Support Vector Machine\Support Vector Machine\obj\Debug\net7.0\refint\Support Vector Machine.dll
+C:\Users\mindo\source\repos\Support Vector Machine\Support Vector Machine\obj\Debug\net7.0\Support Vector Machine.pdb
+C:\Users\mindo\source\repos\Support Vector Machine\Support Vector Machine\obj\Debug\net7.0\Support Vector Machine.genruntimeconfig.cache
+C:\Users\mindo\source\repos\Support Vector Machine\Support Vector Machine\obj\Debug\net7.0\ref\Support Vector Machine.dll
