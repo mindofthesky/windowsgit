@@ -1,0 +1,14 @@
+C:\Users\mindo\source\repos\DecisionTree\DecisionTree\bin\Debug\net7.0\DecisionTree.exe
+C:\Users\mindo\source\repos\DecisionTree\DecisionTree\bin\Debug\net7.0\DecisionTree.deps.json
+C:\Users\mindo\source\repos\DecisionTree\DecisionTree\bin\Debug\net7.0\DecisionTree.runtimeconfig.json
+C:\Users\mindo\source\repos\DecisionTree\DecisionTree\bin\Debug\net7.0\DecisionTree.dll
+C:\Users\mindo\source\repos\DecisionTree\DecisionTree\bin\Debug\net7.0\DecisionTree.pdb
+C:\Users\mindo\source\repos\DecisionTree\DecisionTree\obj\Debug\net7.0\DecisionTree.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\mindo\source\repos\DecisionTree\DecisionTree\obj\Debug\net7.0\DecisionTree.AssemblyInfoInputs.cache
+C:\Users\mindo\source\repos\DecisionTree\DecisionTree\obj\Debug\net7.0\DecisionTree.AssemblyInfo.cs
+C:\Users\mindo\source\repos\DecisionTree\DecisionTree\obj\Debug\net7.0\DecisionTree.csproj.CoreCompileInputs.cache
+C:\Users\mindo\source\repos\DecisionTree\DecisionTree\obj\Debug\net7.0\DecisionTree.dll
+C:\Users\mindo\source\repos\DecisionTree\DecisionTree\obj\Debug\net7.0\refint\DecisionTree.dll
+C:\Users\mindo\source\repos\DecisionTree\DecisionTree\obj\Debug\net7.0\DecisionTree.pdb
+C:\Users\mindo\source\repos\DecisionTree\DecisionTree\obj\Debug\net7.0\DecisionTree.genruntimeconfig.cache
+C:\Users\mindo\source\repos\DecisionTree\DecisionTree\obj\Debug\net7.0\ref\DecisionTree.dll
