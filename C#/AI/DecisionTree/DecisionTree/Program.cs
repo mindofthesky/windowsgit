@@ -15,16 +15,13 @@ namespace decsion
             
             List<List<string>> Tree = ProcessData(row);
             CreateTree(Tree);
-            for (int i =0; i< row.Count; i++) {
-                CreateTree(Tree);
-
-            }
+           
         }
         public static void CreateTree(List<List<string>> tree, int add = 0)
         {
             List<string> decisionValues = CreateDecisionValues(tree);
             List<Dictionary<string, int>> countOfValues = PrepareDictionary(tree);
-            Console.WriteLine();
+            List<double> enter = CountEntropies(countOfValues, tree);
 
         }
         public static List<string> CreateDecisionValues(List<List<string>> tree)
@@ -65,17 +62,100 @@ namespace decsion
             return entropies;
         }
         public static double CountEntropy(Dictionary<string, int> dic, int sum)
-        {
+        {   //엔트로피 지수 
             List<double> elements = new List<double>();
             foreach(int element in dic.Values)
             {
-                double todo = (double)element / sum;
+                double todo = (double)element / sum; //범주안에 10개 파란점 빨간점 6개가있다면 10/16 , 6/16 으로 나누는 값 
                 if (element == 0) elements.Add(0);
-                else elements.Add(todo * Math.Log2(todo));
+                else elements.Add(todo * Math.Log2(todo)); // 엔트로피 지수 
+                
             }
-
+            Console.WriteLine(-elements.Sum()); // 엔트로피 지수의 합 
             return -elements.Sum();
+        }
+        public static List<double> InformationFunc(List<Dictionary<string,int>> countofvalue, List<List<string>> proset, List<string> decisonvalue) 
+        {
+            // 정보함수
+            List<double> InformationFunc = new List<double>();
+            for(int i =0; i < countofvalue.Count -1; i++)
+            {
+                Dictionary<string, Dictionary<string, int>> attributevalue = Attributevalue(i, proset);
+                List<double> listofvalue = new List<double>();
+                foreach(KeyValuePair<string,int> x in countofvalue[i])
+                {
+                    int sum = attributevalue[x.Key].Values.Sum();
+                    Console.WriteLine(sum);
+                    double entropy = CountEntropy(GetDictionaryForEntropy(attributevalue, x.Key,decisonvalue),sum);
+                    listofvalue.Add((double)x.Value/ proset.Count * entropy);
+                }
+                listofvalue.Add(listofvalue.Sum());
+            }
+            return InformationFunc;
+
+        }
+        public static Dictionary<string,Dictionary<string,int>> Attributevalue(int col, List<List<string>> proset)
+        {
+            Dictionary<string, Dictionary<string,int>> attributeToValue = new Dictionary<string, Dictionary<string,int>>();
+            for (int i = 0; i < proset.Count; i++)
+            {
+                string key = proset[i][col];
+                string value = proset[i][proset.FirstOrDefault().Count - 1];
+                if (attributeToValue.ContainsKey(key))
+                {
+                    if (attributeToValue.ContainsKey(key)) attributeToValue[key][value]++;
+                    else attributeToValue[key][value] = 1;
+                }
+                else attributeToValue[key] = new Dictionary<string, int> { { value, 1 } };
+            }
+            return attributeToValue;
+        }
+        public static Dictionary<string, int> GetDictionaryForEntropy(Dictionary<string, Dictionary<string, int>> attributeToValue, string key, List<string> decisionValues)
+        {
+            Dictionary<string, int> toReturn = new Dictionary<string, int>();
+            for (int i = 0; i < decisionValues.Count; i++)
+            {
+                attributeToValue[key].TryGetValue(decisionValues[i], out int value);
+                toReturn.Add(decisionValues[i], value);
+            }
+            return toReturn;
+        }
+        public static List<double> Checkgain(List<Dictionary<string,int>> countvalue, List<double> listofvalue,List<double> entropy)
+        {
+            List<double> gain = new List<double>();
+            for(int i=0; i < countvalue.Count-1; i++)gain.Add(entropy.LastOrDefault() - listofvalue[i]);
+            return gain;
+        }
+        public static List<double> countgainratio(List<double> gain , List<double> entropy)
+        {
+            List<double> gainratio = new List<double>();    
+            for(int i=0; i< gain.Count; i++)
+            {
+                if (entropy[i] != 0) gainratio.Add(gain[i] / entropy[i]);
+                else gainratio.Add(0);
+            }
+            return gainratio;
+        }
+        public static (double,int) selectgainratio(List<double> gainratio)
+        {
+            double biggestgain = 0;
+            int biggestindex = 0;
+            for (int i = 0; i < gainratio.Count; i++)
+            {
+                if (gainratio[i] >= biggestgain)
+                {
+                    biggestgain = gainratio[i];
+                    biggestindex = i;   
+                }
+            }
+            return (biggestgain,biggestindex);
+        }
+        public static List<string> valuein (List<List<string>> proset, int attributindex)
+        {
+            List<string > value =new List<string>();
+            for (int i = 0; i < proset.Count; i++) value.Add(proset[i][attributindex]);
+            return value.Distinct().ToList();
         }
     }
 
-}//
+}
