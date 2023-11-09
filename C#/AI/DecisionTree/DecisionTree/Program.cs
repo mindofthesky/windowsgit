@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-
+// 149 , 27, 17 error 
 namespace decsion
 {
     public class Program
@@ -15,14 +15,37 @@ namespace decsion
             
             List<List<string>> Tree = ProcessData(row);
             CreateTree(Tree);
+            Console.ReadKey();
            
         }
         public static void CreateTree(List<List<string>> tree, int add = 0)
         {
             List<string> decisionValues = CreateDecisionValues(tree);
             List<Dictionary<string, int>> countOfValues = PrepareDictionary(tree);
-            List<double> enter = CountEntropies(countOfValues, tree);
-
+            List<double> entropy = CountEntropies(countOfValues, tree);
+            List<double> informationfor = InformationFunc(countOfValues, tree, decisionValues);
+            //List<double> gain = Checkgain(countOfValues, informationfor, entropy);
+            List<double> gainratio = countgainratio(gain, entropy);
+            (double, int) biggain = selectgainratio(gainratio);
+            int att = biggain.Item2;
+            double attval = biggain.Item1;
+            if(att != 0)
+            {
+                Console.WriteLine("Att: " + (att + 1));
+                IOrderedEnumerable<string> value = valuein(tree, att).OrderBy(x=>x);
+                foreach(string values in value)
+                {
+                    Console.WriteLine(new string(' ', add) + values);
+                    List<List<string>> newDecisionset = new List<List<string>>();
+                    foreach(List<string> row in tree)
+                    {
+                        if (row[att] == values) newDecisionset.Add(row);
+                    }
+                    CreateTree(newDecisionset,add + 4);
+                }
+                
+            }
+            else Console.WriteLine("D : " + tree.LastOrDefault().LastOrDefault());
         }
         public static List<string> CreateDecisionValues(List<List<string>> tree)
         {
@@ -103,7 +126,7 @@ namespace decsion
                 string value = proset[i][proset.FirstOrDefault().Count - 1];
                 if (attributeToValue.ContainsKey(key))
                 {
-                    if (attributeToValue.ContainsKey(key)) attributeToValue[key][value]++;
+                    if (attributeToValue[key].ContainsKey(value)) attributeToValue[key][value]++;
                     else attributeToValue[key][value] = 1;
                 }
                 else attributeToValue[key] = new Dictionary<string, int> { { value, 1 } };
@@ -123,7 +146,7 @@ namespace decsion
         public static List<double> Checkgain(List<Dictionary<string,int>> countvalue, List<double> listofvalue,List<double> entropy)
         {
             List<double> gain = new List<double>();
-            for(int i=0; i < countvalue.Count-1; i++)gain.Add(entropy.LastOrDefault() - listofvalue[i]);
+            for(int i=0; i < countvalue.Count-1; i++) gain.Add(entropy.LastOrDefault() - listofvalue[i]);
             return gain;
         }
         public static List<double> countgainratio(List<double> gain , List<double> entropy)
