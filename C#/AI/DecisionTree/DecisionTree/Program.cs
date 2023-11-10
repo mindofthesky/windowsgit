@@ -10,21 +10,22 @@ namespace decsion
         public static void Main(string[] args)
         {
             // 파일 위치 지정 
-            string path = "C:\\Users\\mindo\\source\\repos\\DecisionTree\\DecisionTree\\bin\\breast-cancer.data";
+            string path = @"C:\\Users\\mindo\\source\\repos\\DecisionTree\\DecisionTree\\bin\\breast-cancer.data";
             List<string> row = File.ReadAllLines(path).ToList();
             
-            List<List<string>> Tree = ProcessData(row);
-            CreateTree(Tree);
+            List<List<string>> tree = ProcessData(row);
+            CreateTree(tree);
             Console.ReadKey();
            
         }
         public static void CreateTree(List<List<string>> tree, int add = 0)
         {
+
             List<string> decisionValues = CreateDecisionValues(tree);
             List<Dictionary<string, int>> countOfValues = PrepareDictionary(tree);
             List<double> entropy = CountEntropies(countOfValues, tree);
             List<double> informationfor = InformationFunc(countOfValues, tree, decisionValues);
-            //List<double> gain = Checkgain(countOfValues, informationfor, entropy);
+            List<double> gain = Checkgain(countOfValues, informationfor, entropy); // error 여기 
             List<double> gainratio = countgainratio(gain, entropy);
             (double, int) biggain = selectgainratio(gainratio);
             int att = biggain.Item2;
@@ -47,13 +48,6 @@ namespace decsion
             }
             else Console.WriteLine("D : " + tree.LastOrDefault().LastOrDefault());
         }
-        public static List<string> CreateDecisionValues(List<List<string>> tree)
-        {
-            List<string> decisionValues = new List<string>();
-            foreach (List<string> row in tree) if (!decisionValues.Contains(row.LastOrDefault())) decisionValues.Add(row.LastOrDefault()); 
-            // yes, no data 부분 파싱
-            return decisionValues;
-        }
         public static List<List<string>> ProcessData(List<string> rows)
         {
             List<List<string>> properSet = new List<List<string>>();
@@ -63,20 +57,16 @@ namespace decsion
         }
         public static List<Dictionary<string, int>> PrepareDictionary(List<List<string>> proper)
         {
-            List<Dictionary<string,int>> countofvalue = new List<Dictionary<string,int>>();
-            for (int i = 0; i < proper.FirstOrDefault().Count; i++)  countofvalue.Add(checkpro(i, proper)); 
+            List<Dictionary<string, int>> countofvalue = new List<Dictionary<string, int>>();
+            for (int i = 0; i < proper.FirstOrDefault().Count; i++) countofvalue.Add(checkpro(i, proper));
             return countofvalue;
         }
-        public static Dictionary<string, int> checkpro (int col, List<List<string>> proper)
+        public static List<string> CreateDecisionValues(List<List<string>> tree)
         {
-            Dictionary<string, int> valuesForColumn = new Dictionary<string, int>();
-            for (int i = 0; i < proper.Count; i++)
-            {
-                if (valuesForColumn.ContainsKey(proper[i][col])) valuesForColumn[proper[i][col]]++;
-                else valuesForColumn[proper[i][col]] = 1;
-                Console.WriteLine(valuesForColumn[proper[i][col]]);
-            }
-            return valuesForColumn;
+            List<string> decisionValues = new List<string>();
+            foreach (List<string> row in tree) if(!decisionValues.Contains(row.LastOrDefault())) decisionValues.Add(row.LastOrDefault()); 
+            // yes, no data 부분 파싱
+            return decisionValues;
         }
         public static List<double> CountEntropies(List<Dictionary<string, int>> conterValue, List<List<string>> proper)
         {
@@ -84,6 +74,18 @@ namespace decsion
             for (int i = 0; i < conterValue.Count; i++) entropies.Add(CountEntropy(conterValue[i], proper.Count));
             return entropies;
         }
+
+        public static Dictionary<string, int> checkpro (int col, List<List<string>> proper)
+        {
+            Dictionary<string, int> valuesForColumn = new Dictionary<string, int>();
+            for (int i = 0; i < proper.Count; i++)
+            {
+                if (valuesForColumn.ContainsKey(proper[i][col])) valuesForColumn[proper[i][col]]++;
+                else valuesForColumn[proper[i][col]] = 1;             
+            }
+            return valuesForColumn;
+        }
+        
         public static double CountEntropy(Dictionary<string, int> dic, int sum)
         {   //엔트로피 지수 
             List<double> elements = new List<double>();
@@ -108,7 +110,6 @@ namespace decsion
                 foreach(KeyValuePair<string,int> x in countofvalue[i])
                 {
                     int sum = attributevalue[x.Key].Values.Sum();
-                    Console.WriteLine(sum);
                     double entropy = CountEntropy(GetDictionaryForEntropy(attributevalue, x.Key,decisonvalue),sum);
                     listofvalue.Add((double)x.Value/ proset.Count * entropy);
                 }
@@ -143,10 +144,10 @@ namespace decsion
             }
             return toReturn;
         }
-        public static List<double> Checkgain(List<Dictionary<string,int>> countvalue, List<double> listofvalue,List<double> entropy)
+        public static List<double> Checkgain(List<Dictionary<string, int>> countofValues, List<double> inforvalues, List<double> entropy)
         {
             List<double> gain = new List<double>();
-            for(int i=0; i < countvalue.Count-1; i++) gain.Add(entropy.LastOrDefault() - listofvalue[i]);
+            for (int i = 0; i < countofValues.Count-1; i++) gain.Add(entropy.LastOrDefault() - inforvalues[i]);
             return gain;
         }
         public static List<double> countgainratio(List<double> gain , List<double> entropy)
