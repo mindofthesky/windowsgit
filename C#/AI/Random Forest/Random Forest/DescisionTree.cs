@@ -44,5 +44,59 @@ namespace Random_Forest
             };
             return node;
         }
+        public (DecisionNode node, LabeledData[] left, LabeledData[] right) GetBestSplit(LabeledData[] data)
+        {
+            double maxInfogain = double.MinValue;
+            DecisionNode bestNode = new DecisionNode();
+            LabeledData[] bestLeft = new LabeledData[0];
+            LabeledData[] bestRight = new LabeledData[0];
+
+            for(int i= 0; i< MaxFeatures; i++)
+            {
+                int index = ShuffledFeatureIndices[i];
+                var theset = data.Select(x => x[index]).Distinct();
+                foreach(double the in theset)
+                {
+                    (LabeledData[] left, LabeledData[] right) = Split(data, index, the);
+                    double currentGain = CalaInformationGain(data, left, right);
+                    if (currentGain > maxInfogain)
+                    {
+                        maxInfogain = currentGain;
+                        bestNode = new DecisionNode()
+                        {
+                            Index = index,
+                            Threshold = the,
+                            InfoGain = currentGain
+                        };
+                        bestLeft = left;
+                        bestRight = right;  
+                    }
+                }
+            }
+            return (bestNode, bestLeft, bestRight);
+        }
+
+        public static (LabeledData[] left , LabeledData[] right) Split(LabeledData[] data, int featureIdx, double theset)
+        {
+            LabeledData[] leftData = data.Where(x => x[featureIdx] <= theset).ToArray();
+            LabeledData[] rightData = data.Where(x => x[featureIdx] > theset).ToArray();
+            return (leftData, rightData);
+        }
+        public static double CalaInformationGain(LabeledData[] parentData , LabeledData[] leftChildData, LabeledData[] rightChildData)
+        {
+            double leftWeight = (double)leftChildData.Length / parentData.Length;
+            double rightWeight = (double)rightChildData.Length / parentData.Length;
+
+            double parentGini = CalcGiniIndex(parentData);
+            double childrenGini = (leftWeight * CalcGiniIndex(leftChildData)) + (rightWeight * CalcGiniIndex(rightChildData));
+
+            return parentGini - childrenGini;
+        }
+        public static double CalcGiniIndex(LabeledData[] data)
+        {
+            double gini = 0.0;
+
+            return 1.0 - gini;
+        }
     }
 }
