@@ -18,7 +18,7 @@ namespace Random_Forest
         public int MaxFeatures { get; private set; }
 
         public List<int> ShuffledFeatureIndices;
-
+        //의사 결정트리 나무 
         public DescisionTree(int minSampleSplit, int maxDepth, int maxFeatures)
         {
             MinSampleSplit = minSampleSplit;
@@ -31,17 +31,18 @@ namespace Random_Forest
             for (int i = 0; i < data[0].Length; i++) ShuffledFeatureIndices.Add(i);
             Random rng = new Random();
             ShuffledFeatureIndices = ShuffledFeatureIndices.OrderBy(x => rng.Next()).ToList();
+            // 특징 나무 하나를 섞는다
             MaxFeatures = Math.Min(MaxFeatures, data[0].Length - 1);
-           // Root = BulidTree(data);
+            // Root = BulidTree(data);
         }
-        public DecisionNode BulidTree(LabeledData[] data , int currentDepth = 0)
+        public DecisionNode BulidTree(LabeledData[] data, int currentDepth = 0)
         {
             int numSamples = data.Length;
             DecisionNode node;
-            if(numSamples > MinSampleSplit && currentDepth <= MaxDepth)
+            if (numSamples > MinSampleSplit && currentDepth <= MaxDepth)
             {
                 (node, LabeledData[] left, LabeledData[] right) = GetBestSplit(data);
-                if(node.InfoGain > 0)
+                if (node.InfoGain > 0)
                 {
                     node.LeftNode = BulidTree(left, currentDepth++);
                     node.RigthNode = BulidTree(right, currentDepth++);
@@ -55,6 +56,7 @@ namespace Random_Forest
             };
             return node;
         }
+        // 튜플 형식 > 튜플형식으로 리터럴값을 반환
         public (DecisionNode node, LabeledData[] left, LabeledData[] right) GetBestSplit(LabeledData[] data)
         {
             double maxInfogain = double.MinValue;
