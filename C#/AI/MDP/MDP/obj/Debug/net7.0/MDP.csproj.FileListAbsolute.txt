@@ -1,0 +1,14 @@
+C:\Users\mindo\source\repos\MDP\MDP\bin\Debug\net7.0\MDP.exe
+C:\Users\mindo\source\repos\MDP\MDP\bin\Debug\net7.0\MDP.deps.json
+C:\Users\mindo\source\repos\MDP\MDP\bin\Debug\net7.0\MDP.runtimeconfig.json
+C:\Users\mindo\source\repos\MDP\MDP\bin\Debug\net7.0\MDP.dll
+C:\Users\mindo\source\repos\MDP\MDP\bin\Debug\net7.0\MDP.pdb
+C:\Users\mindo\source\repos\MDP\MDP\obj\Debug\net7.0\MDP.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\mindo\source\repos\MDP\MDP\obj\Debug\net7.0\MDP.AssemblyInfoInputs.cache
+C:\Users\mindo\source\repos\MDP\MDP\obj\Debug\net7.0\MDP.AssemblyInfo.cs
+C:\Users\mindo\source\repos\MDP\MDP\obj\Debug\net7.0\MDP.csproj.CoreCompileInputs.cache
+C:\Users\mindo\source\repos\MDP\MDP\obj\Debug\net7.0\MDP.dll
+C:\Users\mindo\source\repos\MDP\MDP\obj\Debug\net7.0\refint\MDP.dll
+C:\Users\mindo\source\repos\MDP\MDP\obj\Debug\net7.0\MDP.pdb
+C:\Users\mindo\source\repos\MDP\MDP\obj\Debug\net7.0\MDP.genruntimeconfig.cache
+C:\Users\mindo\source\repos\MDP\MDP\obj\Debug\net7.0\ref\MDP.dll
