@@ -10,7 +10,7 @@ namespace Random_Forest
 {
     public class DescisionTree
     {
-        public DescisionTree Root { get; private set; }
+        public DescisionTree? Root { get; private set; }
 
         public int MinSampleSplit { get; private set; }
 
@@ -143,12 +143,14 @@ namespace Random_Forest
 
             return 1.0 - gini;
         }
+        // 예측값 d 인값
         public int Predict(LabeledData d)
         {
             if (Root == null) throw new Exception();
             return 1;
             //return MakePrediction(d, Root);
         }
+        // 배열형 x 
         public int Predict(double[] x)
         {
             if (Root == null) throw new Exception();

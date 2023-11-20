@@ -42,5 +42,17 @@ namespace Random_Forest
             }
             return dataList.ToArray();
         }
+        public static (LabeledData[] train, LabeledData[]test) Split(LabeledData[] data, double trainAmount = 0.0)
+        {
+            int numTrain = (int) (data.Length * trainAmount);
+            Random random = new Random();
+            List<LabeledData> shuffeld = data.OrderBy(x => random.Next()).ToList();
+            List<LabeledData> train = new List<LabeledData>();
+            List<LabeledData> test = new List<LabeledData>();
+            for (int i = 0; i < shuffeld.Count; i++)
+                if (i < numTrain) train.Add(shuffeld[i]);
+                else test.Add(shuffeld[i]);
+            return (train.ToArray(), test.ToArray());
+        }
     }
 }
