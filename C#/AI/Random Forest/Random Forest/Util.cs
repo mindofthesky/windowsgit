@@ -42,6 +42,25 @@ namespace Random_Forest
             }
             return dataList.ToArray();
         }
+        public static LabeledData[] BalanceClasses(LabeledData[] data)
+        {
+            List<int> classes = data.Select(x=>x.Label).Distinct().ToList();
+            List<int> count = new List<int>();
+
+            List<LabeledData> balancedData = new List<LabeledData>();
+            foreach(int c in classes) count.Add(data.Where(x=> x.Label == c).Count());
+            int minCount = count.Min();
+            Dictionary<int, int> classCount = new Dictionary<int, int>();
+            foreach (int n in classes) classCount.Add(n, 0);
+
+            for(int i=0; i< data.Length; i++)
+                if (classCount[data[i].Label] < minCount)
+                {
+                    balancedData.Add(data[i]);
+                    classCount[data[i].Label]++;
+                }
+            return balancedData.ToArray();
+        }
         public static (LabeledData[] train, LabeledData[]test) Split(LabeledData[] data, double trainAmount = 0.0)
         {
             int numTrain = (int) (data.Length * trainAmount);
