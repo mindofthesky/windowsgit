@@ -1,0 +1,16 @@
+C:\Users\mindo\source\repos\POS\POS\bin\Debug\net8.0-windows\POS.exe
+C:\Users\mindo\source\repos\POS\POS\bin\Debug\net8.0-windows\POS.deps.json
+C:\Users\mindo\source\repos\POS\POS\bin\Debug\net8.0-windows\POS.runtimeconfig.json
+C:\Users\mindo\source\repos\POS\POS\bin\Debug\net8.0-windows\POS.dll
+C:\Users\mindo\source\repos\POS\POS\bin\Debug\net8.0-windows\POS.pdb
+C:\Users\mindo\source\repos\POS\POS\obj\Debug\net8.0-windows\POS.Form1.resources
+C:\Users\mindo\source\repos\POS\POS\obj\Debug\net8.0-windows\POS.csproj.GenerateResource.cache
+C:\Users\mindo\source\repos\POS\POS\obj\Debug\net8.0-windows\POS.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\mindo\source\repos\POS\POS\obj\Debug\net8.0-windows\POS.AssemblyInfoInputs.cache
+C:\Users\mindo\source\repos\POS\POS\obj\Debug\net8.0-windows\POS.AssemblyInfo.cs
+C:\Users\mindo\source\repos\POS\POS\obj\Debug\net8.0-windows\POS.csproj.CoreCompileInputs.cache
+C:\Users\mindo\source\repos\POS\POS\obj\Debug\net8.0-windows\POS.dll
+C:\Users\mindo\source\repos\POS\POS\obj\Debug\net8.0-windows\refint\POS.dll
+C:\Users\mindo\source\repos\POS\POS\obj\Debug\net8.0-windows\POS.pdb
+C:\Users\mindo\source\repos\POS\POS\obj\Debug\net8.0-windows\POS.genruntimeconfig.cache
+C:\Users\mindo\source\repos\POS\POS\obj\Debug\net8.0-windows\ref\POS.dll
