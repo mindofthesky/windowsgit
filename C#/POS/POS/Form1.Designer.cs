@@ -331,6 +331,7 @@
             chicken.TabIndex = 24;
             chicken.Text = "후라이드 치킨 \\ 17,000";
             chicken.UseVisualStyleBackColor = true;
+            chicken.Click += menu_Click;
             // 
             // button22
             // 
@@ -340,6 +341,7 @@
             button22.TabIndex = 25;
             button22.Text = "   양념치킨     \\ 18,000";
             button22.UseVisualStyleBackColor = true;
+            button22.Click += menu_Click;
             // 
             // button23
             // 
@@ -349,6 +351,7 @@
             button23.TabIndex = 26;
             button23.Text = "후라이드 순살 \\ 17.500";
             button23.UseVisualStyleBackColor = true;
+            button23.Click += menu_Click;
             // 
             // button24
             // 
@@ -358,6 +361,7 @@
             button24.TabIndex = 27;
             button24.Text = "양념순살치킨   \\18,500";
             button24.UseVisualStyleBackColor = true;
+            button24.Click += menu_Click;
             // 
             // button25
             // 
@@ -367,6 +371,7 @@
             button25.TabIndex = 30;
             button25.Text = "수정가능하게만들기";
             button25.UseVisualStyleBackColor = true;
+            button25.Click += menu_Click;
             // 
             // banbnason
             // 
@@ -376,6 +381,7 @@
             banbnason.TabIndex = 29;
             banbnason.Text = "반반순살치킨  \\ 18,000";
             banbnason.UseVisualStyleBackColor = true;
+            banbnason.Click += menu_Click;
             // 
             // banban
             // 
@@ -383,8 +389,9 @@
             banban.Name = "banban";
             banban.Size = new Size(96, 46);
             banban.TabIndex = 28;
-            banban.Text = "   반반 치킨    \\ 17,000";
+            banban.Text = "  반반 치킨      \\ 17,000";
             banban.UseVisualStyleBackColor = true;
+            banban.Click += menu_Click;
             // 
             // button21
             // 
@@ -393,6 +400,7 @@
             button21.Size = new Size(96, 46);
             button21.TabIndex = 31;
             button21.UseVisualStyleBackColor = true;
+            button21.Click += menu_Click;
             // 
             // Form1
             // 
