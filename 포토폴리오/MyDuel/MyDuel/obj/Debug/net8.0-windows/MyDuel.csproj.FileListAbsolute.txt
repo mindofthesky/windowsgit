@@ -1,0 +1,16 @@
+C:\Users\mindo\source\repos\MyDuel\MyDuel\bin\Debug\net8.0-windows\MyDuel.exe
+C:\Users\mindo\source\repos\MyDuel\MyDuel\bin\Debug\net8.0-windows\MyDuel.deps.json
+C:\Users\mindo\source\repos\MyDuel\MyDuel\bin\Debug\net8.0-windows\MyDuel.runtimeconfig.json
+C:\Users\mindo\source\repos\MyDuel\MyDuel\bin\Debug\net8.0-windows\MyDuel.dll
+C:\Users\mindo\source\repos\MyDuel\MyDuel\bin\Debug\net8.0-windows\MyDuel.pdb
+C:\Users\mindo\source\repos\MyDuel\MyDuel\obj\Debug\net8.0-windows\MyDuel.Form1.resources
+C:\Users\mindo\source\repos\MyDuel\MyDuel\obj\Debug\net8.0-windows\MyDuel.csproj.GenerateResource.cache
+C:\Users\mindo\source\repos\MyDuel\MyDuel\obj\Debug\net8.0-windows\MyDuel.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\mindo\source\repos\MyDuel\MyDuel\obj\Debug\net8.0-windows\MyDuel.AssemblyInfoInputs.cache
+C:\Users\mindo\source\repos\MyDuel\MyDuel\obj\Debug\net8.0-windows\MyDuel.AssemblyInfo.cs
+C:\Users\mindo\source\repos\MyDuel\MyDuel\obj\Debug\net8.0-windows\MyDuel.csproj.CoreCompileInputs.cache
+C:\Users\mindo\source\repos\MyDuel\MyDuel\obj\Debug\net8.0-windows\MyDuel.dll
+C:\Users\mindo\source\repos\MyDuel\MyDuel\obj\Debug\net8.0-windows\refint\MyDuel.dll
+C:\Users\mindo\source\repos\MyDuel\MyDuel\obj\Debug\net8.0-windows\MyDuel.pdb
+C:\Users\mindo\source\repos\MyDuel\MyDuel\obj\Debug\net8.0-windows\MyDuel.genruntimeconfig.cache
+C:\Users\mindo\source\repos\MyDuel\MyDuel\obj\Debug\net8.0-windows\ref\MyDuel.dll
