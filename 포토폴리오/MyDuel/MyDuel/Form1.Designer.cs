@@ -50,13 +50,23 @@
             columnHeader6 = new ColumnHeader();
             columnHeader7 = new ColumnHeader();
             columnHeader8 = new ColumnHeader();
+            menuStrip1 = new MenuStrip();
+            덱승률ToolStripMenuItem = new ToolStripMenuItem();
+            덱승률확인하기ToolStripMenuItem = new ToolStripMenuItem();
+            groupBox1 = new GroupBox();
+            dataGridView1 = new DataGridView();
+            textBox4 = new TextBox();
+            menuStrip1.SuspendLayout();
+            groupBox1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
             SuspendLayout();
             // 
             // comboBox1
             // 
+            comboBox1.DropDownStyle = ComboBoxStyle.DropDownList;
             comboBox1.FormattingEnabled = true;
             comboBox1.Items.AddRange(new object[] { "앞면", "뒷면" });
-            comboBox1.Location = new Point(619, 10);
+            comboBox1.Location = new Point(619, 27);
             comboBox1.Name = "comboBox1";
             comboBox1.Size = new Size(121, 23);
             comboBox1.TabIndex = 1;
@@ -65,7 +75,7 @@
             // label1
             // 
             label1.AutoSize = true;
-            label1.Location = new Point(558, 13);
+            label1.Location = new Point(558, 30);
             label1.Name = "label1";
             label1.Size = new Size(55, 15);
             label1.TabIndex = 2;
@@ -75,7 +85,7 @@
             // label2
             // 
             label2.AutoSize = true;
-            label2.Location = new Point(558, 42);
+            label2.Location = new Point(558, 59);
             label2.Name = "label2";
             label2.Size = new Size(43, 15);
             label2.TabIndex = 3;
@@ -84,9 +94,10 @@
             // 
             // comboBox2
             // 
+            comboBox2.DropDownStyle = ComboBoxStyle.DropDownList;
             comboBox2.FormattingEnabled = true;
             comboBox2.Items.AddRange(new object[] { "선공", "후공" });
-            comboBox2.Location = new Point(619, 39);
+            comboBox2.Location = new Point(619, 56);
             comboBox2.Name = "comboBox2";
             comboBox2.Size = new Size(121, 23);
             comboBox2.TabIndex = 4;
@@ -94,9 +105,10 @@
             // 
             // comboBox3
             // 
+            comboBox3.DropDownStyle = ComboBoxStyle.DropDownList;
             comboBox3.FormattingEnabled = true;
             comboBox3.Items.AddRange(new object[] { "승리", "패배" });
-            comboBox3.Location = new Point(619, 68);
+            comboBox3.Location = new Point(619, 85);
             comboBox3.Name = "comboBox3";
             comboBox3.Size = new Size(121, 23);
             comboBox3.TabIndex = 5;
@@ -105,7 +117,7 @@
             // label3
             // 
             label3.AutoSize = true;
-            label3.Location = new Point(558, 71);
+            label3.Location = new Point(558, 88);
             label3.Name = "label3";
             label3.Size = new Size(31, 15);
             label3.TabIndex = 6;
@@ -115,7 +127,7 @@
             // label4
             // 
             label4.AutoSize = true;
-            label4.Location = new Point(558, 100);
+            label4.Location = new Point(558, 117);
             label4.Name = "label4";
             label4.Size = new Size(43, 15);
             label4.TabIndex = 7;
@@ -125,7 +137,7 @@
             // label5
             // 
             label5.AutoSize = true;
-            label5.Location = new Point(558, 128);
+            label5.Location = new Point(558, 145);
             label5.Name = "label5";
             label5.Size = new Size(43, 15);
             label5.TabIndex = 8;
@@ -134,7 +146,7 @@
             // 
             // textBox1
             // 
-            textBox1.Location = new Point(619, 97);
+            textBox1.Location = new Point(619, 114);
             textBox1.Name = "textBox1";
             textBox1.Size = new Size(121, 23);
             textBox1.TabIndex = 9;
@@ -142,7 +154,7 @@
             // 
             // textBox2
             // 
-            textBox2.Location = new Point(619, 125);
+            textBox2.Location = new Point(619, 142);
             textBox2.Name = "textBox2";
             textBox2.Size = new Size(121, 23);
             textBox2.TabIndex = 10;
@@ -150,7 +162,7 @@
             // 
             // textBox3
             // 
-            textBox3.Location = new Point(619, 154);
+            textBox3.Location = new Point(619, 171);
             textBox3.Name = "textBox3";
             textBox3.Size = new Size(121, 23);
             textBox3.TabIndex = 11;
@@ -159,7 +171,7 @@
             // label6
             // 
             label6.AutoSize = true;
-            label6.Location = new Point(558, 157);
+            label6.Location = new Point(558, 174);
             label6.Name = "label6";
             label6.Size = new Size(31, 15);
             label6.TabIndex = 12;
@@ -168,7 +180,7 @@
             // 
             // button1
             // 
-            button1.Location = new Point(552, 183);
+            button1.Location = new Point(552, 200);
             button1.Name = "button1";
             button1.Size = new Size(188, 23);
             button1.TabIndex = 15;
@@ -179,7 +191,7 @@
             // listView1
             // 
             listView1.Columns.AddRange(new ColumnHeader[] { columnHeader1, columnHeader2, columnHeader3, columnHeader4, columnHeader5, columnHeader6, columnHeader7, columnHeader8 });
-            listView1.Location = new Point(12, 10);
+            listView1.Location = new Point(12, 27);
             listView1.Name = "listView1";
             listView1.Size = new Size(527, 196);
             listView1.TabIndex = 16;
@@ -217,11 +229,61 @@
             // 
             columnHeader8.Text = "날짜";
             // 
+            // menuStrip1
+            // 
+            menuStrip1.Items.AddRange(new ToolStripItem[] { 덱승률ToolStripMenuItem });
+            menuStrip1.Location = new Point(0, 0);
+            menuStrip1.Name = "menuStrip1";
+            menuStrip1.Size = new Size(752, 24);
+            menuStrip1.TabIndex = 17;
+            menuStrip1.Text = "menuStrip1";
+            // 
+            // 덱승률ToolStripMenuItem
+            // 
+            덱승률ToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { 덱승률확인하기ToolStripMenuItem });
+            덱승률ToolStripMenuItem.Name = "덱승률ToolStripMenuItem";
+            덱승률ToolStripMenuItem.Size = new Size(59, 20);
+            덱승률ToolStripMenuItem.Text = "덱 승률";
+            // 
+            // 덱승률확인하기ToolStripMenuItem
+            // 
+            덱승률확인하기ToolStripMenuItem.Name = "덱승률확인하기ToolStripMenuItem";
+            덱승률확인하기ToolStripMenuItem.Size = new Size(166, 22);
+            덱승률확인하기ToolStripMenuItem.Text = "덱 승률 확인하기";
+            덱승률확인하기ToolStripMenuItem.Click += 덱승률확인하기ToolStripMenuItem_Click;
+            // 
+            // groupBox1
+            // 
+            groupBox1.Controls.Add(dataGridView1);
+            groupBox1.Location = new Point(12, 239);
+            groupBox1.Name = "groupBox1";
+            groupBox1.Size = new Size(375, 383);
+            groupBox1.TabIndex = 18;
+            groupBox1.TabStop = false;
+            groupBox1.Text = "groupBox1";
+            // 
+            // dataGridView1
+            // 
+            dataGridView1.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dataGridView1.Location = new Point(6, 22);
+            dataGridView1.Name = "dataGridView1";
+            dataGridView1.Size = new Size(363, 94);
+            dataGridView1.TabIndex = 1;
+            // 
+            // textBox4
+            // 
+            textBox4.Location = new Point(393, 249);
+            textBox4.Name = "textBox4";
+            textBox4.Size = new Size(146, 23);
+            textBox4.TabIndex = 19;
+            // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(1092, 497);
+            ClientSize = new Size(752, 648);
+            Controls.Add(textBox4);
+            Controls.Add(groupBox1);
             Controls.Add(listView1);
             Controls.Add(button1);
             Controls.Add(label6);
@@ -236,8 +298,13 @@
             Controls.Add(label2);
             Controls.Add(label1);
             Controls.Add(comboBox1);
+            Controls.Add(menuStrip1);
             Name = "Form1";
             Text = "Form1";
+            menuStrip1.ResumeLayout(false);
+            menuStrip1.PerformLayout();
+            groupBox1.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)dataGridView1).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -265,5 +332,11 @@
         private ColumnHeader columnHeader6;
         private ColumnHeader columnHeader7;
         private ColumnHeader columnHeader8;
+        private MenuStrip menuStrip1;
+        private ToolStripMenuItem 덱승률ToolStripMenuItem;
+        private ToolStripMenuItem 덱승률확인하기ToolStripMenuItem;
+        private GroupBox groupBox1;
+        private TextBox textBox4;
+        private DataGridView dataGridView1;
     }
 }
