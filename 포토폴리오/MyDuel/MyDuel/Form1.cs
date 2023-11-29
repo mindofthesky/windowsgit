@@ -63,7 +63,16 @@ namespace MyDuel
             //이제는 승률을 구현해야함 
             
             int count_frist = 0;
+            // 승률이란 전체 플레이 수 중에서 승리만 카운터하면됨 
+            int count_win = 0;
+            // comboBox3.SelectedIndex = 0; // 이게 승리지
+            // 값을 어떻게 들고올거냐? 
             
+            
+            //  승리 / 전체플레이
+            // 승리값만 보면됨 
+
+
             cointos.Equals("선공");
             
             // 선후공 
@@ -71,6 +80,9 @@ namespace MyDuel
             
             // 결과
             item.SubItems.Add(outcome);
+            for (int i = 0; i < count; i++)
+                if (outcome == "승리") count_win++;
+                else count_win = count_win;
             // 내 덱
             item.SubItems.Add(myDeck);
             // 상대덱 
@@ -79,6 +91,7 @@ namespace MyDuel
             item.SubItems.Add(etc);
             // 날짜값
             item.SubItems.Add(Convert.ToString(DateTime.Now.ToString("yyMMdd")));
+            
 
             #endregion
 
@@ -90,7 +103,8 @@ namespace MyDuel
             DataTable table  = new DataTable();
             table.Columns.Add("플레이 수",typeof(string));
             table.Columns.Add("승률",typeof(string));
-            table.Rows.Add(list2count, "승률");
+            // int list2count 값으로정의되잇기때문에 int값연산이 다된다 
+            table.Rows.Add(list2count, (count_win/list2count)*100 + "%" + count_win);
             dataGridView1.DataSource = table;
             #endregion
         }
