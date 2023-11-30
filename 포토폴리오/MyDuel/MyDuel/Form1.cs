@@ -67,22 +67,26 @@ namespace MyDuel
             int count_win = 0;
             // comboBox3.SelectedIndex = 0; // 이게 승리지
             // 값을 어떻게 들고올거냐? 
-            
-            
+
+
             //  승리 / 전체플레이
             // 승리값만 보면됨 
 
-
+            
             cointos.Equals("선공");
             
             // 선후공 
             item.SubItems.Add(turn);
             
             // 결과
+           
             item.SubItems.Add(outcome);
+
             for (int i = 0; i < count; i++)
-                if (outcome == "승리") count_win++;
-                else count_win = count_win;
+            {
+                if (outcome.Equals("승리")) count_win++;
+                else if (outcome.Equals("패배")) count_win--;
+            }
             // 내 덱
             item.SubItems.Add(myDeck);
             // 상대덱 
@@ -91,7 +95,8 @@ namespace MyDuel
             item.SubItems.Add(etc);
             // 날짜값
             item.SubItems.Add(Convert.ToString(DateTime.Now.ToString("yyMMdd")));
-            
+            // 리스트값을 자동스크롤바
+            listView1.Items[listView1.Items.Count - 1].EnsureVisible();
 
             #endregion
 
@@ -105,6 +110,7 @@ namespace MyDuel
             table.Columns.Add("승률",typeof(string));
             // int list2count 값으로정의되잇기때문에 int값연산이 다된다 
             table.Rows.Add(list2count, (count_win/list2count)*100 + "%" + count_win);
+            // list2count , count_win 같이 증가하고있기에 100퍼만 고정되버림 
             dataGridView1.DataSource = table;
             #endregion
         }

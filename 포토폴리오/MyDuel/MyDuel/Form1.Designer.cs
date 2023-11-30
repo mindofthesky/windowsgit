@@ -267,7 +267,9 @@
             dataGridView1.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             dataGridView1.Location = new Point(6, 22);
             dataGridView1.Name = "dataGridView1";
-            dataGridView1.Size = new Size(363, 94);
+            dataGridView1.RowHeadersVisible = false;
+            dataGridView1.Size = new Size(363, 48);
+            dataGridView1.StandardTab = true;
             dataGridView1.TabIndex = 1;
             // 
             // textBox4
