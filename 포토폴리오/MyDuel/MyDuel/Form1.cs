@@ -32,7 +32,11 @@ namespace MyDuel
             
             
         }
-
+        // 정적값을 넣고하면 정상적으로 증가함 
+        static int win = 0;
+        static int lose = 0;
+        static int front = 0;
+        static int back = 0 ;
         private void button1_Click(object sender, EventArgs e)
         {
             #region Click Event
@@ -61,10 +65,8 @@ namespace MyDuel
             // 코인토스 앞뒤 
             item.SubItems.Add(cointos);
             //이제는 승률을 구현해야함 
-            
-            int count_frist = 0;
             // 승률이란 전체 플레이 수 중에서 승리만 카운터하면됨 
-            int count_win = 0;
+            
             // comboBox3.SelectedIndex = 0; // 이게 승리지
             // 값을 어떻게 들고올거냐? 
 
@@ -82,11 +84,17 @@ namespace MyDuel
            
             item.SubItems.Add(outcome);
 
-            for (int i = 0; i < count; i++)
-            {
-                if (outcome.Equals("승리")) count_win++;
-                else if (outcome.Equals("패배")) count_win--;
-            }
+            // 정적변수를 선언한이유는 
+            // 여기서 0을 클릭과 동시에 다시 0으로 변환되기때문에 그래서 승률이라는 개념에 값을 넣어주기 제한됨
+            
+            
+            if (outcome.Equals("승리")) win++;
+            else if (outcome.Equals("패배")) lose++;
+
+            if (cointos.Equals("앞면")) front++;
+            else if(cointos.Equals("뒷면")) back++;
+
+
             // 내 덱
             item.SubItems.Add(myDeck);
             // 상대덱 
@@ -104,14 +112,26 @@ namespace MyDuel
             ListViewItem item2 = new ListViewItem();
             //리스트뷰2값은 동적으로 계속변경되어야함 리스트 뷰는 값이 변경되면안되는 분야고 동적으로 되지않기때문에 리스트뷰는 제한됨
             // 동적으로 바꿀수 있는건 DataGrid가 아닌가? 정답! 
-            int list2count = listView1.Items.Count;
+            double list2count = listView1.Items.Count;
             DataTable table  = new DataTable();
             table.Columns.Add("플레이 수",typeof(string));
             table.Columns.Add("승률",typeof(string));
-            // int list2count 값으로정의되잇기때문에 int값연산이 다된다 
-            table.Rows.Add(list2count, (count_win/list2count)*100 + "%" + count_win);
-            // list2count , count_win 같이 증가하고있기에 100퍼만 고정되버림 
+            table.Columns.Add("승수", typeof(int));
+            table.Columns.Add("패배", typeof(int));
+            // int list2count 값으로정의되잇기때문에 int값연산이 다된다 , 줄의 값을 보여주기때문에 다른 Row를 선언하면 추천되지않는다
+            table.Rows.Add(list2count, win/list2count*100 + "%" , win,lose);
+            DataTable table2 = new DataTable();
+
+            // list2count , count_win 같이 증가하고있기에 100퍼만 고정되버림  >> static으로 해결 사실 이게 좀 바보같은 생각이였던게
+            // 계속 버튼을 누르면 0 > 1 증가가 반복하는데 그냥 생각좀해보니까 0을 바깥에 두면 전혀문제없지않나가 맞는 답이맞앗음
+            table2.Columns.Add("앞", typeof (string));
+            table2.Columns.Add("뒤", typeof(string));
+            table2.Columns.Add("선공승률", typeof(int));
+            table2.Columns.Add("후공승률", typeof(int));
+            table2.Rows.Add(front, back);
             dataGridView1.DataSource = table;
+            dataGridView2.DataSource = table2;
+            //dataGridView1.DataSource= table2;
             #endregion
         }
 

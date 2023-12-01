@@ -54,10 +54,12 @@
             덱승률ToolStripMenuItem = new ToolStripMenuItem();
             덱승률확인하기ToolStripMenuItem = new ToolStripMenuItem();
             groupBox1 = new GroupBox();
+            dataGridView2 = new DataGridView();
             dataGridView1 = new DataGridView();
             textBox4 = new TextBox();
             menuStrip1.SuspendLayout();
             groupBox1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)dataGridView2).BeginInit();
             ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
             SuspendLayout();
             // 
@@ -254,6 +256,7 @@
             // 
             // groupBox1
             // 
+            groupBox1.Controls.Add(dataGridView2);
             groupBox1.Controls.Add(dataGridView1);
             groupBox1.Location = new Point(12, 239);
             groupBox1.Name = "groupBox1";
@@ -262,13 +265,25 @@
             groupBox1.TabStop = false;
             groupBox1.Text = "groupBox1";
             // 
+            // dataGridView2
+            // 
+            dataGridView2.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dataGridView2.Location = new Point(6, 68);
+            dataGridView2.Name = "dataGridView2";
+            dataGridView2.RowHeadersVisible = false;
+            dataGridView2.ScrollBars = ScrollBars.None;
+            dataGridView2.Size = new Size(363, 47);
+            dataGridView2.StandardTab = true;
+            dataGridView2.TabIndex = 2;
+            // 
             // dataGridView1
             // 
             dataGridView1.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             dataGridView1.Location = new Point(6, 22);
             dataGridView1.Name = "dataGridView1";
             dataGridView1.RowHeadersVisible = false;
-            dataGridView1.Size = new Size(363, 48);
+            dataGridView1.ScrollBars = ScrollBars.None;
+            dataGridView1.Size = new Size(363, 47);
             dataGridView1.StandardTab = true;
             dataGridView1.TabIndex = 1;
             // 
@@ -306,6 +321,7 @@
             menuStrip1.ResumeLayout(false);
             menuStrip1.PerformLayout();
             groupBox1.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)dataGridView2).EndInit();
             ((System.ComponentModel.ISupportInitialize)dataGridView1).EndInit();
             ResumeLayout(false);
             PerformLayout();
@@ -340,5 +356,6 @@
         private GroupBox groupBox1;
         private TextBox textBox4;
         private DataGridView dataGridView1;
+        private DataGridView dataGridView2;
     }
 }
