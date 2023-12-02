@@ -275,6 +275,7 @@
             dataGridView2.Size = new Size(363, 47);
             dataGridView2.StandardTab = true;
             dataGridView2.TabIndex = 2;
+            dataGridView2.KeyDown += dataGridView2_KeyDown;
             // 
             // dataGridView1
             // 
@@ -286,6 +287,7 @@
             dataGridView1.Size = new Size(363, 47);
             dataGridView1.StandardTab = true;
             dataGridView1.TabIndex = 1;
+            dataGridView1.KeyDown += dataGridView1_KeyDown;
             // 
             // textBox4
             // 
