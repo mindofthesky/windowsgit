@@ -54,11 +54,13 @@
             덱승률ToolStripMenuItem = new ToolStripMenuItem();
             덱승률확인하기ToolStripMenuItem = new ToolStripMenuItem();
             groupBox1 = new GroupBox();
+            dataGridView3 = new DataGridView();
             dataGridView2 = new DataGridView();
             dataGridView1 = new DataGridView();
             textBox4 = new TextBox();
             menuStrip1.SuspendLayout();
             groupBox1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)dataGridView3).BeginInit();
             ((System.ComponentModel.ISupportInitialize)dataGridView2).BeginInit();
             ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
             SuspendLayout();
@@ -256,6 +258,7 @@
             // 
             // groupBox1
             // 
+            groupBox1.Controls.Add(dataGridView3);
             groupBox1.Controls.Add(dataGridView2);
             groupBox1.Controls.Add(dataGridView1);
             groupBox1.Location = new Point(12, 239);
@@ -265,10 +268,25 @@
             groupBox1.TabStop = false;
             groupBox1.Text = "groupBox1";
             // 
+            // dataGridView3
+            // 
+            dataGridView3.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+            dataGridView3.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.DisplayedCells;
+            dataGridView3.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dataGridView3.Location = new Point(6, 109);
+            dataGridView3.Name = "dataGridView3";
+            dataGridView3.RowHeadersVisible = false;
+            dataGridView3.ScrollBars = ScrollBars.None;
+            dataGridView3.Size = new Size(363, 83);
+            dataGridView3.TabIndex = 3;
+            dataGridView3.KeyDown += dataGridView3_KeyDown;
+            // 
             // dataGridView2
             // 
+            dataGridView2.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+            dataGridView2.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.DisplayedCells;
             dataGridView2.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridView2.Location = new Point(6, 68);
+            dataGridView2.Location = new Point(6, 66);
             dataGridView2.Name = "dataGridView2";
             dataGridView2.RowHeadersVisible = false;
             dataGridView2.ScrollBars = ScrollBars.None;
@@ -279,6 +297,8 @@
             // 
             // dataGridView1
             // 
+            dataGridView1.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+            dataGridView1.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.DisplayedCells;
             dataGridView1.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             dataGridView1.Location = new Point(6, 22);
             dataGridView1.Name = "dataGridView1";
@@ -323,6 +343,7 @@
             menuStrip1.ResumeLayout(false);
             menuStrip1.PerformLayout();
             groupBox1.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)dataGridView3).EndInit();
             ((System.ComponentModel.ISupportInitialize)dataGridView2).EndInit();
             ((System.ComponentModel.ISupportInitialize)dataGridView1).EndInit();
             ResumeLayout(false);
@@ -359,5 +380,6 @@
         private TextBox textBox4;
         private DataGridView dataGridView1;
         private DataGridView dataGridView2;
+        private DataGridView dataGridView3;
     }
 }

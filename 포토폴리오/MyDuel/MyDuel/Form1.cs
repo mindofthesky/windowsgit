@@ -29,9 +29,12 @@ namespace MyDuel
             listView1.Columns[6].Width = 90;
             listView1.Columns[7].Width = 55;
             #endregion
-            dataGridView2.ReadOnly = true;
-            dataGridView1.ReadOnly = true;
+            // dataGridView1,2,3
+            // AutoSizeColumnsMode > Fill 처리 , dataGridView1.AutoSizeRowsMode = displayed 처리  RowHeadersVisible = False 처리 
 
+            dataGridView1.ReadOnly = true;
+            dataGridView2.ReadOnly = true;
+            dataGridView3.ReadOnly = true;
 
         }
         // 정적값을 넣고하면 정상적으로 증가함
@@ -81,31 +84,10 @@ namespace MyDuel
             //  승리 / 전체플레이
             // 승리값만 보면됨 
 
-
-            if (cointos.Equals("선공"))
-
-                // 선후공 
-                item.SubItems.Add(turn);
-
+            // 선후공 
+            item.SubItems.Add(turn);
             // 결과
-
             item.SubItems.Add(outcome);
-
-            // 정적변수를 선언한이유는 
-            // 여기서 0을 클릭과 동시에 다시 0으로 변환되기때문에 그래서 승률이라는 개념에 값을 넣어주기 제한됨
-
-
-            if (outcome.Equals("승리")) win++;
-            else if (outcome.Equals("패배")) lose++;
-
-            if (cointos.Equals("앞면")) front++;
-            else if (cointos.Equals("뒷면")) back++;
-
-            if (turn.Equals("선공")) turn_frist++;
-            else if (turn.Equals("후공")) turn_second++;
-
-            if (turn.Equals("선공") && outcome.Equals("승리")) turn_frist_win++;
-            else if (turn.Equals("후공") && outcome.Equals("승리")) turn_second_win++;
             // 내 덱
             item.SubItems.Add(myDeck);
             // 상대덱 
@@ -117,9 +99,30 @@ namespace MyDuel
             // 리스트값을 자동스크롤바
             listView1.Items[listView1.Items.Count - 1].EnsureVisible();
 
+            // 정적변수를 선언한이유는 
+            // 여기서 0을 클릭과 동시에 다시 0으로 변환되기때문에 그래서 승률이라는 개념에 값을 넣어주기 제한됨
+
+
+
+            //결과에대한 가산 
+            if (outcome.Equals("승리")) win++;
+            else if (outcome.Equals("패배")) lose++;
+            //코인토스에 대한 가산
+            if (cointos.Equals("앞면")) front++;
+            else if (cointos.Equals("뒷면")) back++;
+            // 선후공에 따른 가산
+            if (turn.Equals("선공")) turn_frist++;
+            else if (turn.Equals("후공")) turn_second++;
+            // 선공승리, 후공 승리 판단
+            if (turn.Equals("선공") && outcome.Equals("승리")) turn_frist_win++;
+            else if (turn.Equals("후공") && outcome.Equals("승리")) turn_second_win++;
+
             #endregion
 
             #region 승률관련
+
+            #region Table 1 Start 
+
             ListViewItem item2 = new ListViewItem();
             //리스트뷰2값은 동적으로 계속변경되어야함 리스트 뷰는 값이 변경되면안되는 분야고 동적으로 되지않기때문에 리스트뷰는 제한됨
             // 동적으로 바꿀수 있는건 DataGrid가 아닌가? 정답! 
@@ -131,6 +134,10 @@ namespace MyDuel
             table.Columns.Add("패배", typeof(int));
             // int list2count 값으로정의되잇기때문에 int값연산이 다된다 , 줄의 값을 보여주기때문에 다른 Row를 선언하면 추천되지않는다
             table.Rows.Add(list2count, Math.Round(win / list2count * 100) + "%", win, lose);
+
+            #endregion Table 1 End 
+
+            #region Table 2 Start
             DataTable table2 = new DataTable();
 
             // list2count , count_win 같이 증가하고있기에 100퍼만 고정되버림  >> static으로 해결 사실 이게 좀 바보같은 생각이였던게
@@ -142,11 +149,32 @@ namespace MyDuel
             // 왜 패배를 들어가면 흠 
             // int 형으로했을때 소수점이 생략되서 0으로 나오기때문에 double형으로 넣으면 오류는 발생하지않으나 소수점은 Math.Round로 처리
             table2.Rows.Add(front, back, Math.Round(turn_frist_win / turn_frist * 100) + "%", Math.Round(turn_second_win / turn_second * 100) + "%");
+            #endregion Table2 End
+
+            #region Table3 Start 
+            // table3 의 경우 날짜마다 토스, 판수, 승률을 나눠야함 
+            DataTable table3 = new DataTable();
+            table3.Columns.Add("날짜", typeof(string));
+            table3.Columns.Add("판수", typeof(string));
+            table3.Columns.Add("코인토스", typeof(string));
+            table3.Columns.Add("승률", typeof(string));
+
+            // 날짜마다 가산되어야함 
+            int count_day = 0; 
+            //Convert.ToInt32(DateTime.Now.ToString("yyMMdd").Equals("yyMMdd"));
+            if((DateTime.Now.ToString("yyMMdd").Equals("yyMMdd") == true))
+            {
+                count_day++;
+            }
+            if (DateTime.Now.ToString("yyMMdd") == (DateTime.Now.ToString("yyMMdd")))
+            {
+                table3.Rows.Add(DateTime.Now.ToString("yyMMdd"), count_day, front + ":" + back);
+            }
+            #endregion Table3 End
 
             dataGridView1.DataSource = table;
             dataGridView2.DataSource = table2;
-
-            //dataGridView1.DataSource= table2;
+            dataGridView3.DataSource = table3;
             #endregion
         }
 
@@ -169,10 +197,8 @@ namespace MyDuel
         {
             if (e.KeyCode == Keys.Enter)
             {
-                int colums = dataGridView1.CurrentCell.ColumnIndex;
-                int row = dataGridView1.CurrentCell.RowIndex;
-                dataGridView1.CurrentCell = dataGridView1[colums, row];
                 e.Handled = true;
+
             }
         }
 
@@ -180,12 +206,24 @@ namespace MyDuel
         {
             if (e.KeyCode == Keys.Enter)
             {
-                int colums = dataGridView2.CurrentCell.ColumnIndex;
-                int row = dataGridView2.CurrentCell.RowIndex;
-                dataGridView2.CurrentCell = dataGridView2[colums, row];
                 e.Handled = true;
             }
         }
         #endregion
+
+        private void dataGridView3_KeyDown(object sender, KeyEventArgs e)
+        {
+            if(e.KeyCode == Keys.Enter) 
+            {
+                // 이걸 추가하게되면 클릭에 대한 이벤트가 전혀 일어나지않음 원래의 경우 
+                // 컬럼이 반응을하지만 아래의 값을 처리함으로 전혀 반응이 일어나지않게함
+                int colums = dataGridView1.CurrentCell.ColumnIndex;
+                int row = dataGridView1.CurrentCell.RowIndex;
+                dataGridView3.CurrentCell = dataGridView1[colums, row];
+                // enter에 대한 이벤트 처리
+                e.Handled = true;
+            }
+            
+        }
     }
 }
