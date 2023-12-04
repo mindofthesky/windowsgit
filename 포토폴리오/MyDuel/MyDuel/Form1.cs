@@ -47,6 +47,7 @@ namespace MyDuel
         static int turn_second = 0;
         static double turn_frist_win = 0;
         static double turn_second_win = 0;
+        static int count_day = 0;
         private void button1_Click(object sender, EventArgs e)
         {
             #region Click Event
@@ -158,18 +159,27 @@ namespace MyDuel
             table3.Columns.Add("판수", typeof(string));
             table3.Columns.Add("코인토스", typeof(string));
             table3.Columns.Add("승률", typeof(string));
-
+            
             // 날짜마다 가산되어야함 
-            int count_day = 0; 
+            // 날짜와 날짜는 서로 다름 
+            // 판수의 데이터를 뽑아내는게 문젠데 
+            
             //Convert.ToInt32(DateTime.Now.ToString("yyMMdd").Equals("yyMMdd"));
-            if((DateTime.Now.ToString("yyMMdd").Equals("yyMMdd") == true))
+            /*
+            foreach (DataGridViewRow dto in table3.Rows)
             {
-                count_day++;
+                DateTime dt  = DateTime.Parse(table3.Rows[0].ToString());
+                if (dt > DateTime.Now)
+                {
+                    table3.Rows.Add(DateTime.Now.ToString("yyMMdd"), count_day, front + ":" + back);
+                }
             }
-            if (DateTime.Now.ToString("yyMMdd") == (DateTime.Now.ToString("yyMMdd")))
-            {
-                table3.Rows.Add(DateTime.Now.ToString("yyMMdd"), count_day, front + ":" + back);
-            }
+            */
+            table3.Rows.Add(DateTime.Now.ToString("yyMMdd"), count_day, front + ":" + back);
+            //if (DateTime.Now.ToString("yyMMdd") != (DateTime.Now.ToString("yyMMdd")))
+            //{
+              //  table3.Rows.Add(DateTime.Now.ToString("yyMMdd"), count_day, front + ":" + back);
+            //}
             #endregion Table3 End
 
             dataGridView1.DataSource = table;
