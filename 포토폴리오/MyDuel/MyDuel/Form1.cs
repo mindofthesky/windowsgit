@@ -35,6 +35,7 @@ namespace MyDuel
             dataGridView1.ReadOnly = true;
             dataGridView2.ReadOnly = true;
             dataGridView3.ReadOnly = true;
+            
 
         }
         // 정적값을 넣고하면 정상적으로 증가함
@@ -48,6 +49,7 @@ namespace MyDuel
         static double turn_frist_win = 0;
         static double turn_second_win = 0;
         static int count_day = 0;
+        static int but_count = 0;
         private void button1_Click(object sender, EventArgs e)
         {
             #region Click Event
@@ -159,27 +161,38 @@ namespace MyDuel
             table3.Columns.Add("판수", typeof(string));
             table3.Columns.Add("코인토스", typeof(string));
             table3.Columns.Add("승률", typeof(string));
-            
+
             // 날짜마다 가산되어야함 
             // 날짜와 날짜는 서로 다름 
             // 판수의 데이터를 뽑아내는게 문젠데 
             
+            
             //Convert.ToInt32(DateTime.Now.ToString("yyMMdd").Equals("yyMMdd"));
             /*
-            foreach (DataGridViewRow dto in table3.Rows)
+            
+            */
+            table3.Rows.Add(DateTime.Now.ToString("yyMMdd"), count_day, front + ":" + back);
+            // 첫번째값이 없는데 던지면값이 없으니까... 
+            but_count++;
+
+            if (but_count > 1)
             {
-                DateTime dt  = DateTime.Parse(table3.Rows[0].ToString());
-                if (dt > DateTime.Now)
+                
+                if (item.SubItems[7].Text == DateTime.Now.ToString("yyMMdd"))
                 {
                     table3.Rows.Add(DateTime.Now.ToString("yyMMdd"), count_day, front + ":" + back);
                 }
             }
-            */
-            table3.Rows.Add(DateTime.Now.ToString("yyMMdd"), count_day, front + ":" + back);
+
+
+
+            //table3.Rows.Add("");
+            //table3.Rows.Add(DateTime.Now.ToString("yyMMdd"), count_day, front + ":" + back);
             //if (DateTime.Now.ToString("yyMMdd") != (DateTime.Now.ToString("yyMMdd")))
             //{
-              //  table3.Rows.Add(DateTime.Now.ToString("yyMMdd"), count_day, front + ":" + back);
+            //  table3.Rows.Add(DateTime.Now.ToString("yyMMdd"), count_day, front + ":" + back);
             //}
+
             #endregion Table3 End
 
             dataGridView1.DataSource = table;
