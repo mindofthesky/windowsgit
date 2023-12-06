@@ -307,6 +307,7 @@
             dataGridView1.Size = new Size(363, 47);
             dataGridView1.StandardTab = true;
             dataGridView1.TabIndex = 1;
+            dataGridView1.DragDrop += dataGridView1_DragDrop;
             dataGridView1.KeyDown += dataGridView1_KeyDown;
             // 
             // textBox4

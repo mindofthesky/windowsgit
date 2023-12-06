@@ -37,6 +37,7 @@ namespace MyDuel
             dataGridView3.ReadOnly = true;
             
 
+
         }
         // 정적값을 넣고하면 정상적으로 증가함
         // 승리 패배 , 앞면 뒷면, 선공 후공 
@@ -50,8 +51,14 @@ namespace MyDuel
         static double turn_second_win = 0;
         static int count_day = 0;
         static int but_count = 0;
+        // 날짜 하루를 참조하는값은 누구있지?
+        // 시작할때만 값을 가져오면 값을 비교할수있다 
+        static string aa = DateTime.Now.ToString("yyMMdd");
+        // 정적변수는 가상머신 부팅 순간에서만 물러오기때문에 Event랑 상관이없다
         private void button1_Click(object sender, EventArgs e)
         {
+            
+
             #region Click Event
             // DropStyle 고정 DropDownList 
             string cointos = this.comboBox1.Text;
@@ -99,14 +106,13 @@ namespace MyDuel
             item.SubItems.Add(etc);
             // 날짜값
             item.SubItems.Add(Convert.ToString(DateTime.Now.ToString("yyMMdd")));
+            //item.SubItems.Add("dd"+aa); >> 정적인 값이 맞는데 
             // 리스트값을 자동스크롤바
             listView1.Items[listView1.Items.Count - 1].EnsureVisible();
 
             // 정적변수를 선언한이유는 
             // 여기서 0을 클릭과 동시에 다시 0으로 변환되기때문에 그래서 승률이라는 개념에 값을 넣어주기 제한됨
-
-
-
+            
             //결과에대한 가산 
             if (outcome.Equals("승리")) win++;
             else if (outcome.Equals("패배")) lose++;
@@ -165,29 +171,42 @@ namespace MyDuel
             // 날짜마다 가산되어야함 
             // 날짜와 날짜는 서로 다름 
             // 판수의 데이터를 뽑아내는게 문젠데 
-            
-            
+
+
             //Convert.ToInt32(DateTime.Now.ToString("yyMMdd").Equals("yyMMdd"));
             /*
             
             */
+            if (aa != DateTime.Now.ToString("yyMMdd")) count_day++;
             table3.Rows.Add(DateTime.Now.ToString("yyMMdd"), count_day, front + ":" + back);
             // 첫번째값이 없는데 던지면값이 없으니까... 
             but_count++;
-
+            // 이전값 참조해야됨 시발 
+            // 리스트뷰값을 참조할수없다면 날짜값을 가지고 있을애가필요함 
             if (but_count > 1)
             {
-                
-                if (item.SubItems[7].Text == DateTime.Now.ToString("yyMMdd"))
+                //item.SubItems[7].Text 이값은 계속 그값을 불러와서 값이 같을수밖에없다 
+                // 정적변수로 값을 비교한다면 DateTime.Now는 계속 값을 오늘이겠지만 내일이 될때는 DateTime은 값이 같을수 없기때문에 
+                // table이 계속 추가되는 방식으로하고싶은데 날짜가 변경됨에따라 
+                if (aa != DateTime.Now.ToString("yyMMdd"))
                 {
                     table3.Rows.Add(DateTime.Now.ToString("yyMMdd"), count_day, front + ":" + back);
+                    DataRow row = table3.NewRow();
+                    // 데이터가 들어옴에따라 다시 원래값으로 되돌아가버림 1206> 1207은 2개가 출력되고
+                    // 1206이되면 다시 하나가되버림
+                    row["날짜"] = DateTime.Now.ToString("yyMMdd");
+                    row["판수"] = count_day;
+                    row["코인토스"] = front + ":" + back;
+                    row["승률"] = Math.Round(win / list2count) * 100 + "%";
+
+
                 }
             }
 
 
 
             //table3.Rows.Add("");
-            //table3.Rows.Add(DateTime.Now.ToString("yyMMdd"), count_day, front + ":" + back);
+            //table3.Rows.Add(DateTime.Now.ToString("yyMMdd"), count_day, front + ":" + back);`
             //if (DateTime.Now.ToString("yyMMdd") != (DateTime.Now.ToString("yyMMdd")))
             //{
             //  table3.Rows.Add(DateTime.Now.ToString("yyMMdd"), count_day, front + ":" + back);
@@ -236,7 +255,7 @@ namespace MyDuel
 
         private void dataGridView3_KeyDown(object sender, KeyEventArgs e)
         {
-            if(e.KeyCode == Keys.Enter) 
+            if (e.KeyCode == Keys.Enter)
             {
                 // 이걸 추가하게되면 클릭에 대한 이벤트가 전혀 일어나지않음 원래의 경우 
                 // 컬럼이 반응을하지만 아래의 값을 처리함으로 전혀 반응이 일어나지않게함
@@ -246,6 +265,11 @@ namespace MyDuel
                 // enter에 대한 이벤트 처리
                 e.Handled = true;
             }
+
+        }
+
+        private void dataGridView1_DragDrop(object sender, DragEventArgs e)
+        {
             
         }
     }
