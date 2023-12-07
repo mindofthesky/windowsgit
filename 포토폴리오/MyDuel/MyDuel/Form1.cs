@@ -9,9 +9,8 @@ namespace MyDuel
         {
 
             InitializeComponent();
-            #region listview 1 setting
+            
             listView1.View = View.Details;
-            listView1.BeginUpdate();
             listView1.GridLines = true;
 
             // index = 0으로하면 0번째값부터 들고 오기때문에 먼저 타입을 받아오게해줌
@@ -28,15 +27,21 @@ namespace MyDuel
             listView1.Columns[5].Width = 80;
             listView1.Columns[6].Width = 90;
             listView1.Columns[7].Width = 55;
-            #endregion
+            
             // dataGridView1,2,3
             // AutoSizeColumnsMode > Fill 처리 , dataGridView1.AutoSizeRowsMode = displayed 처리  RowHeadersVisible = False 처리 
 
             dataGridView1.ReadOnly = true;
             dataGridView2.ReadOnly = true;
             dataGridView3.ReadOnly = true;
-            
-
+            double list2count = listView1.Items.Count;
+            DataTable table3 = new DataTable();
+            table3.Columns.Add("날짜", typeof(string));
+            table3.Columns.Add("판수", typeof(string));
+            table3.Columns.Add("코인토스", typeof(string));
+            table3.Columns.Add("승률", typeof(string));
+            table3.Rows.Add(DateTime.Now.ToString("yyMMdd"), list2count, front + ":" + back);
+            dataGridView3.DataSource = table3;
 
         }
         // 정적값을 넣고하면 정상적으로 증가함
@@ -57,7 +62,7 @@ namespace MyDuel
         // 정적변수는 가상머신 부팅 순간에서만 물러오기때문에 Event랑 상관이없다
         private void button1_Click(object sender, EventArgs e)
         {
-            
+
 
             #region Click Event
             // DropStyle 고정 DropDownList 
@@ -112,7 +117,7 @@ namespace MyDuel
 
             // 정적변수를 선언한이유는 
             // 여기서 0을 클릭과 동시에 다시 0으로 변환되기때문에 그래서 승률이라는 개념에 값을 넣어주기 제한됨
-            
+
             //결과에대한 가산 
             if (outcome.Equals("승리")) win++;
             else if (outcome.Equals("패배")) lose++;
@@ -128,15 +133,14 @@ namespace MyDuel
 
             #endregion
 
-            #region 승률관련
-
+            
             #region Table 1 Start 
 
             ListViewItem item2 = new ListViewItem();
             //리스트뷰2값은 동적으로 계속변경되어야함 리스트 뷰는 값이 변경되면안되는 분야고 동적으로 되지않기때문에 리스트뷰는 제한됨
             // 동적으로 바꿀수 있는건 DataGrid가 아닌가? 정답! 
             double list2count = listView1.Items.Count;
-            DataTable table = new DataTable();
+            DataTable? table = new DataTable();
             table.Columns.Add("플레이 수", typeof(string));
             table.Columns.Add("승률", typeof(string));
             table.Columns.Add("승수", typeof(int));
@@ -147,7 +151,8 @@ namespace MyDuel
             #endregion Table 1 End 
 
             #region Table 2 Start
-            DataTable table2 = new DataTable();
+            // Table nullable 을 써도 해결방법은 없다 NaN처리는 다른 방법이 필요하다
+            DataTable? table2 = new DataTable();
 
             // list2count , count_win 같이 증가하고있기에 100퍼만 고정되버림  >> static으로 해결 사실 이게 좀 바보같은 생각이였던게
             // 계속 버튼을 누르면 0 > 1 증가가 반복하는데 그냥 생각좀해보니까 0을 바깥에 두면 전혀문제없지않나가 맞는 답이맞앗음
@@ -156,29 +161,40 @@ namespace MyDuel
             table2.Columns.Add("선공승률", typeof(string));
             table2.Columns.Add("후공승률", typeof(string));
             // 왜 패배를 들어가면 흠 
+            
+            double win_f = 0;
+            double win_s = 0;
             // int 형으로했을때 소수점이 생략되서 0으로 나오기때문에 double형으로 넣으면 오류는 발생하지않으나 소수점은 Math.Round로 처리
             table2.Rows.Add(front, back, Math.Round(turn_frist_win / turn_frist * 100) + "%", Math.Round(turn_second_win / turn_second * 100) + "%");
-            #endregion Table2 End
+            
 
+
+
+
+            //table3.Rows.Add("");
+            //table3.Rows.Add(DateTime.Now.ToString("yyMMdd"), count_day, front + ":" + back);`
+            //if (DateTime.Now.ToString("yyMMdd") != (DateTime.Now.ToString("yyMMdd")))
+            //{
+            //  table3.Rows.Add(DateTime.Now.ToString("yyMMdd"), count_day, front + ":" + back);
+            //}
             #region Table3 Start 
             // table3 의 경우 날짜마다 토스, 판수, 승률을 나눠야함 
-            DataTable table3 = new DataTable();
+
+
+            // 날짜마다 가산되어야함 
+            // 날짜와 날짜는 서로 다름 
+            // 판수의 데이터를 뽑아내는게 문젠데 
+            DataTable? table3 = new DataTable();
             table3.Columns.Add("날짜", typeof(string));
             table3.Columns.Add("판수", typeof(string));
             table3.Columns.Add("코인토스", typeof(string));
             table3.Columns.Add("승률", typeof(string));
 
-            // 날짜마다 가산되어야함 
-            // 날짜와 날짜는 서로 다름 
-            // 판수의 데이터를 뽑아내는게 문젠데 
-
-
             //Convert.ToInt32(DateTime.Now.ToString("yyMMdd").Equals("yyMMdd"));
-            /*
             
-            */
             if (aa != DateTime.Now.ToString("yyMMdd")) count_day++;
-            table3.Rows.Add(DateTime.Now.ToString("yyMMdd"), count_day, front + ":" + back);
+            table3.Rows.Add(DateTime.Now.ToString("yyMMdd"), list2count, front + ":" + back);
+            // 1206이되면 다시 하나인채로 유지된다 음 `
             // 첫번째값이 없는데 던지면값이 없으니까... 
             but_count++;
             // 이전값 참조해야됨 시발 
@@ -194,29 +210,24 @@ namespace MyDuel
                     DataRow row = table3.NewRow();
                     // 데이터가 들어옴에따라 다시 원래값으로 되돌아가버림 1206> 1207은 2개가 출력되고
                     // 1206이되면 다시 하나가되버림
-                    row["날짜"] = DateTime.Now.ToString("yyMMdd");
-                    row["판수"] = count_day;
-                    row["코인토스"] = front + ":" + back;
-                    row["승률"] = Math.Round(win / list2count) * 100 + "%";
+                    foreach (DataRow dr in table3.Rows)
+                    {
+                        row["날짜"] = DateTime.Now.ToString("yyMMdd");
+                        row["판수"] = count_day;
+                        row["코인토스"] = front + ":" + back;
+                        row["승률"] = Math.Round(win / list2count) * 100 + "%";
+                    }
 
 
                 }
             }
-
-
-
-            //table3.Rows.Add("");
-            //table3.Rows.Add(DateTime.Now.ToString("yyMMdd"), count_day, front + ":" + back);`
-            //if (DateTime.Now.ToString("yyMMdd") != (DateTime.Now.ToString("yyMMdd")))
-            //{
-            //  table3.Rows.Add(DateTime.Now.ToString("yyMMdd"), count_day, front + ":" + back);
-            //}
-
             #endregion Table3 End
+
 
             dataGridView1.DataSource = table;
             dataGridView2.DataSource = table2;
             dataGridView3.DataSource = table3;
+            
             #endregion
         }
 
@@ -229,6 +240,10 @@ namespace MyDuel
 
         private void 덱승률확인하기ToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            Form2 frm = new Form2();
+            frm.Owner = this;
+            frm.Show();
+            this.Hide();
             //지금고민중인요소가있는데 
             // Form2 를 만들어서 보여주느냐 
             //그냥 다보여주느냐

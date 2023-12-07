@@ -14,3 +14,4 @@ C:\Users\mindo\source\repos\MyDuel\MyDuel\obj\Debug\net8.0-windows\refint\MyDuel
 C:\Users\mindo\source\repos\MyDuel\MyDuel\obj\Debug\net8.0-windows\MyDuel.pdb
 C:\Users\mindo\source\repos\MyDuel\MyDuel\obj\Debug\net8.0-windows\MyDuel.genruntimeconfig.cache
 C:\Users\mindo\source\repos\MyDuel\MyDuel\obj\Debug\net8.0-windows\ref\MyDuel.dll
+C:\Users\mindo\source\repos\MyDuel\MyDuel\obj\Debug\net8.0-windows\MyDuel.Form2.resources

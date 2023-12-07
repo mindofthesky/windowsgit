@@ -57,7 +57,6 @@
             dataGridView3 = new DataGridView();
             dataGridView2 = new DataGridView();
             dataGridView1 = new DataGridView();
-            textBox4 = new TextBox();
             menuStrip1.SuspendLayout();
             groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dataGridView3).BeginInit();
@@ -184,9 +183,9 @@
             // 
             // button1
             // 
-            button1.Location = new Point(552, 200);
+            button1.Location = new Point(619, 200);
             button1.Name = "button1";
-            button1.Size = new Size(188, 23);
+            button1.Size = new Size(121, 23);
             button1.TabIndex = 15;
             button1.Text = "추가";
             button1.UseVisualStyleBackColor = true;
@@ -197,7 +196,7 @@
             listView1.Columns.AddRange(new ColumnHeader[] { columnHeader1, columnHeader2, columnHeader3, columnHeader4, columnHeader5, columnHeader6, columnHeader7, columnHeader8 });
             listView1.Location = new Point(12, 27);
             listView1.Name = "listView1";
-            listView1.Size = new Size(527, 196);
+            listView1.Size = new Size(540, 196);
             listView1.TabIndex = 16;
             listView1.UseCompatibleStateImageBehavior = false;
             // 
@@ -261,9 +260,9 @@
             groupBox1.Controls.Add(dataGridView3);
             groupBox1.Controls.Add(dataGridView2);
             groupBox1.Controls.Add(dataGridView1);
-            groupBox1.Location = new Point(12, 239);
+            groupBox1.Location = new Point(12, 229);
             groupBox1.Name = "groupBox1";
-            groupBox1.Size = new Size(375, 383);
+            groupBox1.Size = new Size(375, 216);
             groupBox1.TabIndex = 18;
             groupBox1.TabStop = false;
             groupBox1.Text = "groupBox1";
@@ -310,19 +309,11 @@
             dataGridView1.DragDrop += dataGridView1_DragDrop;
             dataGridView1.KeyDown += dataGridView1_KeyDown;
             // 
-            // textBox4
-            // 
-            textBox4.Location = new Point(393, 249);
-            textBox4.Name = "textBox4";
-            textBox4.Size = new Size(146, 23);
-            textBox4.TabIndex = 19;
-            // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(752, 648);
-            Controls.Add(textBox4);
+            ClientSize = new Size(752, 473);
             Controls.Add(groupBox1);
             Controls.Add(listView1);
             Controls.Add(button1);
@@ -378,7 +369,6 @@
         private ToolStripMenuItem 덱승률ToolStripMenuItem;
         private ToolStripMenuItem 덱승률확인하기ToolStripMenuItem;
         private GroupBox groupBox1;
-        private TextBox textBox4;
         private DataGridView dataGridView1;
         private DataGridView dataGridView2;
         private DataGridView dataGridView3;
