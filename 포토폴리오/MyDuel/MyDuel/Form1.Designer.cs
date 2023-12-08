@@ -331,7 +331,7 @@
             Controls.Add(comboBox1);
             Controls.Add(menuStrip1);
             Name = "Form1";
-            Text = "Form1";
+            Text = "덱 승률";
             menuStrip1.ResumeLayout(false);
             menuStrip1.PerformLayout();
             groupBox1.ResumeLayout(false);

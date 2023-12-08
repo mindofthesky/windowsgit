@@ -4,7 +4,7 @@ namespace MyDuel
 {
     public partial class Form1 : Form
     {
-
+        
         public Form1()
         {
 
@@ -34,15 +34,36 @@ namespace MyDuel
             dataGridView1.ReadOnly = true;
             dataGridView2.ReadOnly = true;
             dataGridView3.ReadOnly = true;
+
+
+
+            #region 데이터 미리로드 
             double list2count = listView1.Items.Count;
+            DataTable? table = new DataTable();
+            table.Columns.Add("플레이 수", typeof(string));
+            table.Columns.Add("승률", typeof(string));
+            table.Columns.Add("승수", typeof(int));
+            table.Columns.Add("패배", typeof(int));
+            table.Rows.Add(list2count, Math.Round(win / list2count * 100) + "%", win, lose);
+
+
+            DataTable? table2 = new DataTable();
+            table2.Columns.Add("앞", typeof(string));
+            table2.Columns.Add("뒤", typeof(string));
+            table2.Columns.Add("선공승률", typeof(string));
+            table2.Columns.Add("후공승률", typeof(string));
+            table2.Rows.Add(front, back, Math.Round(turn_frist_win / turn_frist * 100) + "%", Math.Round(turn_second_win / turn_second * 100) + "%");
+
             DataTable table3 = new DataTable();
             table3.Columns.Add("날짜", typeof(string));
             table3.Columns.Add("판수", typeof(string));
             table3.Columns.Add("코인토스", typeof(string));
             table3.Columns.Add("승률", typeof(string));
             table3.Rows.Add(DateTime.Now.ToString("yyMMdd"), list2count, front + ":" + back);
+            dataGridView1.DataSource = table;
+            dataGridView2.DataSource = table2;
             dataGridView3.DataSource = table3;
-
+            #endregion
         }
         // 정적값을 넣고하면 정상적으로 증가함
         // 승리 패배 , 앞면 뒷면, 선공 후공 
@@ -59,7 +80,10 @@ namespace MyDuel
         // 날짜 하루를 참조하는값은 누구있지?
         // 시작할때만 값을 가져오면 값을 비교할수있다 
         static string aa = DateTime.Now.ToString("yyMMdd");
-        // 정적변수는 가상머신 부팅 순간에서만 물러오기때문에 Event랑 상관이없다
+        // 정적변수는 가상머신 부팅 순간에서만 물러오기때문에
+        // Event랑 상관이없다
+
+        public double ls;
         private void button1_Click(object sender, EventArgs e)
         {
 
@@ -140,6 +164,7 @@ namespace MyDuel
             //리스트뷰2값은 동적으로 계속변경되어야함 리스트 뷰는 값이 변경되면안되는 분야고 동적으로 되지않기때문에 리스트뷰는 제한됨
             // 동적으로 바꿀수 있는건 DataGrid가 아닌가? 정답! 
             double list2count = listView1.Items.Count;
+            
             DataTable? table = new DataTable();
             table.Columns.Add("플레이 수", typeof(string));
             table.Columns.Add("승률", typeof(string));
@@ -177,6 +202,22 @@ namespace MyDuel
             //{
             //  table3.Rows.Add(DateTime.Now.ToString("yyMMdd"), count_day, front + ":" + back);
             //}
+           
+
+            #region 폼데이터 보내기
+            // 데이터가 listview에서 변환되는 값이라 listview가 아니면 변환이 안되는건가?
+            Form2 frm2 = new Form2(ls);
+            frm2.Owner = this;
+
+
+            
+             
+            #endregion
+
+           
+
+            #endregion
+
             #region Table3 Start 
             // table3 의 경우 날짜마다 토스, 판수, 승률을 나눠야함 
 
@@ -191,7 +232,7 @@ namespace MyDuel
             table3.Columns.Add("승률", typeof(string));
 
             //Convert.ToInt32(DateTime.Now.ToString("yyMMdd").Equals("yyMMdd"));
-            
+
             if (aa != DateTime.Now.ToString("yyMMdd")) count_day++;
             table3.Rows.Add(DateTime.Now.ToString("yyMMdd"), list2count, front + ":" + back);
             // 1206이되면 다시 하나인채로 유지된다 음 `
@@ -223,12 +264,9 @@ namespace MyDuel
             }
             #endregion Table3 End
 
-
             dataGridView1.DataSource = table;
             dataGridView2.DataSource = table2;
             dataGridView3.DataSource = table3;
-            
-            #endregion
         }
 
 
@@ -243,12 +281,12 @@ namespace MyDuel
             Form2 frm = new Form2();
             frm.Owner = this;
             frm.Show();
-            this.Hide();
-            //지금고민중인요소가있는데 
-            // Form2 를 만들어서 보여주느냐 
-            //그냥 다보여주느냐
+            //this.Hide(); >>> 애가 문제임 
+            // Hide 의 문제점은 메모리를 계속 점유해서 다음 실행에 문제가 존재함 
+            //Form1.Dispose();
+            
+            
         }
-        // enter 처리 금지 
         #region enter datagrid 금지
         private void dataGridView1_KeyDown(object sender, KeyEventArgs e)
         {
