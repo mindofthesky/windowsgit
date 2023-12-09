@@ -191,7 +191,7 @@ namespace MyDuel
             double win_s = 0;
             // int 형으로했을때 소수점이 생략되서 0으로 나오기때문에 double형으로 넣으면 오류는 발생하지않으나 소수점은 Math.Round로 처리
             table2.Rows.Add(front, back, Math.Round(turn_frist_win / turn_frist * 100) + "%", Math.Round(turn_second_win / turn_second * 100) + "%");
-            
+
 
 
 
@@ -202,21 +202,22 @@ namespace MyDuel
             //{
             //  table3.Rows.Add(DateTime.Now.ToString("yyMMdd"), count_day, front + ":" + back);
             //}
-           
 
+
+
+
+
+            #endregion
             #region 폼데이터 보내기
             // 데이터가 listview에서 변환되는 값이라 listview가 아니면 변환이 안되는건가?
             Form2 frm2 = new Form2(ls);
             frm2.Owner = this;
 
 
-            
-             
-            #endregion
 
-           
 
             #endregion
+
 
             #region Table3 Start 
             // table3 의 경우 날짜마다 토스, 판수, 승률을 나눠야함 

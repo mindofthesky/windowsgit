@@ -21,7 +21,14 @@ namespace MyDuel
             InitializeComponent();
             listView1.View = View.Details;
             listView1.GridLines = true;
-                
+            DataTable table = new DataTable();
+            table.Columns.Add("플레이수", typeof(string));
+            table.Columns.Add("승률", typeof(string));
+
+            table.Rows.Add(resivedata, 1);
+
+            dataGridView1.DataSource = table;
+
         }
         public Form2(double ls)
         {
