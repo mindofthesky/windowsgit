@@ -10,9 +10,11 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 namespace MyDuel
 {
+   
     public partial class Form2 : Form
     {
-        Form1 frm1 = new Form1();
+
+       
         double resivedata = 0;
 
         public Form2()
@@ -28,14 +30,12 @@ namespace MyDuel
             table.Rows.Add(resivedata, 1);
 
             dataGridView1.DataSource = table;
+            // 데이터 전달 됨 
+            listView1.Items.Add( Form1.listcut);
+            // 명시적 값만 가능함
 
         }
-        public Form2(double ls)
-        {
-
-           
-
-        }
+        public string select { get; set; }
         static int win;
         static int count = 0;
         private void button1_Click(object sender, EventArgs e)
@@ -54,6 +54,9 @@ namespace MyDuel
             table.Rows.Add(resivedata, 1);
 
             dataGridView1.DataSource = table;
+
+            
+            
         }
     }
 }

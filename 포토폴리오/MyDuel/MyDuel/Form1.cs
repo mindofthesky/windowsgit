@@ -82,8 +82,9 @@ namespace MyDuel
         static string aa = DateTime.Now.ToString("yyMMdd");
         // 정적변수는 가상머신 부팅 순간에서만 물러오기때문에
         // Event랑 상관이없다
-
-        public double ls;
+        public static string listcut;
+        public static string datacut;
+       
         private void button1_Click(object sender, EventArgs e)
         {
 
@@ -210,9 +211,7 @@ namespace MyDuel
             #endregion
             #region 폼데이터 보내기
             // 데이터가 listview에서 변환되는 값이라 listview가 아니면 변환이 안되는건가?
-            Form2 frm2 = new Form2(ls);
-            frm2.Owner = this;
-
+           
 
 
 
@@ -265,6 +264,9 @@ namespace MyDuel
             }
             #endregion Table3 End
 
+
+            listcut = Convert.ToString(list2count);
+
             dataGridView1.DataSource = table;
             dataGridView2.DataSource = table2;
             dataGridView3.DataSource = table3;
@@ -279,9 +281,11 @@ namespace MyDuel
 
         private void 덱승률확인하기ToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            Form2 frm = new Form2();
-            frm.Owner = this;
-            frm.Show();
+            var f2 = new Form2();
+            f2.Owner = this;
+            f2.Show();
+            listView1.Text = f2.select;
+            listView1.Text = "Select a Student";
             //this.Hide(); >>> 애가 문제임 
             // Hide 의 문제점은 메모리를 계속 점유해서 다음 실행에 문제가 존재함 
             //Form1.Dispose();
