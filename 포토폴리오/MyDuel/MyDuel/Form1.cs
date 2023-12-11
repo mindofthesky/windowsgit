@@ -1,24 +1,57 @@
+using MySql.Data.MySqlClient;
 using System.Data;
 
 namespace MyDuel
 {
     public partial class Form1 : Form
     {
-        
+        #region DB변수
+        string _Server = "localhost";
+        string _port = "3306";
+        string _Database = "test";
+        string _id = "root";
+        string _pwd = "1234";
+        string _Connection = "";
+        #endregion
+        #region 변수
+        // 정적값을 넣고하면 정상적으로 증가함
+        // 승리 패배 , 앞면 뒷면, 선공 후공 
+        static int win = 0;
+        static int lose = 0;
+        static int front = 0;
+        static int back = 0;
+        static int turn_frist = 0;
+        static int turn_second = 0;
+        static double turn_frist_win = 0;
+        static double turn_second_win = 0;
+        static int count_day = 0;
+        static int but_count = 0;
+        // 날짜 하루를 참조하는값은 누구있지?
+        // 시작할때만 값을 가져오면 값을 비교할수있다 
+        static string aa = DateTime.Now.ToString("yyMMdd");
+        // 정적변수는 가상머신 부팅 순간에서만 물러오기때문에
+        // Event랑 상관이없다
+        public static string listcut;
+        public static string datacut;
+        #endregion
+        #region Form 초기화값 
         public Form1()
         {
 
             InitializeComponent();
-            
+            _Connection = string.Format("Server ={0};Port={1};DataBase={2};Uid={3};Pwd={4};",_Server,_port,_Database,_id,_pwd);
             listView1.View = View.Details;
             listView1.GridLines = true;
+            select();
 
+            #region combox Defect, listview 크기 
             // index = 0으로하면 0번째값부터 들고 오기때문에 먼저 타입을 받아오게해줌
-
+            // dataGridView1,2,3 설정값 
+            // AutoSizeColumnsMode > Fill 처리 , dataGridView1.AutoSizeRowsMode = displayed 처리  RowHeadersVisible = False 처리 
             comboBox1.SelectedIndex = 0;
             comboBox2.SelectedIndex = 0;
             comboBox3.SelectedIndex = 0;
-
+            
             listView1.Columns[0].Width = 50;
             listView1.Columns[1].Width = 70;
             listView1.Columns[2].Width = 50;
@@ -28,13 +61,14 @@ namespace MyDuel
             listView1.Columns[6].Width = 90;
             listView1.Columns[7].Width = 55;
             
-            // dataGridView1,2,3
-            // AutoSizeColumnsMode > Fill 처리 , dataGridView1.AutoSizeRowsMode = displayed 처리  RowHeadersVisible = False 처리 
+            #endregion
+            
 
+            #region dataGrid 읽기모드
             dataGridView1.ReadOnly = true;
             dataGridView2.ReadOnly = true;
             dataGridView3.ReadOnly = true;
-
+            #endregion
 
 
             #region 데이터 미리로드 
@@ -65,30 +99,13 @@ namespace MyDuel
             dataGridView3.DataSource = table3;
             #endregion
         }
-        // 정적값을 넣고하면 정상적으로 증가함
-        // 승리 패배 , 앞면 뒷면, 선공 후공 
-        static int win = 0;
-        static int lose = 0;
-        static int front = 0;
-        static int back = 0;
-        static int turn_frist = 0;
-        static int turn_second = 0;
-        static double turn_frist_win = 0;
-        static double turn_second_win = 0;
-        static int count_day = 0;
-        static int but_count = 0;
-        // 날짜 하루를 참조하는값은 누구있지?
-        // 시작할때만 값을 가져오면 값을 비교할수있다 
-        static string aa = DateTime.Now.ToString("yyMMdd");
-        // 정적변수는 가상머신 부팅 순간에서만 물러오기때문에
-        // Event랑 상관이없다
-        public static string listcut;
-        public static string datacut;
-       
+
+        #endregion
+        // Update , listview , datagrid 값 관련
+        #region listview1, datagrid 1,2,3
         private void button1_Click(object sender, EventArgs e)
         {
-
-
+            
             #region Click Event
             // DropStyle 고정 DropDownList 
             string cointos = this.comboBox1.Text;
@@ -109,6 +126,7 @@ namespace MyDuel
             // ltem.text 가 0번째값 sub는 0이후의 값이므로 subitem을 넣는경우 0번째 행에 값을 넣지못함
             int count = listView1.Items.Count + 1;
             //count 값을 설정하고 listview 자동으로 값을 넣기위해 카운트하는법은 리스트뷰의 숫자를 세는게 맞음
+            
             // 카운트 판수
             listView1.Items.Add(item);
             item.Text = count.ToString();
@@ -138,6 +156,7 @@ namespace MyDuel
             item.SubItems.Add(Convert.ToString(DateTime.Now.ToString("yyMMdd")));
             //item.SubItems.Add("dd"+aa); >> 정적인 값이 맞는데 
             // 리스트값을 자동스크롤바
+            
             listView1.Items[listView1.Items.Count - 1].EnsureVisible();
 
             // 정적변수를 선언한이유는 
@@ -209,14 +228,7 @@ namespace MyDuel
 
 
             #endregion
-            #region 폼데이터 보내기
-            // 데이터가 listview에서 변환되는 값이라 listview가 아니면 변환이 안되는건가?
            
-
-
-
-            #endregion
-
 
             #region Table3 Start 
             // table3 의 경우 날짜마다 토스, 판수, 승률을 나눠야함 
@@ -265,15 +277,93 @@ namespace MyDuel
             #endregion Table3 End
 
 
-            listcut = Convert.ToString(list2count);
+            #region CRUD Update
+            /* DB의 배열값 
+             * no = 0 
+             * cointos =1
+             * turn = 2
+             * win_lose =3
+             * mydeck = 4
+             * otherdeck = 5
+             * etc =6
+             * date 7 
+             */
+            try
+            {
+                using(MySqlConnection mysql = new MySqlConnection(_Connection))
+                {
+                    mysql.Open();
+                    string insertQuery = string.Format("INSERT INTO myduel (No, Cointos, turn, win_lose, mydeck , otherdeck, etc, date);", listView1.Items.Count - 1, cointos, turn, outcome, myDeck, otherDeck, etc, DateTime.Now.ToString("yyMMdd"));
+                    MySqlCommand command = new MySqlCommand(insertQuery,mysql);
+                    if(command.ExecuteNonQuery() !=1)
+                    {
+                        MessageBox.Show("Query error");
+                    }
+                    
+                    select();
+                }
+            }
+            catch (Exception ex) { MessageBox.Show(ex.ToString());  }
 
+            #endregion
+
+            #region 폼2에 보낼 데이터 
+            // 성공함 그런데 이런 데이터만 가선안됨
+            listcut = Convert.ToString(list2count);
+            #endregion
             dataGridView1.DataSource = table;
             dataGridView2.DataSource = table2;
             dataGridView3.DataSource = table3;
         }
+        #endregion
 
+        #region CRUD Read 
+        private void select()
+        {
 
+            /* DB의 배열값 
+             * no = 0 
+             * cointos =1
+             * turn = 2
+             * win_lose =3
+             * mydeck = 4
+             * otherdeck = 5
+             * etc =6
+             * date 7 
+             */
+            // select 조회는 정상적 
+            try
+            {
+                using (MySqlConnection mysql = new MySqlConnection(_Connection))
+                {
+                    mysql.Open();
+                    string selectQurey = string.Format("SELECT * FROM myduel");
+                    MySqlCommand comm = new MySqlCommand(selectQurey, mysql);
+                    MySqlDataReader tables = comm.ExecuteReader();
+                    //if (comm.ExecuteNonQuery() != 1) MessageBox.Show(" 시작부 error"); << 에러원인 
+                    // 결과값이 돌아오지않을때 값을 받아오기때문에 이게 있을필요가없다
+                    // 데이터를 미리 넣어봤고 확인결과 정상적으로 insert된걸 Read해옴
+                    while (tables.Read())
+                    {
+                        ListViewItem item = new ListViewItem();
+                        item.Text = tables["No"].ToString();
+                        item.SubItems.Add(tables["Cointos"].ToString());
+                        item.SubItems.Add(tables["turn"].ToString());
+                        item.SubItems.Add(tables["win_lose"].ToString());
+                        item.SubItems.Add(tables["mydeck"].ToString());
+                        item.SubItems.Add(tables["otherdeck"].ToString());
+                        item.SubItems.Add(tables["etc"].ToString());
+                        item.SubItems.Add(tables["date"].ToString());
+                        listView1.Items.Add(item);
+                    }
+                    tables.Close();
+                }
+            }
+            catch(Exception ex) { MessageBox.Show(ex.ToString()); }
+        }
+        #endregion
 
+        #region Form2관련
         private void contextMenuStrip1_Opening(object sender, System.ComponentModel.CancelEventArgs e)
         {
 
@@ -289,9 +379,10 @@ namespace MyDuel
             //this.Hide(); >>> 애가 문제임 
             // Hide 의 문제점은 메모리를 계속 점유해서 다음 실행에 문제가 존재함 
             //Form1.Dispose();
-            
+            // 결국은 DB 구현을 해야함 >> DB구현 ! 
             
         }
+        #endregion
         #region enter datagrid 금지
         private void dataGridView1_KeyDown(object sender, KeyEventArgs e)
         {
@@ -311,6 +402,7 @@ namespace MyDuel
         }
         #endregion
 
+        #region 드래그나 이런거 금지 할려했는데 아직 구현 x 
         private void dataGridView3_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.KeyCode == Keys.Enter)
@@ -330,5 +422,6 @@ namespace MyDuel
         {
             
         }
+        #endregion
     }
 }
