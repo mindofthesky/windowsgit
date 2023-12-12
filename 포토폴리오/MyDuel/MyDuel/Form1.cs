@@ -293,13 +293,16 @@ namespace MyDuel
                 using(MySqlConnection mysql = new MySqlConnection(_Connection))
                 {
                     mysql.Open();
-                    string insertQuery = string.Format("INSERT INTO myduel (No, Cointos, turn, win_lose, mydeck , otherdeck, etc, date);", listView1.Items.Count - 1, cointos, turn, outcome, myDeck, otherDeck, etc, DateTime.Now.ToString("yyMMdd"));
+                    // 1 2 3 4 5 6 7 로 시작하니까 에러였음 0,1,2,3,4,5,6 으로 넣으 정상적으로 에러해결 
+                    string insertQuery = string.Format("INSERT INTO myduel (Cointos, turn, win_lose, mydeck , otherdeck, etc, date) VALUES('{0}','{1}','{2}','{3}','{4}','{5}','{6}');", 
+                    cointos, turn, outcome, myDeck, otherDeck, etc, DateTime.Now.ToString("yyMMdd"));
                     MySqlCommand command = new MySqlCommand(insertQuery,mysql);
                     if(command.ExecuteNonQuery() !=1)
                     {
                         MessageBox.Show("Query error");
                     }
-                    
+                    // 중복되기 이전에 삭제하기위함 
+                    listView1.Items.Clear();
                     select();
                 }
             }
