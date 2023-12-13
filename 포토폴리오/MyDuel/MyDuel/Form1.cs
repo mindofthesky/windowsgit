@@ -1,4 +1,5 @@
 using MySql.Data.MySqlClient;
+using MySqlX.XDevAPI.Relational;
 using System.Data;
 
 namespace MyDuel
@@ -43,6 +44,8 @@ namespace MyDuel
             listView1.View = View.Details;
             listView1.GridLines = true;
             select();
+
+            
 
             #region combox Defect, listview 크기 
             // index = 0으로하면 0번째값부터 들고 오기때문에 먼저 타입을 받아오게해줌
@@ -105,8 +108,42 @@ namespace MyDuel
         #region listview1, datagrid 1,2,3
         private void button1_Click(object sender, EventArgs e)
         {
+
+
+            #region CRUD INSERT 완료
+            /* DB의 배열값 
+             * no = 0 
+             * cointos =1
+             * turn = 2
+             * win_lose =3
+             * mydeck = 4
+             * otherdeck = 5
+             * etc =6
+             * date 7 
+             */
+            try
+            {
+                using (MySqlConnection mysql = new MySqlConnection(_Connection))
+                {
+                    mysql.Open();
+                    // 1 2 3 4 5 6 7 로 시작하니까 에러였음 0,1,2,3,4,5,6 으로 넣으 정상적으로 에러해결 
+                    string insertQuery = string.Format("INSERT INTO myduel (Cointos, turn, win_lose, mydeck , otherdeck, etc, date) VALUES('{0}','{1}','{2}','{3}','{4}','{5}','{6}');",
+                    this.comboBox1.Text, this.comboBox2.Text, this.comboBox3.Text, this.textBox1.Text, this.textBox2.Text, this.textBox3.Text, DateTime.Now.ToString("yyMMdd"));
+                    MySqlCommand command = new MySqlCommand(insertQuery, mysql);
+                    if (command.ExecuteNonQuery() != 1)
+                    {
+                        MessageBox.Show("Query error");
+                    }
+                    // 중복되기 이전에 삭제하기위함 
+                    listView1.Items.Clear();
+                    select();
+                }
+            }
+            catch (Exception ex) { MessageBox.Show(ex.ToString()); }
             
-            #region Click Event
+            #endregion
+
+            #region Click Event DB이전
             // DropStyle 고정 DropDownList 
             string cointos = this.comboBox1.Text;
             //선공후공
@@ -128,10 +165,10 @@ namespace MyDuel
             //count 값을 설정하고 listview 자동으로 값을 넣기위해 카운트하는법은 리스트뷰의 숫자를 세는게 맞음
             
             // 카운트 판수
-            listView1.Items.Add(item);
-            item.Text = count.ToString();
+            //listView1.Items.Add(item);
+            //item.Text = count.ToString();
             // 코인토스 앞뒤 
-            item.SubItems.Add(cointos);
+            //item.SubItems.Add(cointos);
             //이제는 승률을 구현해야함 
             // 승률이란 전체 플레이 수 중에서 승리만 카운터하면됨 
 
@@ -143,17 +180,17 @@ namespace MyDuel
             // 승리값만 보면됨 
 
             // 선후공 
-            item.SubItems.Add(turn);
+            //item.SubItems.Add(turn);
             // 결과
-            item.SubItems.Add(outcome);
+            //item.SubItems.Add(outcome);
             // 내 덱
-            item.SubItems.Add(myDeck);
+            //item.SubItems.Add(myDeck);
             // 상대덱 
-            item.SubItems.Add(otherDeck);
+            //item.SubItems.Add(otherDeck);
             // 비고란
-            item.SubItems.Add(etc);
+            //item.SubItems.Add(etc);
             // 날짜값
-            item.SubItems.Add(Convert.ToString(DateTime.Now.ToString("yyMMdd")));
+            //item.SubItems.Add(Convert.ToString(DateTime.Now.ToString("yyMMdd")));
             //item.SubItems.Add("dd"+aa); >> 정적인 값이 맞는데 
             // 리스트값을 자동스크롤바
             
@@ -176,23 +213,45 @@ namespace MyDuel
             else if (turn.Equals("후공") && outcome.Equals("승리")) turn_second_win++;
 
             #endregion
-
-            
+           
             #region Table 1 Start 
 
             ListViewItem item2 = new ListViewItem();
-            //리스트뷰2값은 동적으로 계속변경되어야함 리스트 뷰는 값이 변경되면안되는 분야고 동적으로 되지않기때문에 리스트뷰는 제한됨
-            // 동적으로 바꿀수 있는건 DataGrid가 아닌가? 정답! 
-            double list2count = listView1.Items.Count;
-            
             DataTable? table = new DataTable();
             table.Columns.Add("플레이 수", typeof(string));
             table.Columns.Add("승률", typeof(string));
             table.Columns.Add("승수", typeof(int));
             table.Columns.Add("패배", typeof(int));
-            // int list2count 값으로정의되잇기때문에 int값연산이 다된다 , 줄의 값을 보여주기때문에 다른 Row를 선언하면 추천되지않는다
-            table.Rows.Add(list2count, Math.Round(win / list2count * 100) + "%", win, lose);
+            //리스트뷰2값은 동적으로 계속변경되어야함 리스트 뷰는 값이 변경되면안되는 분야고 동적으로 되지않기때문에 리스트뷰는 제한됨
+            // 동적으로 바꿀수 있는건 DataGrid가 아닌가? 정답! 
+            double list2count = listView1.Items.Count;
 
+            #region table1 DB 변환
+            try
+            {
+            
+            
+            // int list2count 값으로정의되잇기때문에 int값연산이 다된다 , 줄의 값을 보여주기때문에 다른 Row를 선언하면 추천되지않는다
+            
+                using (MySqlConnection mysql = new MySqlConnection(_Connection))
+                {
+                    mysql.Open();
+                    string playcount = string.Format("SELECT count(No) FROM myduel;");
+                    // DB에서 SQL 때려본 결과는 잘돌아감
+                    string wincount = string.Format("SELECT count(win_lose) FROM myduel where win_lose= '승리';");
+                    string losecount = string.Format("SELECT count(win_lose) FROM myduel where win_lose= '패배';");
+                    // 승률때문에 인한 double switch
+                    double playcount_string_change_double = Convert.ToInt32(playcount);
+                    double win_lose_string_change_double = Convert.ToInt32(wincount);
+                    //MySqlCommand commnad = new MySqlCommand();
+                    // win, lose count 반영이안됨
+                    MessageBox.Show("error", "승리" + wincount + "패배 " + losecount);
+                    table.Rows.Add(playcount, Math.Round(win_lose_string_change_double / playcount_string_change_double * 100) + "%", wincount, losecount);
+                }
+            }
+            catch {}
+            #endregion
+            //table.Rows.Add(list2count, Math.Round(win / list2count * 100) + "%", win, lose);
             #endregion Table 1 End 
 
             #region Table 2 Start
@@ -229,7 +288,6 @@ namespace MyDuel
 
             #endregion
            
-
             #region Table3 Start 
             // table3 의 경우 날짜마다 토스, 판수, 승률을 나눠야함 
 
@@ -276,39 +334,7 @@ namespace MyDuel
             }
             #endregion Table3 End
 
-
-            #region CRUD Update
-            /* DB의 배열값 
-             * no = 0 
-             * cointos =1
-             * turn = 2
-             * win_lose =3
-             * mydeck = 4
-             * otherdeck = 5
-             * etc =6
-             * date 7 
-             */
-            try
-            {
-                using(MySqlConnection mysql = new MySqlConnection(_Connection))
-                {
-                    mysql.Open();
-                    // 1 2 3 4 5 6 7 로 시작하니까 에러였음 0,1,2,3,4,5,6 으로 넣으 정상적으로 에러해결 
-                    string insertQuery = string.Format("INSERT INTO myduel (Cointos, turn, win_lose, mydeck , otherdeck, etc, date) VALUES('{0}','{1}','{2}','{3}','{4}','{5}','{6}');", 
-                    cointos, turn, outcome, myDeck, otherDeck, etc, DateTime.Now.ToString("yyMMdd"));
-                    MySqlCommand command = new MySqlCommand(insertQuery,mysql);
-                    if(command.ExecuteNonQuery() !=1)
-                    {
-                        MessageBox.Show("Query error");
-                    }
-                    // 중복되기 이전에 삭제하기위함 
-                    listView1.Items.Clear();
-                    select();
-                }
-            }
-            catch (Exception ex) { MessageBox.Show(ex.ToString());  }
-
-            #endregion
+           
 
             #region 폼2에 보낼 데이터 
             // 성공함 그런데 이런 데이터만 가선안됨
@@ -365,7 +391,42 @@ namespace MyDuel
             catch(Exception ex) { MessageBox.Show(ex.ToString()); }
         }
         #endregion
+        private void table()
+        {
+            using (MySqlConnection mysql = new MySqlConnection(_Connection))
+                {
+                    mysql.Open();
+                    try
+                        {
+                            DataTable? table = new DataTable();
+                            table.Columns.Add("플레이 수", typeof(string));
+                            table.Columns.Add("승률", typeof(string));
+                            table.Columns.Add("승수", typeof(int));
+                            table.Columns.Add("패배", typeof(int));
+           
 
+
+                            //int list2count 값으로정의되잇기때문에 int값연산이 다된다 , 줄의 값을 보여주기때문에 다른 Row를 선언하면 추천되지않는다
+
+                
+                            string playcount = string.Format("SELECT count(No) FROM myduel;");
+                            // DB에서 SQL 때려본 결과는 잘돌아감
+                            string wincount = string.Format("SELECT count(win_lose) FROM myduel where win_lose= '승리';");
+                            string losecount = string.Format("SELECT count(win_lose) FROM myduel where win_lose= '패배';");
+                            // 승률때문에 인한 double switch
+                            double playcount_string_change_double = Convert.ToInt32(playcount);
+                            double win_lose_string_change_double = Convert.ToInt32(wincount);
+                            //MySqlCommand commnad = new MySqlCommand();
+                            // win, lose count 반영이안됨
+                            MessageBox.Show("error", "승리" + wincount + "패배 " + losecount);
+                            table.Rows.Add(playcount, Math.Round(win_lose_string_change_double / playcount_string_change_double * 100) + "%", wincount, losecount);
+                
+                        }
+                        catch { }
+            }
+           
+
+        }
         #region Form2관련
         private void contextMenuStrip1_Opening(object sender, System.ComponentModel.CancelEventArgs e)
         {
@@ -386,6 +447,7 @@ namespace MyDuel
             
         }
         #endregion
+
         #region enter datagrid 금지
         private void dataGridView1_KeyDown(object sender, KeyEventArgs e)
         {
