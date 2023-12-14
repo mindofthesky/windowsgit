@@ -1,6 +1,8 @@
 using MySql.Data.MySqlClient;
 using MySqlX.XDevAPI.Relational;
 using System.Data;
+using System.Data.Common;
+using System.Drawing;
 
 namespace MyDuel
 {
@@ -75,14 +77,34 @@ namespace MyDuel
 
 
             #region 데이터 미리로드 
+            // 처음시작이 얘니까 
             double list2count = listView1.Items.Count;
             DataTable? table = new DataTable();
+            
             table.Columns.Add("플레이 수", typeof(string));
             table.Columns.Add("승률", typeof(string));
             table.Columns.Add("승수", typeof(int));
             table.Columns.Add("패배", typeof(int));
-            table.Rows.Add(list2count, Math.Round(win / list2count * 100) + "%", win, lose);
-
+            // string의 SQL 
+            string playcout = "SELECT count(No) FROM myduel;";
+            
+            // SQL문에 들어갈 포맷
+            string wincount = string.Format("SELECT count(win_lose) FROM myduel where win_lose= '승리';");
+            string playcount = string.Format("SELECT count(No) FROM myduel;");
+            string losecount = string.Format("SELECT count(win_lose) FROM myduel where win_lose= '패배';");
+            try
+            {
+                MySqlConnection mysql = new MySqlConnection(_Connection);
+                MySqlCommand command = new MySqlCommand(wincount, mysql);
+                mysql.Open();
+                //table.Rows.Add("", (100) + "%", "1" + wincount, losecount);
+                // 이렇게하면 Gridview에서 나옴 틀린거아님 
+                table.Rows.Add(command, 0, 1, 2);
+                dataGridView1.DataSource = table;
+            }
+            catch { }
+            
+            
 
             DataTable? table2 = new DataTable();
             table2.Columns.Add("앞", typeof(string));
@@ -97,7 +119,7 @@ namespace MyDuel
             table3.Columns.Add("코인토스", typeof(string));
             table3.Columns.Add("승률", typeof(string));
             table3.Rows.Add(DateTime.Now.ToString("yyMMdd"), list2count, front + ":" + back);
-            dataGridView1.DataSource = table;
+            
             dataGridView2.DataSource = table2;
             dataGridView3.DataSource = table3;
             #endregion
@@ -109,7 +131,7 @@ namespace MyDuel
         private void button1_Click(object sender, EventArgs e)
         {
 
-
+            System.Diagnostics.Debug.WriteLine("데이터는?");
             #region CRUD INSERT 완료
             /* DB의 배열값 
              * no = 0 
@@ -240,13 +262,15 @@ namespace MyDuel
                     // DB에서 SQL 때려본 결과는 잘돌아감
                     string wincount = string.Format("SELECT count(win_lose) FROM myduel where win_lose= '승리';");
                     string losecount = string.Format("SELECT count(win_lose) FROM myduel where win_lose= '패배';");
+                    // 당연한거야 간단히생각해보면 wincount > string 들어가잖아 그럼 0이란 값을 반환해야지
                     // 승률때문에 인한 double switch
                     double playcount_string_change_double = Convert.ToInt32(playcount);
                     double win_lose_string_change_double = Convert.ToInt32(wincount);
                     //MySqlCommand commnad = new MySqlCommand();
                     // win, lose count 반영이안됨
                     MessageBox.Show("error", "승리" + wincount + "패배 " + losecount);
-                    table.Rows.Add(playcount, Math.Round(win_lose_string_change_double / playcount_string_change_double * 100) + "%", wincount, losecount);
+
+                    table.Rows.Add(playcount, Math.Round(win_lose_string_change_double / playcount_string_change_double * 100) + "%","1"+ wincount, losecount);
                 }
             }
             catch {}
@@ -391,6 +415,7 @@ namespace MyDuel
             catch(Exception ex) { MessageBox.Show(ex.ToString()); }
         }
         #endregion
+        #region CRUD Update
         private void table()
         {
             using (MySqlConnection mysql = new MySqlConnection(_Connection))
@@ -427,6 +452,8 @@ namespace MyDuel
            
 
         }
+        #endregion
+
         #region Form2관련
         private void contextMenuStrip1_Opening(object sender, System.ComponentModel.CancelEventArgs e)
         {
