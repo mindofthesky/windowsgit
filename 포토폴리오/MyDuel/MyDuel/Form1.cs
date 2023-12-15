@@ -86,7 +86,7 @@ namespace MyDuel
             table.Columns.Add("승수", typeof(int));
             table.Columns.Add("패배", typeof(int));
             // string의 SQL 
-            string playcout = "SELECT count(No) FROM myduel;";
+            string playcout = "SELECT count(No) FROM myduel SET Count;";
             
             // SQL문에 들어갈 포맷
             string wincount = string.Format("SELECT count(win_lose) FROM myduel where win_lose= '승리';");
@@ -95,15 +95,15 @@ namespace MyDuel
             try
             {
 
-                
+                // 이렇게하면 Gridview에서 나옴 틀린거아님 해결은 했지만
                 MySqlConnection mysql = new MySqlConnection(_Connection);
                 mysql.Open();
                 MySqlCommand command = new MySqlCommand(wincount, mysql);
+
+                // CREATE TABLE 및 DROP TABLE 문의 경우 반환 값은 0입니다. 다른 형식의 문의 경우에는 반환 값이 -1입니다. 
                 
-                
-                //table.Rows.Add("", (100) + "%", "1" + wincount, losecount);
-                // 이렇게하면 Gridview에서 나옴 틀린거아님 
-                table.Rows.Add(command, 0, 1, 2);
+                // command -1 이 리턴한다면 쿼리가 잘못됬다는 뜻인데 > 근데 정상적으로 작동은함 DB에선 정상
+                table.Rows.Add(command.ExecuteNonQuery(), 0, 1, 2);
                 dataGridView1.DataSource = table;
             }
             catch { }
