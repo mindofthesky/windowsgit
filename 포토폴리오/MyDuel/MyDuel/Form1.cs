@@ -94,9 +94,13 @@ namespace MyDuel
             string losecount = string.Format("SELECT count(win_lose) FROM myduel where win_lose= '패배';");
             try
             {
+
+                
                 MySqlConnection mysql = new MySqlConnection(_Connection);
-                MySqlCommand command = new MySqlCommand(wincount, mysql);
                 mysql.Open();
+                MySqlCommand command = new MySqlCommand(wincount, mysql);
+                
+                
                 //table.Rows.Add("", (100) + "%", "1" + wincount, losecount);
                 // 이렇게하면 Gridview에서 나옴 틀린거아님 
                 table.Rows.Add(command, 0, 1, 2);
