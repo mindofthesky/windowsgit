@@ -98,12 +98,16 @@ namespace MyDuel
                 // 이렇게하면 Gridview에서 나옴 틀린거아님 해결은 했지만
                 MySqlConnection mysql = new MySqlConnection(_Connection);
                 mysql.Open();
-                MySqlCommand command = new MySqlCommand(wincount, mysql);
 
+                MySqlCommand win_command = new MySqlCommand(wincount, mysql);
+                MySqlCommand play_command = new MySqlCommand(playcount,mysql);
+                MySqlCommand lose_command = new MySqlCommand(losecount, mysql);
                 // CREATE TABLE 및 DROP TABLE 문의 경우 반환 값은 0입니다. 다른 형식의 문의 경우에는 반환 값이 -1입니다. 
-                
+
                 // command -1 이 리턴한다면 쿼리가 잘못됬다는 뜻인데 > 근데 정상적으로 작동은함 DB에선 정상
-                table.Rows.Add(command.ExecuteNonQuery(), 0, 1, 2);
+                //ExecuteScalar 하나의 값만 할거면 이걸 쓰자 
+                // 승률을 해야되는데 SQL형식으로 해야되는걸까?
+                table.Rows.Add(play_command.ExecuteScalar(), -1, win_command.ExecuteScalar(), lose_command.ExecuteScalar());
                 dataGridView1.DataSource = table;
             }
             catch { }
@@ -255,27 +259,25 @@ namespace MyDuel
             #region table1 DB 변환
             try
             {
-            
-            
-            // int list2count 값으로정의되잇기때문에 int값연산이 다된다 , 줄의 값을 보여주기때문에 다른 Row를 선언하면 추천되지않는다
-            
-                using (MySqlConnection mysql = new MySqlConnection(_Connection))
-                {
-                    mysql.Open();
-                    string playcount = string.Format("SELECT count(No) FROM myduel;");
-                    // DB에서 SQL 때려본 결과는 잘돌아감
-                    string wincount = string.Format("SELECT count(win_lose) FROM myduel where win_lose= '승리';");
-                    string losecount = string.Format("SELECT count(win_lose) FROM myduel where win_lose= '패배';");
-                    // 당연한거야 간단히생각해보면 wincount > string 들어가잖아 그럼 0이란 값을 반환해야지
-                    // 승률때문에 인한 double switch
-                    double playcount_string_change_double = Convert.ToInt32(playcount);
-                    double win_lose_string_change_double = Convert.ToInt32(wincount);
-                    //MySqlCommand commnad = new MySqlCommand();
-                    // win, lose count 반영이안됨
-                    MessageBox.Show("error", "승리" + wincount + "패배 " + losecount);
 
-                    table.Rows.Add(playcount, Math.Round(win_lose_string_change_double / playcount_string_change_double * 100) + "%","1"+ wincount, losecount);
-                }
+
+                // int list2count 값으로정의되잇기때문에 int값연산이 다된다 , 줄의 값을 보여주기때문에 다른 Row를 선언하면 추천되지않는다
+
+                string wincount = string.Format("SELECT count(win_lose) FROM myduel where win_lose= '승리';");
+                string playcount = string.Format("SELECT count(No) FROM myduel;");
+                string losecount = string.Format("SELECT count(win_lose) FROM myduel where win_lose= '패배';");
+                
+
+                // 이렇게하면 Gridview에서 나옴 틀린거아님 해결은 했지만
+                MySqlConnection mysql = new MySqlConnection(_Connection);
+                mysql.Open();
+                MySqlCommand win_command = new MySqlCommand(wincount, mysql);
+                MySqlCommand play_command = new MySqlCommand(playcount, mysql);
+                MySqlCommand lose_command = new MySqlCommand(losecount, mysql);
+                table.Rows.Add(play_command.ExecuteScalar(), -1, win_command.ExecuteScalar(), lose_command.ExecuteScalar());
+                dataGridView1.DataSource = table;
+                // OK Click 이벤트에서도 정상작동
+                
             }
             catch {}
             #endregion
@@ -368,7 +370,7 @@ namespace MyDuel
             // 성공함 그런데 이런 데이터만 가선안됨
             listcut = Convert.ToString(list2count);
             #endregion
-            dataGridView1.DataSource = table;
+            //dataGridView1.DataSource = table;
             dataGridView2.DataSource = table2;
             dataGridView3.DataSource = table3;
         }
