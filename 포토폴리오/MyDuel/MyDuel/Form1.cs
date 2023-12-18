@@ -107,7 +107,9 @@ namespace MyDuel
                 // command -1 이 리턴한다면 쿼리가 잘못됬다는 뜻인데 > 근데 정상적으로 작동은함 DB에선 정상
                 //ExecuteScalar 하나의 값만 할거면 이걸 쓰자 
                 // 승률을 해야되는데 SQL형식으로 해야되는걸까?
-                table.Rows.Add(play_command.ExecuteScalar(), -1, win_command.ExecuteScalar(), lose_command.ExecuteScalar());
+                // 소수점 없애고싶은데 
+                table.Rows.Add(play_command.ExecuteScalar(),Convert.ToDouble(win_command.ExecuteScalar()) 
+                    / Convert.ToDouble(play_command.ExecuteScalar()) * 100 + "%", win_command.ExecuteScalar(), lose_command.ExecuteScalar());
                 dataGridView1.DataSource = table;
             }
             catch { }
@@ -119,7 +121,38 @@ namespace MyDuel
             table2.Columns.Add("뒤", typeof(string));
             table2.Columns.Add("선공승률", typeof(string));
             table2.Columns.Add("후공승률", typeof(string));
-            table2.Rows.Add(front, back, Math.Round(turn_frist_win / turn_frist * 100) + "%", Math.Round(turn_second_win / turn_second * 100) + "%");
+
+
+            string forntcount = string.Format("SELECT count(cointos) FROM myduel where cointos= '앞면';");
+            string backcount = string.Format("SELECT count(cointos) FROM myduel where cointos= '뒷면';");
+
+            string fristcount = string.Format("SELECT count(cointos) FROM myduel where turn= '선공';");
+            string secondcount = string.Format("SELECT count(cointos) FROM myduel where turn= '후공';");
+            
+            string turn_frist_count = string.Format("SELECT count(turn) FROM myduel where turn= '선공' AND win_lose ='승리';");
+            string turn_second_count = string.Format("SELECT count(turn) FROM myduel where turn= '후공' AND win_lose ='승리';");
+
+            try
+            {
+                MySqlConnection mysql = new MySqlConnection(_Connection);
+                mysql.Open();
+                // 앞면 뒷면
+                MySqlCommand forntcommand = new MySqlCommand(forntcount, mysql);
+                MySqlCommand backcommand = new MySqlCommand(backcount, mysql);
+                // 선공 승리, 후공 승리
+                MySqlCommand turnfristcommand = new MySqlCommand(turn_frist_count, mysql);
+                MySqlCommand turnsecondcommand = new MySqlCommand(turn_second_count, mysql);
+                // 선후공 횟수 
+                MySqlCommand fristcommand = new MySqlCommand(fristcount, mysql);
+                MySqlCommand secondcommand = new MySqlCommand(secondcount, mysql);
+                // table insert
+                table2.Rows.Add(forntcommand.ExecuteScalar(), backcommand.ExecuteScalar(),
+                    Convert.ToDouble(turnfristcommand.ExecuteScalar()) / Convert.ToDouble(fristcommand.ExecuteScalar())*100+"%",
+                    Convert.ToDouble(turnsecondcommand.ExecuteScalar()) / Convert.ToDouble(secondcommand.ExecuteScalar()) * 100 + "%");
+                dataGridView2.DataSource = table2;
+            }
+            catch { }
+            
 
             DataTable table3 = new DataTable();
             table3.Columns.Add("날짜", typeof(string));
@@ -128,7 +161,7 @@ namespace MyDuel
             table3.Columns.Add("승률", typeof(string));
             table3.Rows.Add(DateTime.Now.ToString("yyMMdd"), list2count, front + ":" + back);
             
-            dataGridView2.DataSource = table2;
+            
             dataGridView3.DataSource = table3;
             #endregion
         }
@@ -260,7 +293,6 @@ namespace MyDuel
             try
             {
 
-
                 // int list2count 값으로정의되잇기때문에 int값연산이 다된다 , 줄의 값을 보여주기때문에 다른 Row를 선언하면 추천되지않는다
 
                 string wincount = string.Format("SELECT count(win_lose) FROM myduel where win_lose= '승리';");
@@ -274,7 +306,9 @@ namespace MyDuel
                 MySqlCommand win_command = new MySqlCommand(wincount, mysql);
                 MySqlCommand play_command = new MySqlCommand(playcount, mysql);
                 MySqlCommand lose_command = new MySqlCommand(losecount, mysql);
-                table.Rows.Add(play_command.ExecuteScalar(), -1, win_command.ExecuteScalar(), lose_command.ExecuteScalar());
+                // Double형의 소수점문제
+                table.Rows.Add(play_command.ExecuteScalar(), (Convert.ToInt32(win_command.ExecuteScalar())/ Convert.ToInt32(play_command.ExecuteScalar()))*100+"%", 
+                    win_command.ExecuteScalar(), lose_command.ExecuteScalar());
                 dataGridView1.DataSource = table;
                 // OK Click 이벤트에서도 정상작동
                 
@@ -285,6 +319,7 @@ namespace MyDuel
             #endregion Table 1 End 
 
             #region Table 2 Start
+            /*
             // Table nullable 을 써도 해결방법은 없다 NaN처리는 다른 방법이 필요하다
             DataTable? table2 = new DataTable();
 
@@ -300,8 +335,43 @@ namespace MyDuel
             double win_s = 0;
             // int 형으로했을때 소수점이 생략되서 0으로 나오기때문에 double형으로 넣으면 오류는 발생하지않으나 소수점은 Math.Round로 처리
             table2.Rows.Add(front, back, Math.Round(turn_frist_win / turn_frist * 100) + "%", Math.Round(turn_second_win / turn_second * 100) + "%");
+            */
+            DataTable? table2 = new DataTable();
+            table2.Columns.Add("앞", typeof(string));
+            table2.Columns.Add("뒤", typeof(string));
+            table2.Columns.Add("선공승률", typeof(string));
+            table2.Columns.Add("후공승률", typeof(string));
 
 
+            string forntcount = string.Format("SELECT count(cointos) FROM myduel where cointos= '앞면';");
+            string backcount = string.Format("SELECT count(cointos) FROM myduel where cointos= '뒷면';");
+
+            string fristcount = string.Format("SELECT count(cointos) FROM myduel where turn= '선공';");
+            string secondcount = string.Format("SELECT count(cointos) FROM myduel where turn= '후공';");
+
+            string turn_frist_count = string.Format("SELECT count(turn) FROM myduel where turn= '선공' AND win_lose ='승리';");
+            string turn_second_count = string.Format("SELECT count(turn) FROM myduel where turn= '후공' AND win_lose ='승리';");
+
+            try
+            {
+                MySqlConnection mysql = new MySqlConnection(_Connection);
+                mysql.Open();
+                // 앞면 뒷면
+                MySqlCommand forntcommand = new MySqlCommand(forntcount, mysql);
+                MySqlCommand backcommand = new MySqlCommand(backcount, mysql);
+                // 선공 승리, 후공 승리
+                MySqlCommand turnfristcommand = new MySqlCommand(turn_frist_count, mysql);
+                MySqlCommand turnsecondcommand = new MySqlCommand(turn_second_count, mysql);
+                // 선후공 횟수 
+                MySqlCommand fristcommand = new MySqlCommand(fristcount, mysql);
+                MySqlCommand secondcommand = new MySqlCommand(secondcount, mysql);
+                // table insert
+                table2.Rows.Add(forntcommand.ExecuteScalar(), backcommand.ExecuteScalar(),
+                    Convert.ToDouble(turnfristcommand.ExecuteScalar()) / Convert.ToDouble(fristcommand.ExecuteScalar()) * 100 + "%",
+                    Convert.ToDouble(turnsecondcommand.ExecuteScalar()) / Convert.ToDouble(secondcommand.ExecuteScalar()) * 100 + "%");
+                dataGridView2.DataSource = table2;
+            }
+            catch { }
 
 
 
@@ -317,7 +387,7 @@ namespace MyDuel
 
 
             #endregion
-           
+
             #region Table3 Start 
             // table3 의 경우 날짜마다 토스, 판수, 승률을 나눠야함 
 
