@@ -78,7 +78,8 @@ namespace MyDuel
 
             #region 데이터 미리로드 
             // 처음시작이 얘니까 
-            double list2count = listView1.Items.Count;
+            
+            #region table DB
             DataTable? table = new DataTable();
             
             table.Columns.Add("플레이 수", typeof(string));
@@ -113,9 +114,9 @@ namespace MyDuel
                 dataGridView1.DataSource = table;
             }
             catch { }
-            
-            
+            #endregion
 
+            #region table2 DB
             DataTable? table2 = new DataTable();
             table2.Columns.Add("앞", typeof(string));
             table2.Columns.Add("뒤", typeof(string));
@@ -152,20 +153,37 @@ namespace MyDuel
                 dataGridView2.DataSource = table2;
             }
             catch { }
-            
+            #endregion
 
+            #region table3 DB
             DataTable table3 = new DataTable();
+
             table3.Columns.Add("날짜", typeof(string));
             table3.Columns.Add("판수", typeof(string));
             table3.Columns.Add("코인토스", typeof(string));
             table3.Columns.Add("승률", typeof(string));
-            table3.Rows.Add(DateTime.Now.ToString("yyMMdd"), list2count, front + ":" + back);
+            string date = string.Format("SELECT DISTINCT date FROM myduel;");
+            try
+            {  int a = 0;
+                MySqlConnection mysql = new MySqlConnection(_Connection);
+                mysql.Open();
+                MySqlCommand datecommand = new MySqlCommand(date, mysql);
+                
+                
+                
+                
+                dataGridView3.DataSource = table3;
+            }
+            catch { }
             
             
-            dataGridView3.DataSource = table3;
+            
+            #endregion
+
+            
             #endregion
         }
-
+         
         #endregion
         // Update , listview , datagrid 값 관련
         #region listview1, datagrid 1,2,3
@@ -277,9 +295,9 @@ namespace MyDuel
 
             #endregion
            
-            #region Table 1 Start 
+            #region Table 1 Start DB
 
-            ListViewItem item2 = new ListViewItem();
+            
             DataTable? table = new DataTable();
             table.Columns.Add("플레이 수", typeof(string));
             table.Columns.Add("승률", typeof(string));
@@ -318,7 +336,9 @@ namespace MyDuel
             //table.Rows.Add(list2count, Math.Round(win / list2count * 100) + "%", win, lose);
             #endregion Table 1 End 
 
-            #region Table 2 Start
+            #region Table 2 DB
+
+            #region DB 이전 버전
             /*
             // Table nullable 을 써도 해결방법은 없다 NaN처리는 다른 방법이 필요하다
             DataTable? table2 = new DataTable();
@@ -336,6 +356,7 @@ namespace MyDuel
             // int 형으로했을때 소수점이 생략되서 0으로 나오기때문에 double형으로 넣으면 오류는 발생하지않으나 소수점은 Math.Round로 처리
             table2.Rows.Add(front, back, Math.Round(turn_frist_win / turn_frist * 100) + "%", Math.Round(turn_second_win / turn_second * 100) + "%");
             */
+            #endregion
             DataTable? table2 = new DataTable();
             table2.Columns.Add("앞", typeof(string));
             table2.Columns.Add("뒤", typeof(string));
@@ -388,7 +409,7 @@ namespace MyDuel
 
             #endregion
 
-            #region Table3 Start 
+            #region Table 3 Start DB 구현중
             // table3 의 경우 날짜마다 토스, 판수, 승률을 나눠야함 
 
 
@@ -439,10 +460,13 @@ namespace MyDuel
             #region 폼2에 보낼 데이터 
             // 성공함 그런데 이런 데이터만 가선안됨
             listcut = Convert.ToString(list2count);
+            // 데이터를 보낼바에는중복적인 데이터를 사용하게 만들고 
+            // 디비를 구현하는게 더 나음 > 디비구현의 이유
             #endregion
             //dataGridView1.DataSource = table;
             dataGridView2.DataSource = table2;
             dataGridView3.DataSource = table3;
+            //
         }
         #endregion
 
