@@ -93,7 +93,7 @@ namespace MyDuel
             string wincount = string.Format("SELECT count(win_lose) FROM myduel where win_lose= '승리';");
             string playcount = string.Format("SELECT count(No) FROM myduel;");
             string losecount = string.Format("SELECT count(win_lose) FROM myduel where win_lose= '패배';");
-            try
+            try 
             {
 
                 // 이렇게하면 Gridview에서 나옴 틀린거아님 해결은 했지만
@@ -163,15 +163,17 @@ namespace MyDuel
             table3.Columns.Add("코인토스", typeof(string));
             table3.Columns.Add("승률", typeof(string));
             string date = string.Format("SELECT DISTINCT date FROM myduel;");
+            DataRow row;
             try
             {  int a = 0;
                 MySqlConnection mysql = new MySqlConnection(_Connection);
                 mysql.Open();
                 MySqlCommand datecommand = new MySqlCommand(date, mysql);
                 
-                
-                
-                
+                    row = table3.NewRow();
+                    table3.Rows.Add("1");
+
+                //table3.Rows.Add(datecommand.ExecuteScalar());
                 dataGridView3.DataSource = table3;
             }
             catch { }
@@ -464,7 +466,7 @@ namespace MyDuel
             // 디비를 구현하는게 더 나음 > 디비구현의 이유
             #endregion
             //dataGridView1.DataSource = table;
-            dataGridView2.DataSource = table2;
+            //dataGridView2.DataSource = table2;
             dataGridView3.DataSource = table3;
             //
         }
