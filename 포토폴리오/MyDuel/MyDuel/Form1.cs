@@ -2,6 +2,7 @@ using MySql.Data.MySqlClient;
 using MySqlX.XDevAPI.Relational;
 using System.Data;
 using System.Data.Common;
+using System.Diagnostics;
 using System.Drawing;
 
 namespace MyDuel
@@ -80,6 +81,7 @@ namespace MyDuel
             // 처음시작이 얘니까 
             
             #region table DB
+            // 간단한 SELECT 구문
             DataTable? table = new DataTable();
             
             table.Columns.Add("플레이 수", typeof(string));
@@ -117,6 +119,7 @@ namespace MyDuel
             #endregion
 
             #region table2 DB
+            // datagrid 1, 2 는 간단한 SELECT 구문에서 WHERE AND 까지지만 
             DataTable? table2 = new DataTable();
             table2.Columns.Add("앞", typeof(string));
             table2.Columns.Add("뒤", typeof(string));
@@ -156,6 +159,12 @@ namespace MyDuel
             #endregion
 
             #region table3 DB
+            /* TABLE 3는 다르게 진행 
+            * 중복을 허용하지않고 
+            * 값을 하나만 불러오며 
+            * 쿼리의 복잡도를 높여보자 
+            * 생각으로 짠코드이기에 논리형식은 머리속에서 정리가되어있는 상태임
+            */
             DataTable table3 = new DataTable();
 
             table3.Columns.Add("날짜", typeof(string));
@@ -163,18 +172,50 @@ namespace MyDuel
             table3.Columns.Add("코인토스", typeof(string));
             table3.Columns.Add("승률", typeof(string));
             string date = string.Format("SELECT DISTINCT date FROM myduel;");
+            string play = string.Format("SELECT DISTINCT count(turn) FROM myduel where date={0};",DateTime.Now.ToString("yymmdd"));
+
+            // 이와 같은 계속 데이터가 호출되어야하지만 
+            // 원하는데이터는
+            /*
+             * SELECT DISTINCT count(turn) FROM myduel where date='231211'; 이쿼리가 끝나면
+             * SELECT DISTINCT count(turn) FROM myduel where date='231212'; 이쿼리를 받아오고 
+             * SELECT DISTINCT count(turn) FROM myduel where date={0} break 조건 {0} == Null break;
+             * 쿼리가 Null 만날때까지 계속해야함
+             */
+            TextWriterTraceListener trace = new TextWriterTraceListener(Console.Out+"");
+            
+            for (int i = 0; i < table3.Rows.Count; i++)
+            {
+                
+                Debug.WriteLine("test" + table3.Rows[i]);
+                Debug.Assert(trace != null, "error");
+                Debug.WriteLine("test" + table3.Rows[i]+"!");
+            }
             DataRow row;
             try
             {  int a = 0;
                 MySqlConnection mysql = new MySqlConnection(_Connection);
                 mysql.Open();
                 MySqlCommand datecommand = new MySqlCommand(date, mysql);
-                
-                    row = table3.NewRow();
-                    table3.Rows.Add("1");
+                MySqlCommand playcommand = new MySqlCommand(play, mysql);
+                MySqlDataAdapter adapter = new MySqlDataAdapter();
+                MySqlDataAdapter adapter1 = new MySqlDataAdapter();
+                adapter.SelectCommand = datecommand;
+                adapter1.SelectCommand = playcommand;
+                DataSet ds = new DataSet();
 
+                table3 = ds.Tables["날짜"];
+                table3 = ds.Tables["판수"];
+                table3 = ds.Tables["코인토스"];
+                table3 = ds.Tables["승률"];
+                adapter.Fill(ds,"날짜");
+                adapter1.Fill(ds, "2");
+
+
+                dataGridView3.DataSource = ds.Tables["1"];
+                dataGridView3.DataSource = ds.Tables["2"];
                 //table3.Rows.Add(datecommand.ExecuteScalar());
-                dataGridView3.DataSource = table3;
+                //dataGridView3.DataSource = table3;
             }
             catch { }
             
