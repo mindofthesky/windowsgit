@@ -164,16 +164,22 @@ namespace MyDuel
             * 값을 하나만 불러오며 
             * 쿼리의 복잡도를 높여보자 
             * 생각으로 짠코드이기에 논리형식은 머리속에서 정리가되어있는 상태임
+            * 조금 도움을 받아봤는데 역시 쿼리접근이 틀렸음 
             */
             DataTable table3 = new DataTable();
-
+            // 정상적으로 들어가는경우 
+            // SELECT count(*) AS cnt, DISTINCT date, SUM(if(win_lose='승리', 1,0) AS win_cnt, SUM(if(win_lose='패배', 1, 0) AS lose_cnt FROM myduel GROUP BY date ORDER BY date DESC
             table3.Columns.Add("날짜", typeof(string));
             table3.Columns.Add("판수", typeof(string));
             table3.Columns.Add("코인토스", typeof(string));
             table3.Columns.Add("승률", typeof(string));
-            string date = string.Format("SELECT DISTINCT date FROM myduel;");
+            // 날짜 , 판수 데이터 !
+            string date = string.Format("SELECT date AS 날짜 ,count(*) AS 판수  FROM myduel GROUP BY date ORDER BY date"); // 다 불러오지만 원하는 쿼리를 해야한다면 다중쿼리 코드 작성필요 
+            //string date = string.Format("SELECT DISTINCT date FROM myduel;"); 
+            // 아ㅏ아아아 모든 구문을 다 부르는 경우는 가능하지만 이러면 이중을 쓰는게 나아보이는데 위에 모든 sql쿼리를 가져오라했더니 정상작동을 하니 
+            // 그렇다면 다중 sql 쿼리로 불러와야한다 그럼 방법은 중첩쿼리?  >> 쿼리가바꾸는게 최고다
             string play = string.Format("SELECT DISTINCT count(turn) FROM myduel where date={0};",DateTime.Now.ToString("yymmdd"));
-
+            
             // 이와 같은 계속 데이터가 호출되어야하지만 
             // 원하는데이터는
             /*
@@ -182,15 +188,8 @@ namespace MyDuel
              * SELECT DISTINCT count(turn) FROM myduel where date={0} break 조건 {0} == Null break;
              * 쿼리가 Null 만날때까지 계속해야함
              */
-            TextWriterTraceListener trace = new TextWriterTraceListener(Console.Out+"");
             
-            for (int i = 0; i < table3.Rows.Count; i++)
-            {
-                
-                Debug.WriteLine("test" + table3.Rows[i]);
-                Debug.Assert(trace != null, "error");
-                Debug.WriteLine("test" + table3.Rows[i]+"!");
-            }
+            
             DataRow row;
             try
             {  int a = 0;
@@ -200,6 +199,7 @@ namespace MyDuel
                 MySqlCommand playcommand = new MySqlCommand(play, mysql);
                 MySqlDataAdapter adapter = new MySqlDataAdapter();
                 MySqlDataAdapter adapter1 = new MySqlDataAdapter();
+               // MySqlDataAdapter adapter = new MySqlDataAdapter(date, mysql);
                 adapter.SelectCommand = datecommand;
                 adapter1.SelectCommand = playcommand;
                 DataSet ds = new DataSet();
@@ -208,12 +208,16 @@ namespace MyDuel
                 table3 = ds.Tables["판수"];
                 table3 = ds.Tables["코인토스"];
                 table3 = ds.Tables["승률"];
-                adapter.Fill(ds,"날짜");
-                adapter1.Fill(ds, "2");
+                adapter.Fill(ds, "날짜");
+                //adapter1.Fill(ds, "2");
 
-
-                dataGridView3.DataSource = ds.Tables["1"];
-                dataGridView3.DataSource = ds.Tables["2"];
+               
+                dataGridView3.DataSource = ds.Tables["날짜"];
+                for (int i = 0; i < table3.Rows.Count; i++)
+                {
+                    
+                }
+                //dataGridView3.DataSource = ds.Tables["2"];
                 //table3.Rows.Add(datecommand.ExecuteScalar());
                 //dataGridView3.DataSource = table3;
             }
