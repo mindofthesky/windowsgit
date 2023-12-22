@@ -168,17 +168,17 @@ namespace MyDuel
             */
             DataTable table3 = new DataTable();
             // 정상적으로 들어가는경우 
-            // SELECT count(*) AS cnt, DISTINCT date, SUM(if(win_lose='승리', 1,0) AS win_cnt, SUM(if(win_lose='패배', 1, 0) AS lose_cnt FROM myduel GROUP BY date ORDER BY date DESC
+            // SELECT DISTINCT date as 날짜,  count(*) AS 판수, SUM(if(win_lose='승리', 1,0) AS win_cnt, SUM(if(win_lose='패배', 1, 0) AS lose_cnt FROM myduel GROUP BY date ORDER BY date DESC
             table3.Columns.Add("날짜", typeof(string));
             table3.Columns.Add("판수", typeof(string));
             table3.Columns.Add("코인토스", typeof(string));
             table3.Columns.Add("승률", typeof(string));
             // 날짜 , 판수 데이터 !
-            string date = string.Format("SELECT date AS 날짜 ,count(*) AS 판수  FROM myduel GROUP BY date ORDER BY date"); // 다 불러오지만 원하는 쿼리를 해야한다면 다중쿼리 코드 작성필요 
+            string date = string.Format("SELECT date AS 날짜 ,count(*) AS 판수, sum(if(win_lose='승리',1,0)) as 승리, sum(if(win_lose='패배',1,0)) as 패배 FROM myduel GROUP BY date ORDER BY date"); // 다 불러오지만 원하는 쿼리를 해야한다면 다중쿼리 코드 작성필요 
             //string date = string.Format("SELECT DISTINCT date FROM myduel;"); 
             // 아ㅏ아아아 모든 구문을 다 부르는 경우는 가능하지만 이러면 이중을 쓰는게 나아보이는데 위에 모든 sql쿼리를 가져오라했더니 정상작동을 하니 
             // 그렇다면 다중 sql 쿼리로 불러와야한다 그럼 방법은 중첩쿼리?  >> 쿼리가바꾸는게 최고다
-            string play = string.Format("SELECT DISTINCT count(turn) FROM myduel where date={0};",DateTime.Now.ToString("yymmdd"));
+            
             
             // 이와 같은 계속 데이터가 호출되어야하지만 
             // 원하는데이터는
@@ -196,27 +196,21 @@ namespace MyDuel
                 MySqlConnection mysql = new MySqlConnection(_Connection);
                 mysql.Open();
                 MySqlCommand datecommand = new MySqlCommand(date, mysql);
-                MySqlCommand playcommand = new MySqlCommand(play, mysql);
+                //MySqlCommand playcommand = new MySqlCommand(play, mysql);
                 MySqlDataAdapter adapter = new MySqlDataAdapter();
                 MySqlDataAdapter adapter1 = new MySqlDataAdapter();
                // MySqlDataAdapter adapter = new MySqlDataAdapter(date, mysql);
                 adapter.SelectCommand = datecommand;
-                adapter1.SelectCommand = playcommand;
+                //adapter1.SelectCommand = playcommand;
                 DataSet ds = new DataSet();
 
-                table3 = ds.Tables["날짜"];
-                table3 = ds.Tables["판수"];
-                table3 = ds.Tables["코인토스"];
-                table3 = ds.Tables["승률"];
+                
                 adapter.Fill(ds, "날짜");
                 //adapter1.Fill(ds, "2");
 
                
                 dataGridView3.DataSource = ds.Tables["날짜"];
-                for (int i = 0; i < table3.Rows.Count; i++)
-                {
-                    
-                }
+                
                 //dataGridView3.DataSource = ds.Tables["2"];
                 //table3.Rows.Add(datecommand.ExecuteScalar());
                 //dataGridView3.DataSource = table3;
@@ -383,7 +377,7 @@ namespace MyDuel
             //table.Rows.Add(list2count, Math.Round(win / list2count * 100) + "%", win, lose);
             #endregion Table 1 End 
 
-            #region Table 2 DB
+            #region Table 2 Start DB
 
             #region DB 이전 버전
             /*
@@ -456,13 +450,14 @@ namespace MyDuel
 
             #endregion
 
-            #region Table 3 Start DB 구현중
+            #region Table 3 Start DB
             // table3 의 경우 날짜마다 토스, 판수, 승률을 나눠야함 
 
-
+            #region 이전 버전 클릭이벤트 
             // 날짜마다 가산되어야함 
             // 날짜와 날짜는 서로 다름 
             // 판수의 데이터를 뽑아내는게 문젠데 
+            /*
             DataTable? table3 = new DataTable();
             table3.Columns.Add("날짜", typeof(string));
             table3.Columns.Add("판수", typeof(string));
@@ -499,10 +494,38 @@ namespace MyDuel
 
 
                 }
+            }*/
+            #endregion 
+            DataTable table3 = new DataTable();
+            // 정상적으로 들어가는경우 
+            // SELECT DISTINCT date as 날짜,  count(*) AS 판수, SUM(if(win_lose='승리', 1,0) AS win_cnt, SUM(if(win_lose='패배', 1, 0) AS lose_cnt FROM myduel GROUP BY date ORDER BY date DESC
+            table3.Columns.Add("날짜", typeof(string));
+            table3.Columns.Add("판수", typeof(string));
+            table3.Columns.Add("코인토스", typeof(string));
+            table3.Columns.Add("승률", typeof(string));
+            // 날짜 , 판수 데이터 !
+            string date = string.Format("SELECT date AS 날짜 ,count(*) AS 판수, sum(if(win_lose='승리',1,0)) as 승리, sum(if(win_lose='패배',1,0)) as 패배 FROM myduel GROUP BY date ORDER BY date"); // 다 불러오지만 원하는 쿼리를 해야한다면 다중쿼리 코드 작성필요 
+            // 이와 같은 계속 데이터가 호출되어야하지만 
+            // 원하는데이터는
+            try
+            {
+                // 현재 에러남 
+                int a = 0;
+                MySqlConnection mysql = new MySqlConnection(_Connection);
+                mysql.Open();
+                MySqlCommand datecommand = new MySqlCommand(date, mysql);
+                MySqlDataAdapter adapter = new MySqlDataAdapter(date, mysql);
+                adapter.SelectCommand = datecommand;
+                DataSet ds = new DataSet();
+                adapter.Fill(ds, "날짜");
+                dataGridView3.DataSource = ds.Tables["날짜"];
             }
+            catch { }
+
+
             #endregion Table3 End
 
-           
+
 
             #region 폼2에 보낼 데이터 
             // 성공함 그런데 이런 데이터만 가선안됨
