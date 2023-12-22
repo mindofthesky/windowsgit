@@ -1,0 +1,12 @@
+{
+  "version": 2,
+  "dgSpecHash": "fywl8nC0Oj6XU4epKCxrcd0nlWxCr0fYfRZQC+GogxBjQSqfexB80NslrA+zrWngXpyqewTdv9V2YbfTmlM5aw==",
+  "success": true,
+  "projectFilePath": "C:\\Users\\mindo\\source\\repos\\RainForce\\RainForce\\RainForce.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\mindo\\.nuget\\packages\\microsoft.win32.systemevents\\7.0.0\\microsoft.win32.systemevents.7.0.0.nupkg.sha512",
+    "C:\\Users\\mindo\\.nuget\\packages\\newtonsoft.json\\13.0.3\\newtonsoft.json.13.0.3.nupkg.sha512",
+    "C:\\Users\\mindo\\.nuget\\packages\\system.drawing.common\\7.0.0\\system.drawing.common.7.0.0.nupkg.sha512"
+  ],
+  "logs": []
+}

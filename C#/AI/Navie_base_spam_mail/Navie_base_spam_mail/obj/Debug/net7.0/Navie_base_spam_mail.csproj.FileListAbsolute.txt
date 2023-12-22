@@ -1,0 +1,14 @@
+C:\Users\mindo\source\repos\Navie_base_spam_mail\Navie_base_spam_mail\bin\Debug\net7.0\Navie_base_spam_mail.exe
+C:\Users\mindo\source\repos\Navie_base_spam_mail\Navie_base_spam_mail\bin\Debug\net7.0\Navie_base_spam_mail.deps.json
+C:\Users\mindo\source\repos\Navie_base_spam_mail\Navie_base_spam_mail\bin\Debug\net7.0\Navie_base_spam_mail.runtimeconfig.json
+C:\Users\mindo\source\repos\Navie_base_spam_mail\Navie_base_spam_mail\bin\Debug\net7.0\Navie_base_spam_mail.dll
+C:\Users\mindo\source\repos\Navie_base_spam_mail\Navie_base_spam_mail\bin\Debug\net7.0\Navie_base_spam_mail.pdb
+C:\Users\mindo\source\repos\Navie_base_spam_mail\Navie_base_spam_mail\obj\Debug\net7.0\Navie_base_spam_mail.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\mindo\source\repos\Navie_base_spam_mail\Navie_base_spam_mail\obj\Debug\net7.0\Navie_base_spam_mail.AssemblyInfoInputs.cache
+C:\Users\mindo\source\repos\Navie_base_spam_mail\Navie_base_spam_mail\obj\Debug\net7.0\Navie_base_spam_mail.AssemblyInfo.cs
+C:\Users\mindo\source\repos\Navie_base_spam_mail\Navie_base_spam_mail\obj\Debug\net7.0\Navie_base_spam_mail.csproj.CoreCompileInputs.cache
+C:\Users\mindo\source\repos\Navie_base_spam_mail\Navie_base_spam_mail\obj\Debug\net7.0\Navie_base_spam_mail.dll
+C:\Users\mindo\source\repos\Navie_base_spam_mail\Navie_base_spam_mail\obj\Debug\net7.0\refint\Navie_base_spam_mail.dll
+C:\Users\mindo\source\repos\Navie_base_spam_mail\Navie_base_spam_mail\obj\Debug\net7.0\Navie_base_spam_mail.pdb
+C:\Users\mindo\source\repos\Navie_base_spam_mail\Navie_base_spam_mail\obj\Debug\net7.0\Navie_base_spam_mail.genruntimeconfig.cache
+C:\Users\mindo\source\repos\Navie_base_spam_mail\Navie_base_spam_mail\obj\Debug\net7.0\ref\Navie_base_spam_mail.dll

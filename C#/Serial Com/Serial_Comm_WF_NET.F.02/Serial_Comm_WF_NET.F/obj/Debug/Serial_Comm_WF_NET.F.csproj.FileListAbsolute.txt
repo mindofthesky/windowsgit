@@ -1,0 +1,10 @@
+C:\Users\mindo\source\repos\Serial_Comm_WF_NET.F\Serial_Comm_WF_NET.F\bin\Debug\Serial_Comm_WF_NET.F.exe.config
+C:\Users\mindo\source\repos\Serial_Comm_WF_NET.F\Serial_Comm_WF_NET.F\bin\Debug\Serial_Comm_WF_NET.F.exe
+C:\Users\mindo\source\repos\Serial_Comm_WF_NET.F\Serial_Comm_WF_NET.F\bin\Debug\Serial_Comm_WF_NET.F.pdb
+C:\Users\mindo\source\repos\Serial_Comm_WF_NET.F\Serial_Comm_WF_NET.F\obj\Debug\Serial_Comm_WF_NET.F.csproj.AssemblyReference.cache
+C:\Users\mindo\source\repos\Serial_Comm_WF_NET.F\Serial_Comm_WF_NET.F\obj\Debug\Serial_Comm_WF_NET.F.Form1.resources
+C:\Users\mindo\source\repos\Serial_Comm_WF_NET.F\Serial_Comm_WF_NET.F\obj\Debug\Serial_Comm_WF_NET.F.Properties.Resources.resources
+C:\Users\mindo\source\repos\Serial_Comm_WF_NET.F\Serial_Comm_WF_NET.F\obj\Debug\Serial_Comm_WF_NET.F.csproj.GenerateResource.cache
+C:\Users\mindo\source\repos\Serial_Comm_WF_NET.F\Serial_Comm_WF_NET.F\obj\Debug\Serial_Comm_WF_NET.F.csproj.CoreCompileInputs.cache
+C:\Users\mindo\source\repos\Serial_Comm_WF_NET.F\Serial_Comm_WF_NET.F\obj\Debug\Serial_Comm_WF_NET.F.exe
+C:\Users\mindo\source\repos\Serial_Comm_WF_NET.F\Serial_Comm_WF_NET.F\obj\Debug\Serial_Comm_WF_NET.F.pdb

@@ -1,0 +1,14 @@
+C:\Users\mindo\source\repos\TreeVariants\TreeVariants\bin\Debug\net7.0\TreeVariants.exe
+C:\Users\mindo\source\repos\TreeVariants\TreeVariants\bin\Debug\net7.0\TreeVariants.deps.json
+C:\Users\mindo\source\repos\TreeVariants\TreeVariants\bin\Debug\net7.0\TreeVariants.runtimeconfig.json
+C:\Users\mindo\source\repos\TreeVariants\TreeVariants\bin\Debug\net7.0\TreeVariants.dll
+C:\Users\mindo\source\repos\TreeVariants\TreeVariants\bin\Debug\net7.0\TreeVariants.pdb
+C:\Users\mindo\source\repos\TreeVariants\TreeVariants\obj\Debug\net7.0\TreeVariants.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\mindo\source\repos\TreeVariants\TreeVariants\obj\Debug\net7.0\TreeVariants.AssemblyInfoInputs.cache
+C:\Users\mindo\source\repos\TreeVariants\TreeVariants\obj\Debug\net7.0\TreeVariants.AssemblyInfo.cs
+C:\Users\mindo\source\repos\TreeVariants\TreeVariants\obj\Debug\net7.0\TreeVariants.csproj.CoreCompileInputs.cache
+C:\Users\mindo\source\repos\TreeVariants\TreeVariants\obj\Debug\net7.0\TreeVariants.dll
+C:\Users\mindo\source\repos\TreeVariants\TreeVariants\obj\Debug\net7.0\refint\TreeVariants.dll
+C:\Users\mindo\source\repos\TreeVariants\TreeVariants\obj\Debug\net7.0\TreeVariants.pdb
+C:\Users\mindo\source\repos\TreeVariants\TreeVariants\obj\Debug\net7.0\TreeVariants.genruntimeconfig.cache
+C:\Users\mindo\source\repos\TreeVariants\TreeVariants\obj\Debug\net7.0\ref\TreeVariants.dll

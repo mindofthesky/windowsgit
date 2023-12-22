@@ -1,0 +1,16 @@
+{
+  "version": 2,
+  "dgSpecHash": "zNOmQNf6h7w3MA2G9P/nUzX+EoUxqVGXBm4Ft2Ft0Xss7tGvukJHSeS2+ERqOrRP9cAto5hoLB6+C+NoygirWA==",
+  "success": true,
+  "projectFilePath": "C:\\Users\\mindo\\source\\repos\\Gradient desent\\Gradient desent\\Gradient desent.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\mindo\\.nuget\\packages\\microsoft.win32.systemevents\\7.0.0\\microsoft.win32.systemevents.7.0.0.nupkg.sha512",
+    "C:\\Users\\mindo\\.nuget\\packages\\system.configuration.configurationmanager\\7.0.0\\system.configuration.configurationmanager.7.0.0.nupkg.sha512",
+    "C:\\Users\\mindo\\.nuget\\packages\\system.diagnostics.eventlog\\7.0.0\\system.diagnostics.eventlog.7.0.0.nupkg.sha512",
+    "C:\\Users\\mindo\\.nuget\\packages\\system.drawing.common\\7.0.0\\system.drawing.common.7.0.0.nupkg.sha512",
+    "C:\\Users\\mindo\\.nuget\\packages\\system.security.cryptography.protecteddata\\7.0.0\\system.security.cryptography.protecteddata.7.0.0.nupkg.sha512",
+    "C:\\Users\\mindo\\.nuget\\packages\\system.security.permissions\\7.0.0\\system.security.permissions.7.0.0.nupkg.sha512",
+    "C:\\Users\\mindo\\.nuget\\packages\\system.windows.extensions\\7.0.0\\system.windows.extensions.7.0.0.nupkg.sha512"
+  ],
+  "logs": []
+}

@@ -1,0 +1,9 @@
+C:\Users\mindo\source\repos\KMean_code_study\KMean_code_study\bin\Debug\KMean_code_study.exe.config
+C:\Users\mindo\source\repos\KMean_code_study\KMean_code_study\bin\Debug\KMean_code_study.exe
+C:\Users\mindo\source\repos\KMean_code_study\KMean_code_study\bin\Debug\KMean_code_study.pdb
+C:\Users\mindo\source\repos\KMean_code_study\KMean_code_study\obj\Debug\KMean_code_study.csproj.AssemblyReference.cache
+C:\Users\mindo\source\repos\KMean_code_study\KMean_code_study\obj\Debug\KMean_code_study.Properties.Resources.resources
+C:\Users\mindo\source\repos\KMean_code_study\KMean_code_study\obj\Debug\KMean_code_study.csproj.GenerateResource.cache
+C:\Users\mindo\source\repos\KMean_code_study\KMean_code_study\obj\Debug\KMean_code_study.csproj.CoreCompileInputs.cache
+C:\Users\mindo\source\repos\KMean_code_study\KMean_code_study\obj\Debug\KMean_code_study.exe
+C:\Users\mindo\source\repos\KMean_code_study\KMean_code_study\obj\Debug\KMean_code_study.pdb

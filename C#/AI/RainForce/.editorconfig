@@ -1,0 +1,4 @@
+﻿[*.{cs,vb}]
+
+# IDE0032: auto 속성 사용
+dotnet_diagnostic.IDE0032.severity = silent

@@ -1,0 +1,12 @@
+{
+  "version": 2,
+  "dgSpecHash": "YiISzSXqdeOFZeZAmzMQkcOHBuJxlVI8h0TxF2YnPH3c0wLtq6DM3ZD6pHwxPgHaIPUSHyHSgzjV2o+mQTAFWw==",
+  "success": true,
+  "projectFilePath": "C:\\Users\\mindo\\source\\repos\\Image Processing Basic\\Image Processing Basic\\Image Processing Basic.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\mindo\\.nuget\\packages\\opencvsharp4\\4.8.0.20230708\\opencvsharp4.4.8.0.20230708.nupkg.sha512",
+    "C:\\Users\\mindo\\.nuget\\packages\\system.memory\\4.5.5\\system.memory.4.5.5.nupkg.sha512",
+    "C:\\Users\\mindo\\.nuget\\packages\\system.runtime.compilerservices.unsafe\\6.0.0\\system.runtime.compilerservices.unsafe.6.0.0.nupkg.sha512"
+  ],
+  "logs": []
+}
