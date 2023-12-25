@@ -269,13 +269,14 @@
             // 
             // dataGridView3
             // 
+            dataGridView3.AllowUserToAddRows = false;
             dataGridView3.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             dataGridView3.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.DisplayedCells;
             dataGridView3.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             dataGridView3.Location = new Point(6, 109);
             dataGridView3.Name = "dataGridView3";
             dataGridView3.RowHeadersVisible = false;
-            dataGridView3.ScrollBars = ScrollBars.None;
+            dataGridView3.ScrollBars = ScrollBars.Vertical;
             dataGridView3.Size = new Size(363, 83);
             dataGridView3.TabIndex = 3;
             dataGridView3.KeyDown += dataGridView3_KeyDown;

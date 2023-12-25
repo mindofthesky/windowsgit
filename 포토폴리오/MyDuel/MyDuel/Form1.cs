@@ -230,8 +230,20 @@ namespace MyDuel
         #region listview1, datagrid 1,2,3
         private void button1_Click(object sender, EventArgs e)
         {
-
-            System.Diagnostics.Debug.WriteLine("데이터는?");
+        // 현재 오류 수정 > No 자동오름이 추가 20 > 으로되는거 수정필요
+        // null이들어갈수없게 null 입력 못받게 포커스 
+            if(textBox1.Text == null)
+            {
+                textBox1.Focus();
+            }
+            if(textBox2.Text == null)
+            {
+                textBox2.Focus();
+            }
+            if(textBox3.Text == null)
+            {
+                textBox3.Focus();
+            }
             #region CRUD INSERT 완료
             /* DB의 배열값 
              * no = 0 
@@ -521,7 +533,7 @@ namespace MyDuel
                 dataGridView3.DataSource = ds.Tables["날짜"];
             }
             catch { }
-
+            
 
             #endregion Table3 End
 
@@ -533,10 +545,7 @@ namespace MyDuel
             // 데이터를 보낼바에는중복적인 데이터를 사용하게 만들고 
             // 디비를 구현하는게 더 나음 > 디비구현의 이유
             #endregion
-            //dataGridView1.DataSource = table;
-            //dataGridView2.DataSource = table2;
-            dataGridView3.DataSource = table3;
-            //
+            
         }
         #endregion
 
