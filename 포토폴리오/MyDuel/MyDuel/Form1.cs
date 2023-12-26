@@ -244,6 +244,10 @@ namespace MyDuel
             {
                 textBox3.Focus();
             }
+            else
+            {
+
+            }
             #region CRUD INSERT 완료
             /* DB의 배열값 
              * no = 0 
