@@ -230,325 +230,328 @@ namespace MyDuel
         #region listview1, datagrid 1,2,3
         private void button1_Click(object sender, EventArgs e)
         {
-        // 현재 오류 수정 > No 자동오름이 추가 20 > 으로되는거 수정필요
-        // null이들어갈수없게 null 입력 못받게 포커스 
-            if(textBox1.Text == null)
+            // 현재 오류 수정 > No 자동오름이 추가 20 > 으로되는거 수정필요
+            /*
+             Auto Increment 에 문제임 
+             다른방법으로 초기화 찾아봐야겠음
+             */
+
+            // null이들어갈수없게 null 입력 못받게 포커스 
+
+            bool check = false;
+            if (string.IsNullOrWhiteSpace(textBox1.Text) && string.IsNullOrWhiteSpace(textBox2.Text) && string.IsNullOrWhiteSpace(textBox3.Text))
             {
-                textBox1.Focus();
-            }
-            if(textBox2.Text == null)
-            {
-                textBox2.Focus();
-            }
-            if(textBox3.Text == null)
-            {
-                textBox3.Focus();
+                MessageBox.Show("데이터를 넣어주세요");
+                check= false;
+                // textbox1 에 입력만해도 출력이됨 문제있음
             }
             else
             {
-
-            }
-            #region CRUD INSERT 완료
-            /* DB의 배열값 
-             * no = 0 
-             * cointos =1
-             * turn = 2
-             * win_lose =3
-             * mydeck = 4
-             * otherdeck = 5
-             * etc =6
-             * date 7 
-             */
-            try
-            {
-                using (MySqlConnection mysql = new MySqlConnection(_Connection))
+                check = true;
+                if (check == true)
                 {
-                    mysql.Open();
-                    // 1 2 3 4 5 6 7 로 시작하니까 에러였음 0,1,2,3,4,5,6 으로 넣으 정상적으로 에러해결 
-                    string insertQuery = string.Format("INSERT INTO myduel (Cointos, turn, win_lose, mydeck , otherdeck, etc, date) VALUES('{0}','{1}','{2}','{3}','{4}','{5}','{6}');",
-                    this.comboBox1.Text, this.comboBox2.Text, this.comboBox3.Text, this.textBox1.Text, this.textBox2.Text, this.textBox3.Text, DateTime.Now.ToString("yyMMdd"));
-                    MySqlCommand command = new MySqlCommand(insertQuery, mysql);
-                    if (command.ExecuteNonQuery() != 1)
+                    #region CRUD INSERT 완료
+                    /* DB의 배열값 
+                     * no = 0 
+                     * cointos =1
+                     * turn = 2
+                     * win_lose =3
+                     * mydeck = 4
+                     * otherdeck = 5
+                     * etc =6
+                     * date 7 
+                     */
+                    try
                     {
-                        MessageBox.Show("Query error");
+                        using (MySqlConnection mysql = new MySqlConnection(_Connection))
+                        {
+                            mysql.Open();
+                            // 1 2 3 4 5 6 7 로 시작하니까 에러였음 0,1,2,3,4,5,6 으로 넣으 정상적으로 에러해결 
+                            string insertQuery = string.Format("INSERT INTO myduel (Cointos, turn, win_lose, mydeck , otherdeck, etc, date) VALUES('{0}','{1}','{2}','{3}','{4}','{5}','{6}');",
+                            this.comboBox1.Text, this.comboBox2.Text, this.comboBox3.Text, this.textBox1.Text, this.textBox2.Text, this.textBox3.Text, DateTime.Now.ToString("yyMMdd"));
+                            MySqlCommand command = new MySqlCommand(insertQuery, mysql);
+                            if (command.ExecuteNonQuery() != 1)
+                            {
+                                MessageBox.Show("Query error");
+                            }
+                            // 중복되기 이전에 삭제하기위함 
+                            listView1.Items.Clear();
+                            select();
+                        }
                     }
-                    // 중복되기 이전에 삭제하기위함 
-                    listView1.Items.Clear();
-                    select();
+                    catch (Exception ex) { MessageBox.Show(ex.ToString()); }
+
+                    #endregion
+
+                    #region Click Event DB이전
+                    // DropStyle 고정 DropDownList 
+                    string cointos = this.comboBox1.Text;
+                    //선공후공
+                    string turn = this.comboBox2.Text;
+                    //전적 승패
+                    string outcome = this.comboBox3.Text;
+                    //내덱 
+                    string myDeck = this.textBox1.Text;
+                    //상대덱
+                    string otherDeck = this.textBox2.Text;
+                    //비고 
+                    string etc = this.textBox3.Text;
+                    //날짜
+                    DateTime dateTime = DateTime.Now;
+
+                    ListViewItem item = new ListViewItem();
+                    // ltem.text 가 0번째값 sub는 0이후의 값이므로 subitem을 넣는경우 0번째 행에 값을 넣지못함
+                    int count = listView1.Items.Count + 1;
+                    //count 값을 설정하고 listview 자동으로 값을 넣기위해 카운트하는법은 리스트뷰의 숫자를 세는게 맞음
+
+                    // 카운트 판수
+                    //listView1.Items.Add(item);
+                    //item.Text = count.ToString();
+                    // 코인토스 앞뒤 
+                    //item.SubItems.Add(cointos);
+                    //이제는 승률을 구현해야함 
+                    // 승률이란 전체 플레이 수 중에서 승리만 카운터하면됨 
+
+                    // comboBox3.SelectedIndex = 0; // 이게 승리지
+                    // 값을 어떻게 들고올거냐? 
+
+
+                    //  승리 / 전체플레이
+                    // 승리값만 보면됨 
+
+                    // 선후공 
+                    //item.SubItems.Add(turn);
+                    // 결과
+                    //item.SubItems.Add(outcome);
+                    // 내 덱
+                    //item.SubItems.Add(myDeck);
+                    // 상대덱 
+                    //item.SubItems.Add(otherDeck);
+                    // 비고란
+                    //item.SubItems.Add(etc);
+                    // 날짜값
+                    //item.SubItems.Add(Convert.ToString(DateTime.Now.ToString("yyMMdd")));
+                    //item.SubItems.Add("dd"+aa); >> 정적인 값이 맞는데 
+                    // 리스트값을 자동스크롤바
+
+                    listView1.Items[listView1.Items.Count - 1].EnsureVisible();
+
+                    // 정적변수를 선언한이유는 
+                    // 여기서 0을 클릭과 동시에 다시 0으로 변환되기때문에 그래서 승률이라는 개념에 값을 넣어주기 제한됨
+
+                    //결과에대한 가산 
+                    if (outcome.Equals("승리")) win++;
+                    else if (outcome.Equals("패배")) lose++;
+                    //코인토스에 대한 가산
+                    if (cointos.Equals("앞면")) front++;
+                    else if (cointos.Equals("뒷면")) back++;
+                    // 선후공에 따른 가산
+                    if (turn.Equals("선공")) turn_frist++;
+                    else if (turn.Equals("후공")) turn_second++;
+                    // 선공승리, 후공 승리 판단
+                    if (turn.Equals("선공") && outcome.Equals("승리")) turn_frist_win++;
+                    else if (turn.Equals("후공") && outcome.Equals("승리")) turn_second_win++;
+
+                    #endregion
+
+                    #region Table 1 Start DB
+
+
+                    DataTable? table = new DataTable();
+                    table.Columns.Add("플레이 수", typeof(string));
+                    table.Columns.Add("승률", typeof(string));
+                    table.Columns.Add("승수", typeof(int));
+                    table.Columns.Add("패배", typeof(int));
+                    //리스트뷰2값은 동적으로 계속변경되어야함 리스트 뷰는 값이 변경되면안되는 분야고 동적으로 되지않기때문에 리스트뷰는 제한됨
+                    // 동적으로 바꿀수 있는건 DataGrid가 아닌가? 정답! 
+                    double list2count = listView1.Items.Count;
+
+                    #region table1 DB 변환
+                    try
+                    {
+
+                        // int list2count 값으로정의되잇기때문에 int값연산이 다된다 , 줄의 값을 보여주기때문에 다른 Row를 선언하면 추천되지않는다
+
+                        string wincount = string.Format("SELECT count(win_lose) FROM myduel where win_lose= '승리';");
+                        string playcount = string.Format("SELECT count(No) FROM myduel;");
+                        string losecount = string.Format("SELECT count(win_lose) FROM myduel where win_lose= '패배';");
+
+
+                        // 이렇게하면 Gridview에서 나옴 틀린거아님 해결은 했지만
+                        MySqlConnection mysql = new MySqlConnection(_Connection);
+                        mysql.Open();
+                        MySqlCommand win_command = new MySqlCommand(wincount, mysql);
+                        MySqlCommand play_command = new MySqlCommand(playcount, mysql);
+                        MySqlCommand lose_command = new MySqlCommand(losecount, mysql);
+                        // Double형의 소수점문제
+                        table.Rows.Add(play_command.ExecuteScalar(), (Convert.ToInt32(win_command.ExecuteScalar()) / Convert.ToInt32(play_command.ExecuteScalar())) * 100 + "%",
+                            win_command.ExecuteScalar(), lose_command.ExecuteScalar());
+                        dataGridView1.DataSource = table;
+                        // OK Click 이벤트에서도 정상작동
+
+                    }
+                    catch { }
+                    #endregion
+                    //table.Rows.Add(list2count, Math.Round(win / list2count * 100) + "%", win, lose);
+                    #endregion Table 1 End 
+
+                    #region Table 2 Start DB
+
+                    #region DB 이전 버전
+                    /*
+                    // Table nullable 을 써도 해결방법은 없다 NaN처리는 다른 방법이 필요하다
+                    DataTable? table2 = new DataTable();
+
+                    // list2count , count_win 같이 증가하고있기에 100퍼만 고정되버림  >> static으로 해결 사실 이게 좀 바보같은 생각이였던게
+                    // 계속 버튼을 누르면 0 > 1 증가가 반복하는데 그냥 생각좀해보니까 0을 바깥에 두면 전혀문제없지않나가 맞는 답이맞앗음
+                    table2.Columns.Add("앞", typeof(string));
+                    table2.Columns.Add("뒤", typeof(string));
+                    table2.Columns.Add("선공승률", typeof(string));
+                    table2.Columns.Add("후공승률", typeof(string));
+                    // 왜 패배를 들어가면 흠 
+
+                    double win_f = 0;
+                    double win_s = 0;
+                    // int 형으로했을때 소수점이 생략되서 0으로 나오기때문에 double형으로 넣으면 오류는 발생하지않으나 소수점은 Math.Round로 처리
+                    table2.Rows.Add(front, back, Math.Round(turn_frist_win / turn_frist * 100) + "%", Math.Round(turn_second_win / turn_second * 100) + "%");
+                    */
+                    #endregion
+                    DataTable? table2 = new DataTable();
+                    table2.Columns.Add("앞", typeof(string));
+                    table2.Columns.Add("뒤", typeof(string));
+                    table2.Columns.Add("선공승률", typeof(string));
+                    table2.Columns.Add("후공승률", typeof(string));
+
+
+                    string forntcount = string.Format("SELECT count(cointos) FROM myduel where cointos= '앞면';");
+                    string backcount = string.Format("SELECT count(cointos) FROM myduel where cointos= '뒷면';");
+
+                    string fristcount = string.Format("SELECT count(cointos) FROM myduel where turn= '선공';");
+                    string secondcount = string.Format("SELECT count(cointos) FROM myduel where turn= '후공';");
+
+                    string turn_frist_count = string.Format("SELECT count(turn) FROM myduel where turn= '선공' AND win_lose ='승리';");
+                    string turn_second_count = string.Format("SELECT count(turn) FROM myduel where turn= '후공' AND win_lose ='승리';");
+
+                    try
+                    {
+                        MySqlConnection mysql = new MySqlConnection(_Connection);
+                        mysql.Open();
+                        // 앞면 뒷면
+                        MySqlCommand forntcommand = new MySqlCommand(forntcount, mysql);
+                        MySqlCommand backcommand = new MySqlCommand(backcount, mysql);
+                        // 선공 승리, 후공 승리
+                        MySqlCommand turnfristcommand = new MySqlCommand(turn_frist_count, mysql);
+                        MySqlCommand turnsecondcommand = new MySqlCommand(turn_second_count, mysql);
+                        // 선후공 횟수 
+                        MySqlCommand fristcommand = new MySqlCommand(fristcount, mysql);
+                        MySqlCommand secondcommand = new MySqlCommand(secondcount, mysql);
+                        // table insert
+                        table2.Rows.Add(forntcommand.ExecuteScalar(), backcommand.ExecuteScalar(),
+                            Convert.ToDouble(turnfristcommand.ExecuteScalar()) / Convert.ToDouble(fristcommand.ExecuteScalar()) * 100 + "%",
+                            Convert.ToDouble(turnsecondcommand.ExecuteScalar()) / Convert.ToDouble(secondcommand.ExecuteScalar()) * 100 + "%");
+                        dataGridView2.DataSource = table2;
+                    }
+                    catch { }
+
+
+
+                    //table3.Rows.Add("");
+                    //table3.Rows.Add(DateTime.Now.ToString("yyMMdd"), count_day, front + ":" + back);`
+                    //if (DateTime.Now.ToString("yyMMdd") != (DateTime.Now.ToString("yyMMdd")))
+                    //{
+                    //  table3.Rows.Add(DateTime.Now.ToString("yyMMdd"), count_day, front + ":" + back);
+                    //}
+
+
+
+
+
+                    #endregion
+
+                    #region Table 3 Start DB
+                    // table3 의 경우 날짜마다 토스, 판수, 승률을 나눠야함 
+
+                    #region 이전 버전 클릭이벤트 
+                    // 날짜마다 가산되어야함 
+                    // 날짜와 날짜는 서로 다름 
+                    // 판수의 데이터를 뽑아내는게 문젠데 
+                    /*
+                    DataTable? table3 = new DataTable();
+                    table3.Columns.Add("날짜", typeof(string));
+                    table3.Columns.Add("판수", typeof(string));
+                    table3.Columns.Add("코인토스", typeof(string));
+                    table3.Columns.Add("승률", typeof(string));
+
+                    //Convert.ToInt32(DateTime.Now.ToString("yyMMdd").Equals("yyMMdd"));
+
+                    if (aa != DateTime.Now.ToString("yyMMdd")) count_day++;
+                    table3.Rows.Add(DateTime.Now.ToString("yyMMdd"), list2count, front + ":" + back);
+                    // 1206이되면 다시 하나인채로 유지된다 음 `
+                    // 첫번째값이 없는데 던지면값이 없으니까... 
+                    but_count++;
+                    // 이전값 참조해야됨 시발 
+                    // 리스트뷰값을 참조할수없다면 날짜값을 가지고 있을애가필요함 
+                    if (but_count > 1)
+                    {
+                        //item.SubItems[7].Text 이값은 계속 그값을 불러와서 값이 같을수밖에없다 
+                        // 정적변수로 값을 비교한다면 DateTime.Now는 계속 값을 오늘이겠지만 내일이 될때는 DateTime은 값이 같을수 없기때문에 
+                        // table이 계속 추가되는 방식으로하고싶은데 날짜가 변경됨에따라 
+                        if (aa != DateTime.Now.ToString("yyMMdd"))
+                        {
+                            table3.Rows.Add(DateTime.Now.ToString("yyMMdd"), count_day, front + ":" + back);
+                            DataRow row = table3.NewRow();
+                            // 데이터가 들어옴에따라 다시 원래값으로 되돌아가버림 1206> 1207은 2개가 출력되고
+                            // 1206이되면 다시 하나가되버림
+                            foreach (DataRow dr in table3.Rows)
+                            {
+                                row["날짜"] = DateTime.Now.ToString("yyMMdd");
+                                row["판수"] = count_day;
+                                row["코인토스"] = front + ":" + back;
+                                row["승률"] = Math.Round(win / list2count) * 100 + "%";
+                            }
+
+
+                        }
+                    }*/
+                    #endregion
+                    DataTable table3 = new DataTable();
+                    // 정상적으로 들어가는경우 
+                    // SELECT DISTINCT date as 날짜,  count(*) AS 판수, SUM(if(win_lose='승리', 1,0) AS win_cnt, SUM(if(win_lose='패배', 1, 0) AS lose_cnt FROM myduel GROUP BY date ORDER BY date DESC
+                    table3.Columns.Add("날짜", typeof(string));
+                    table3.Columns.Add("판수", typeof(string));
+                    table3.Columns.Add("코인토스", typeof(string));
+                    table3.Columns.Add("승률", typeof(string));
+                    // 날짜 , 판수 데이터 !
+                    string date = string.Format("SELECT date AS 날짜 ,count(*) AS 판수, sum(if(win_lose='승리',1,0)) as 승리, sum(if(win_lose='패배',1,0)) as 패배 FROM myduel GROUP BY date ORDER BY date"); // 다 불러오지만 원하는 쿼리를 해야한다면 다중쿼리 코드 작성필요 
+                                                                                                                                                                                                  // 이와 같은 계속 데이터가 호출되어야하지만 
+                                                                                                                                                                                                  // 원하는데이터는
+                    try
+                    {
+                        // 현재 에러남 
+                        int a = 0;
+                        MySqlConnection mysql = new MySqlConnection(_Connection);
+                        mysql.Open();
+                        MySqlCommand datecommand = new MySqlCommand(date, mysql);
+                        MySqlDataAdapter adapter = new MySqlDataAdapter(date, mysql);
+                        adapter.SelectCommand = datecommand;
+                        DataSet ds = new DataSet();
+                        adapter.Fill(ds, "날짜");
+                        dataGridView3.DataSource = ds.Tables["날짜"];
+                    }
+                    catch { }
+
+
+                    #endregion Table3 End
+
+
+                    #region 폼2에 보낼 데이터 
+                    // 성공함 그런데 이런 데이터만 가선안됨
+                    //listcut = Convert.ToString(list2count);
+                    // 데이터를 보낼바에는중복적인 데이터를 사용하게 만들고 
+                    // 디비를 구현하는게 더 나음 > 디비구현의 이유
+                    #endregion
                 }
             }
-            catch (Exception ex) { MessageBox.Show(ex.ToString()); }
-            
-            #endregion
-
-            #region Click Event DB이전
-            // DropStyle 고정 DropDownList 
-            string cointos = this.comboBox1.Text;
-            //선공후공
-            string turn = this.comboBox2.Text;
-            //전적 승패
-            string outcome = this.comboBox3.Text;
-            //내덱 
-            string myDeck = this.textBox1.Text;
-            //상대덱
-            string otherDeck = this.textBox2.Text;
-            //비고 
-            string etc = this.textBox3.Text;
-            //날짜
-            DateTime dateTime = DateTime.Now;
-
-            ListViewItem item = new ListViewItem();
-            // ltem.text 가 0번째값 sub는 0이후의 값이므로 subitem을 넣는경우 0번째 행에 값을 넣지못함
-            int count = listView1.Items.Count + 1;
-            //count 값을 설정하고 listview 자동으로 값을 넣기위해 카운트하는법은 리스트뷰의 숫자를 세는게 맞음
-            
-            // 카운트 판수
-            //listView1.Items.Add(item);
-            //item.Text = count.ToString();
-            // 코인토스 앞뒤 
-            //item.SubItems.Add(cointos);
-            //이제는 승률을 구현해야함 
-            // 승률이란 전체 플레이 수 중에서 승리만 카운터하면됨 
-
-            // comboBox3.SelectedIndex = 0; // 이게 승리지
-            // 값을 어떻게 들고올거냐? 
-
-
-            //  승리 / 전체플레이
-            // 승리값만 보면됨 
-
-            // 선후공 
-            //item.SubItems.Add(turn);
-            // 결과
-            //item.SubItems.Add(outcome);
-            // 내 덱
-            //item.SubItems.Add(myDeck);
-            // 상대덱 
-            //item.SubItems.Add(otherDeck);
-            // 비고란
-            //item.SubItems.Add(etc);
-            // 날짜값
-            //item.SubItems.Add(Convert.ToString(DateTime.Now.ToString("yyMMdd")));
-            //item.SubItems.Add("dd"+aa); >> 정적인 값이 맞는데 
-            // 리스트값을 자동스크롤바
-            
-            listView1.Items[listView1.Items.Count - 1].EnsureVisible();
-
-            // 정적변수를 선언한이유는 
-            // 여기서 0을 클릭과 동시에 다시 0으로 변환되기때문에 그래서 승률이라는 개념에 값을 넣어주기 제한됨
-
-            //결과에대한 가산 
-            if (outcome.Equals("승리")) win++;
-            else if (outcome.Equals("패배")) lose++;
-            //코인토스에 대한 가산
-            if (cointos.Equals("앞면")) front++;
-            else if (cointos.Equals("뒷면")) back++;
-            // 선후공에 따른 가산
-            if (turn.Equals("선공")) turn_frist++;
-            else if (turn.Equals("후공")) turn_second++;
-            // 선공승리, 후공 승리 판단
-            if (turn.Equals("선공") && outcome.Equals("승리")) turn_frist_win++;
-            else if (turn.Equals("후공") && outcome.Equals("승리")) turn_second_win++;
-
-            #endregion
-           
-            #region Table 1 Start DB
-
-            
-            DataTable? table = new DataTable();
-            table.Columns.Add("플레이 수", typeof(string));
-            table.Columns.Add("승률", typeof(string));
-            table.Columns.Add("승수", typeof(int));
-            table.Columns.Add("패배", typeof(int));
-            //리스트뷰2값은 동적으로 계속변경되어야함 리스트 뷰는 값이 변경되면안되는 분야고 동적으로 되지않기때문에 리스트뷰는 제한됨
-            // 동적으로 바꿀수 있는건 DataGrid가 아닌가? 정답! 
-            double list2count = listView1.Items.Count;
-
-            #region table1 DB 변환
-            try
-            {
-
-                // int list2count 값으로정의되잇기때문에 int값연산이 다된다 , 줄의 값을 보여주기때문에 다른 Row를 선언하면 추천되지않는다
-
-                string wincount = string.Format("SELECT count(win_lose) FROM myduel where win_lose= '승리';");
-                string playcount = string.Format("SELECT count(No) FROM myduel;");
-                string losecount = string.Format("SELECT count(win_lose) FROM myduel where win_lose= '패배';");
-                
-
-                // 이렇게하면 Gridview에서 나옴 틀린거아님 해결은 했지만
-                MySqlConnection mysql = new MySqlConnection(_Connection);
-                mysql.Open();
-                MySqlCommand win_command = new MySqlCommand(wincount, mysql);
-                MySqlCommand play_command = new MySqlCommand(playcount, mysql);
-                MySqlCommand lose_command = new MySqlCommand(losecount, mysql);
-                // Double형의 소수점문제
-                table.Rows.Add(play_command.ExecuteScalar(), (Convert.ToInt32(win_command.ExecuteScalar())/ Convert.ToInt32(play_command.ExecuteScalar()))*100+"%", 
-                    win_command.ExecuteScalar(), lose_command.ExecuteScalar());
-                dataGridView1.DataSource = table;
-                // OK Click 이벤트에서도 정상작동
-                
-            }
-            catch {}
-            #endregion
-            //table.Rows.Add(list2count, Math.Round(win / list2count * 100) + "%", win, lose);
-            #endregion Table 1 End 
-
-            #region Table 2 Start DB
-
-            #region DB 이전 버전
-            /*
-            // Table nullable 을 써도 해결방법은 없다 NaN처리는 다른 방법이 필요하다
-            DataTable? table2 = new DataTable();
-
-            // list2count , count_win 같이 증가하고있기에 100퍼만 고정되버림  >> static으로 해결 사실 이게 좀 바보같은 생각이였던게
-            // 계속 버튼을 누르면 0 > 1 증가가 반복하는데 그냥 생각좀해보니까 0을 바깥에 두면 전혀문제없지않나가 맞는 답이맞앗음
-            table2.Columns.Add("앞", typeof(string));
-            table2.Columns.Add("뒤", typeof(string));
-            table2.Columns.Add("선공승률", typeof(string));
-            table2.Columns.Add("후공승률", typeof(string));
-            // 왜 패배를 들어가면 흠 
-            
-            double win_f = 0;
-            double win_s = 0;
-            // int 형으로했을때 소수점이 생략되서 0으로 나오기때문에 double형으로 넣으면 오류는 발생하지않으나 소수점은 Math.Round로 처리
-            table2.Rows.Add(front, back, Math.Round(turn_frist_win / turn_frist * 100) + "%", Math.Round(turn_second_win / turn_second * 100) + "%");
-            */
-            #endregion
-            DataTable? table2 = new DataTable();
-            table2.Columns.Add("앞", typeof(string));
-            table2.Columns.Add("뒤", typeof(string));
-            table2.Columns.Add("선공승률", typeof(string));
-            table2.Columns.Add("후공승률", typeof(string));
-
-
-            string forntcount = string.Format("SELECT count(cointos) FROM myduel where cointos= '앞면';");
-            string backcount = string.Format("SELECT count(cointos) FROM myduel where cointos= '뒷면';");
-
-            string fristcount = string.Format("SELECT count(cointos) FROM myduel where turn= '선공';");
-            string secondcount = string.Format("SELECT count(cointos) FROM myduel where turn= '후공';");
-
-            string turn_frist_count = string.Format("SELECT count(turn) FROM myduel where turn= '선공' AND win_lose ='승리';");
-            string turn_second_count = string.Format("SELECT count(turn) FROM myduel where turn= '후공' AND win_lose ='승리';");
-
-            try
-            {
-                MySqlConnection mysql = new MySqlConnection(_Connection);
-                mysql.Open();
-                // 앞면 뒷면
-                MySqlCommand forntcommand = new MySqlCommand(forntcount, mysql);
-                MySqlCommand backcommand = new MySqlCommand(backcount, mysql);
-                // 선공 승리, 후공 승리
-                MySqlCommand turnfristcommand = new MySqlCommand(turn_frist_count, mysql);
-                MySqlCommand turnsecondcommand = new MySqlCommand(turn_second_count, mysql);
-                // 선후공 횟수 
-                MySqlCommand fristcommand = new MySqlCommand(fristcount, mysql);
-                MySqlCommand secondcommand = new MySqlCommand(secondcount, mysql);
-                // table insert
-                table2.Rows.Add(forntcommand.ExecuteScalar(), backcommand.ExecuteScalar(),
-                    Convert.ToDouble(turnfristcommand.ExecuteScalar()) / Convert.ToDouble(fristcommand.ExecuteScalar()) * 100 + "%",
-                    Convert.ToDouble(turnsecondcommand.ExecuteScalar()) / Convert.ToDouble(secondcommand.ExecuteScalar()) * 100 + "%");
-                dataGridView2.DataSource = table2;
-            }
-            catch { }
-
-
-
-            //table3.Rows.Add("");
-            //table3.Rows.Add(DateTime.Now.ToString("yyMMdd"), count_day, front + ":" + back);`
-            //if (DateTime.Now.ToString("yyMMdd") != (DateTime.Now.ToString("yyMMdd")))
-            //{
-            //  table3.Rows.Add(DateTime.Now.ToString("yyMMdd"), count_day, front + ":" + back);
-            //}
-
-
-
-
-
-            #endregion
-
-            #region Table 3 Start DB
-            // table3 의 경우 날짜마다 토스, 판수, 승률을 나눠야함 
-
-            #region 이전 버전 클릭이벤트 
-            // 날짜마다 가산되어야함 
-            // 날짜와 날짜는 서로 다름 
-            // 판수의 데이터를 뽑아내는게 문젠데 
-            /*
-            DataTable? table3 = new DataTable();
-            table3.Columns.Add("날짜", typeof(string));
-            table3.Columns.Add("판수", typeof(string));
-            table3.Columns.Add("코인토스", typeof(string));
-            table3.Columns.Add("승률", typeof(string));
-
-            //Convert.ToInt32(DateTime.Now.ToString("yyMMdd").Equals("yyMMdd"));
-
-            if (aa != DateTime.Now.ToString("yyMMdd")) count_day++;
-            table3.Rows.Add(DateTime.Now.ToString("yyMMdd"), list2count, front + ":" + back);
-            // 1206이되면 다시 하나인채로 유지된다 음 `
-            // 첫번째값이 없는데 던지면값이 없으니까... 
-            but_count++;
-            // 이전값 참조해야됨 시발 
-            // 리스트뷰값을 참조할수없다면 날짜값을 가지고 있을애가필요함 
-            if (but_count > 1)
-            {
-                //item.SubItems[7].Text 이값은 계속 그값을 불러와서 값이 같을수밖에없다 
-                // 정적변수로 값을 비교한다면 DateTime.Now는 계속 값을 오늘이겠지만 내일이 될때는 DateTime은 값이 같을수 없기때문에 
-                // table이 계속 추가되는 방식으로하고싶은데 날짜가 변경됨에따라 
-                if (aa != DateTime.Now.ToString("yyMMdd"))
-                {
-                    table3.Rows.Add(DateTime.Now.ToString("yyMMdd"), count_day, front + ":" + back);
-                    DataRow row = table3.NewRow();
-                    // 데이터가 들어옴에따라 다시 원래값으로 되돌아가버림 1206> 1207은 2개가 출력되고
-                    // 1206이되면 다시 하나가되버림
-                    foreach (DataRow dr in table3.Rows)
-                    {
-                        row["날짜"] = DateTime.Now.ToString("yyMMdd");
-                        row["판수"] = count_day;
-                        row["코인토스"] = front + ":" + back;
-                        row["승률"] = Math.Round(win / list2count) * 100 + "%";
-                    }
-
-
-                }
-            }*/
-            #endregion 
-            DataTable table3 = new DataTable();
-            // 정상적으로 들어가는경우 
-            // SELECT DISTINCT date as 날짜,  count(*) AS 판수, SUM(if(win_lose='승리', 1,0) AS win_cnt, SUM(if(win_lose='패배', 1, 0) AS lose_cnt FROM myduel GROUP BY date ORDER BY date DESC
-            table3.Columns.Add("날짜", typeof(string));
-            table3.Columns.Add("판수", typeof(string));
-            table3.Columns.Add("코인토스", typeof(string));
-            table3.Columns.Add("승률", typeof(string));
-            // 날짜 , 판수 데이터 !
-            string date = string.Format("SELECT date AS 날짜 ,count(*) AS 판수, sum(if(win_lose='승리',1,0)) as 승리, sum(if(win_lose='패배',1,0)) as 패배 FROM myduel GROUP BY date ORDER BY date"); // 다 불러오지만 원하는 쿼리를 해야한다면 다중쿼리 코드 작성필요 
-            // 이와 같은 계속 데이터가 호출되어야하지만 
-            // 원하는데이터는
-            try
-            {
-                // 현재 에러남 
-                int a = 0;
-                MySqlConnection mysql = new MySqlConnection(_Connection);
-                mysql.Open();
-                MySqlCommand datecommand = new MySqlCommand(date, mysql);
-                MySqlDataAdapter adapter = new MySqlDataAdapter(date, mysql);
-                adapter.SelectCommand = datecommand;
-                DataSet ds = new DataSet();
-                adapter.Fill(ds, "날짜");
-                dataGridView3.DataSource = ds.Tables["날짜"];
-            }
-            catch { }
-            
-
-            #endregion Table3 End
-
-
-
-            #region 폼2에 보낼 데이터 
-            // 성공함 그런데 이런 데이터만 가선안됨
-            listcut = Convert.ToString(list2count);
-            // 데이터를 보낼바에는중복적인 데이터를 사용하게 만들고 
-            // 디비를 구현하는게 더 나음 > 디비구현의 이유
-            #endregion
             
         }
         #endregion
@@ -628,7 +631,7 @@ namespace MyDuel
                             // win, lose count 반영이안됨
                             MessageBox.Show("error", "승리" + wincount + "패배 " + losecount);
                             table.Rows.Add(playcount, Math.Round(win_lose_string_change_double / playcount_string_change_double * 100) + "%", wincount, losecount);
-                
+                // 안쓰는코드 
                         }
                         catch { }
             }
