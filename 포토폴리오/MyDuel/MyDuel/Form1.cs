@@ -237,14 +237,30 @@ namespace MyDuel
              */
 
             // null이들어갈수없게 null 입력 못받게 포커스 
-
-            bool check = false;
-            if (string.IsNullOrWhiteSpace(textBox1.Text) && string.IsNullOrWhiteSpace(textBox2.Text) && string.IsNullOrWhiteSpace(textBox3.Text))
+            #region null 체크 
+            bool check;
+            if (string.IsNullOrWhiteSpace(textBox1.Text) != false || string.IsNullOrWhiteSpace(textBox2.Text) != false)
             {
                 MessageBox.Show("데이터를 넣어주세요");
-                check= false;
-                // textbox1 에 입력만해도 출력이됨 문제있음
-            }
+                if (string.IsNullOrWhiteSpace(textBox1.Text)) { textBox1.Focus(); }
+                else if(string.IsNullOrWhiteSpace(textBox2.Text)) 
+                {
+                textBox2.Focus(); 
+                }
+                //textbox3 비고칸이기때문에 null여도 괜찮은경우 
+                // db 확인 결과 null 처리가 안되있음 
+
+                /*
+                 ALTER TABLE myduel AUTO_INCREMENT=1;
+                 SET @COUNT = 0;
+                 UPDATE myduel SET `myduel.No`=@COUNT:=@COUNT+1; No가 예약어로 처리되어서 생기는 오류같음 
+                 */
+                check = false;
+                // textbox1 에 입력만해도 출력이됨 문제있음 or(||) 처리로 해결 
+                // DB 문제 해결필요
+            }// false이면 else 절에 가지않기때문에 true일때문 if > check를 받고 데이터 처리 시작 
+            #endregion
+             #region 이후 데이터처리 
             else
             {
                 check = true;
@@ -554,6 +570,7 @@ namespace MyDuel
             }
             
         }
+            #endregion
         #endregion
 
         #region CRUD Read 
@@ -601,7 +618,7 @@ namespace MyDuel
             catch(Exception ex) { MessageBox.Show(ex.ToString()); }
         }
         #endregion
-        #region CRUD Update
+        #region CRUD Update 사용안함
         private void table()
         {
             using (MySqlConnection mysql = new MySqlConnection(_Connection))
@@ -679,7 +696,7 @@ namespace MyDuel
             }
         }
         #endregion
-
+        
         #region 드래그나 이런거 금지 할려했는데 아직 구현 x 
         private void dataGridView3_KeyDown(object sender, KeyEventArgs e)
         {
