@@ -232,8 +232,13 @@ namespace MyDuel
         {
             // 현재 오류 수정 > No 자동오름이 추가 20 > 으로되는거 수정필요
             /*
-             Auto Increment 에 문제임 
-             다른방법으로 초기화 찾아봐야겠음
+             Auto Increment 
+             특징상 1 , 2, 3, 4 
+             4가 삭제된다고 4를 다시 넣는것이 아님 
+             정확히는 4는 이미 저장된 값이기때문에 5부터 시작하게됨 5부터 다시 하기 위해서는 
+             항상 auto_increment= 1 로 하는  set 3줄 코드를작성해야함 그 해결 방법은 
+             다른방법으로 초기화 완료 > 24.01.05 해결 완료 '해결 방법 주석'을 확인 
+            
              */
 
             // null이들어갈수없게 null 입력 못받게 포커스 
@@ -247,20 +252,29 @@ namespace MyDuel
                 {
                 textBox2.Focus(); 
                 }
-                //textbox3 비고칸이기때문에 null여도 괜찮은경우 
+                //textbox3 비고칸이기때문에 null을 넣어도 괜찮음 
                 // db 확인 결과 null 처리가 안되있음 
-
-                /*
+                // db에서는 null 아닌 빈칸으로 들어가서 데이터가 들어간 상태로 처리됨
+                #region 해결 방법 주석 
+                /* 
                  ALTER TABLE myduel AUTO_INCREMENT=1;
                  SET @COUNT = 0;
-                 UPDATE myduel SET `myduel.No`=@COUNT:=@COUNT+1; No가 예약어로 처리되어서 생기는 오류같음 
+                 UPDATE myduel SET `No` =@COUNT:=@COUNT+1;
+                 NO는 기본적으로 예약어니 `No`를 적용 문제는 이게아니였고 
+                 다른 문제였음 You are using safe update mode 모드가 다중 테이블 처리를 할려해서 계속 막히던것 이걸 사용하면 
+                 정상적으로 숫자를 0부터 시작해서 15까지 가능했다  
+                 mysqlworkbench 환경에서였기때문에 서술한다면
+                 실행후 mysql 비밀번호로 로그인이후 
+                 Edit > preferences -> safe mode 제일 아래 해체후 workbrench 재시작 필요 
+                 프로그램 재기동후 확인 > 빈칸없이 1234 순서대로 적용확인 
                  */
+                #endregion
                 check = false;
                 // textbox1 에 입력만해도 출력이됨 문제있음 or(||) 처리로 해결 
                 // DB 문제 해결필요
             }// false이면 else 절에 가지않기때문에 true일때문 if > check를 받고 데이터 처리 시작 
             #endregion
-             #region 이후 데이터처리 
+             #region else 이후 데이터처리 
             else
             {
                 check = true;
@@ -570,7 +584,7 @@ namespace MyDuel
             }
             
         }
-            #endregion
+            #endregion 
         #endregion
 
         #region CRUD Read 
