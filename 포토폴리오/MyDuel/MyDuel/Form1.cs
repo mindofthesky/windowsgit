@@ -110,9 +110,9 @@ namespace MyDuel
                 // command -1 이 리턴한다면 쿼리가 잘못됬다는 뜻인데 > 근데 정상적으로 작동은함 DB에선 정상
                 //ExecuteScalar 하나의 값만 할거면 이걸 쓰자 
                 // 승률을 해야되는데 SQL형식으로 해야되는걸까?
-                // 소수점 없애고싶은데 
-                table.Rows.Add(play_command.ExecuteScalar(),Convert.ToDouble(win_command.ExecuteScalar()) 
-                    / Convert.ToDouble(play_command.ExecuteScalar()) * 100 + "%", win_command.ExecuteScalar(), lose_command.ExecuteScalar());
+                // 소수점 없애고싶은데 Round로 소수점 삭제
+                table.Rows.Add(play_command.ExecuteScalar(),Math.Round(Convert.ToDouble(win_command.ExecuteScalar()) 
+                    / Convert.ToDouble(play_command.ExecuteScalar()),1) * 100 + "%", win_command.ExecuteScalar(), lose_command.ExecuteScalar());
                 dataGridView1.DataSource = table;
             }
             catch { }
@@ -133,7 +133,7 @@ namespace MyDuel
             string fristcount = string.Format("SELECT count(cointos) FROM myduel where turn= '선공';");
             string secondcount = string.Format("SELECT count(cointos) FROM myduel where turn= '후공';");
             
-            string turn_frist_count = string.Format("SELECT count(turn) FROM myduel where turn= '선공' AND win_lose ='승리';");
+            string turn_frist_count = string.Format("SELECT round((count(turn)),1) FROM myduel where turn= '선공' AND win_lose ='승리';");
             string turn_second_count = string.Format("SELECT count(turn) FROM myduel where turn= '후공' AND win_lose ='승리';");
 
             try
@@ -150,9 +150,10 @@ namespace MyDuel
                 MySqlCommand fristcommand = new MySqlCommand(fristcount, mysql);
                 MySqlCommand secondcommand = new MySqlCommand(secondcount, mysql);
                 // table insert
+                
                 table2.Rows.Add(forntcommand.ExecuteScalar(), backcommand.ExecuteScalar(),
-                    Convert.ToDouble(turnfristcommand.ExecuteScalar()) / Convert.ToDouble(fristcommand.ExecuteScalar())*100+"%",
-                    Convert.ToDouble(turnsecondcommand.ExecuteScalar()) / Convert.ToDouble(secondcommand.ExecuteScalar()) * 100 + "%");
+                    Math.Round(Convert.ToDouble(turnfristcommand.ExecuteScalar()) / Convert.ToDouble(fristcommand.ExecuteScalar()),1)*100+"%",
+                    Math.Round(Convert.ToDouble(turnsecondcommand.ExecuteScalar()) / Convert.ToDouble(secondcommand.ExecuteScalar()),1) * 100 + "%");
                 dataGridView2.DataSource = table2;
             }
             catch { }
