@@ -47,8 +47,9 @@
             dataGridView1.AllowUserToResizeColumns = false;
             dataGridView1.AllowUserToResizeRows = false;
             dataGridView1.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridView1.Location = new Point(12, 87);
+            dataGridView1.Location = new Point(12, 116);
             dataGridView1.Name = "dataGridView1";
+            dataGridView1.RowHeadersVisible = false;
             dataGridView1.Size = new Size(404, 54);
             dataGridView1.TabIndex = 0;
             // 
@@ -99,7 +100,7 @@
             listView1.Columns.AddRange(new ColumnHeader[] { columnHeader1, columnHeader2 });
             listView1.Location = new Point(12, 41);
             listView1.Name = "listView1";
-            listView1.Size = new Size(404, 50);
+            listView1.Size = new Size(404, 69);
             listView1.TabIndex = 6;
             listView1.UseCompatibleStateImageBehavior = false;
             // 

@@ -1,10 +1,12 @@
 ﻿using MyDuel;
+using MySql.Data.MySqlClient;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Linq;
+using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -16,18 +18,37 @@ namespace MyDuel
 
        
         double resivedata = 0;
-
+        string _Server = "localhost";
+        string _port = "3306";
+        string _Database = "test";
+        string _id = "root";
+        string _pwd = "1234";
+        string _Connection = "";
+        
         public Form2()
         {
 
             InitializeComponent();
             listView1.View = View.Details;
             listView1.GridLines = true;
+            listView1.Columns[0].Width = 200;
+            listView1.Columns[1].Width = 200;
+            dataGridView1.ReadOnly = true;
+            textBox1.Text = "퓨어리";
+            string mydeck = string.Format("SELECT * FORM myduel WHERE = {0}", textBox1.Text);
             DataTable table = new DataTable();
             table.Columns.Add("플레이수", typeof(string));
             table.Columns.Add("승률", typeof(string));
+            try
+            {
+                MySqlConnection mysql = new MySqlConnection(_Connection);
+                mysql.Open();
+                MySqlCommand deckcheck_command = new MySqlCommand(mydeck, mysql);
 
-            table.Rows.Add(resivedata, 1);
+                table.Rows.Add(deckcheck_command.ExecuteScalar());
+            }
+            catch (Exception ex) { }
+
 
             dataGridView1.DataSource = table;
             // 데이터 전달 됨 
@@ -39,22 +60,31 @@ namespace MyDuel
 
         }
         public string select { get; set; }
-        static int win;
-        static int count = 0;
+        
         private void button1_Click(object sender, EventArgs e)
         {
             string myDeck = this.textBox1.Text;
             //상대덱
             string otherDeck = this.textBox2.Text;
             ListViewItem item = new ListViewItem();
+            string mydeck = string.Format("SELECT * FORM myduel WHERE = {0}", textBox1.Text);
+            _Connection = string.Format("Server ={0};Port={1};DataBase={2};Uid={3};Pwd={4};", _Server, _port, _Database, _id, _pwd);
             item.Text = myDeck;
             listView1.Items.Add(item);
             item.SubItems.Add(otherDeck);
             DataTable table = new DataTable();
             table.Columns.Add("플레이수", typeof(string));
             table.Columns.Add("승률",typeof(string));
+            try
+            {
+                MySqlConnection mysql = new MySqlConnection(_Connection);
+                mysql.Open();
+                MySqlCommand deckcheck_command = new MySqlCommand(mydeck, mysql);
 
-            table.Rows.Add(resivedata, 1);
+                table.Rows.Add(deckcheck_command.ExecuteScalar());
+            }
+            catch (Exception ex) { }
+            
 
             dataGridView1.DataSource = table;
 

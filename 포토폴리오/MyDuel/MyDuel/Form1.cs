@@ -17,7 +17,7 @@ namespace MyDuel
         string _pwd = "1234";
         string _Connection = "";
         #endregion
-        #region 변수
+        #region 사용안함 변수
         // 정적값을 넣고하면 정상적으로 증가함
         // 승리 패배 , 앞면 뒷면, 선공 후공 
         static int win = 0;
