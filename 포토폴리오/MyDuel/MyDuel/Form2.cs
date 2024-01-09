@@ -45,7 +45,7 @@ namespace MyDuel
                 mysql.Open();
                 MySqlCommand deckcheck_command = new MySqlCommand(mydeck, mysql);
 
-                table.Rows.Add(deckcheck_command.ExecuteScalar());
+                table.Rows.Add(1,deckcheck_command.ExecuteScalar(),1);
             }
             catch (Exception ex) { }
 
@@ -67,7 +67,9 @@ namespace MyDuel
             //상대덱
             string otherDeck = this.textBox2.Text;
             ListViewItem item = new ListViewItem();
-            string mydeck = string.Format("SELECT * FORM myduel WHERE = {0}", textBox1.Text);
+            //string mydeck = string.Format("SELECT * FORM myduel WHERE = {0}", textBox1.Text);
+            string mydeck = string.Format("SELECT count(win_lose) as 승리 FROM myduel where mydeck= '퓨어리';");
+
             _Connection = string.Format("Server ={0};Port={1};DataBase={2};Uid={3};Pwd={4};", _Server, _port, _Database, _id, _pwd);
             item.Text = myDeck;
             listView1.Items.Add(item);
@@ -79,14 +81,15 @@ namespace MyDuel
             {
                 MySqlConnection mysql = new MySqlConnection(_Connection);
                 mysql.Open();
+                
                 MySqlCommand deckcheck_command = new MySqlCommand(mydeck, mysql);
-
-                table.Rows.Add(deckcheck_command.ExecuteScalar());
+                table.Rows.Add(deckcheck_command.ExecuteScalar(), 1);
+                dataGridView1.DataSource = table;
             }
-            catch (Exception ex) { }
+            catch (Exception ex) { MessageBox.Show("error"); }
             
 
-            dataGridView1.DataSource = table;
+            
 
             
             
