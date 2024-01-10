@@ -57,7 +57,7 @@ namespace MyDuel
 
             // DB를 들고온다면 전혀 문제없이 구현이 가능하지않을까?
             // 이래서 디비를 구현한다고 보는데
-
+            //
         }
         public string select { get; set; }
         
