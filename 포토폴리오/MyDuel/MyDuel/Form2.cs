@@ -67,9 +67,11 @@ namespace MyDuel
             //상대덱
             string otherDeck = this.textBox2.Text;
             ListViewItem item = new ListViewItem();
+            // 아래 코드를 사용할거지만 test용 mydeck, erermindeck 
             //string mydeck = string.Format("SELECT * FORM myduel WHERE = {0}", textBox1.Text);
             string mydeck = string.Format("SELECT count(win_lose) as 승리 FROM myduel where mydeck= '퓨어리';");
-
+            //string emermindeck = string.Format("SELECT FROM myduel where ={0}",textBox2.Text);
+            string emermindeck = string.Format("SELECT count(win_lose) as 승리 FROM myduel where mydeck='퓨어리' and otherdeck='VS' and win_lose='승리';");
             _Connection = string.Format("Server ={0};Port={1};DataBase={2};Uid={3};Pwd={4};", _Server, _port, _Database, _id, _pwd);
             item.Text = myDeck;
             listView1.Items.Add(item);
@@ -83,7 +85,8 @@ namespace MyDuel
                 mysql.Open();
                 
                 MySqlCommand deckcheck_command = new MySqlCommand(mydeck, mysql);
-                table.Rows.Add(deckcheck_command.ExecuteScalar(), 1);
+                MySqlCommand otherdeck_command = new MySqlCommand(emermindeck, mysql);
+                table.Rows.Add(deckcheck_command.ExecuteScalar(), otherdeck_command.ExecuteScalar());
                 dataGridView1.DataSource = table;
             }
             catch (Exception ex) { MessageBox.Show("error"); }

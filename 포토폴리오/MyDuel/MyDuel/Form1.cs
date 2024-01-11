@@ -112,7 +112,7 @@ namespace MyDuel
                 // 승률을 해야되는데 SQL형식으로 해야되는걸까?
                 // 소수점 없애고싶은데 Round로 소수점 삭제
                 table.Rows.Add(play_command.ExecuteScalar(),Math.Round(Convert.ToDouble(win_command.ExecuteScalar()) 
-                    / Convert.ToDouble(play_command.ExecuteScalar()),1) * 100 + "%", win_command.ExecuteScalar(), lose_command.ExecuteScalar());
+                    / Convert.ToDouble(play_command.ExecuteScalar()),2) * 100 + "%", win_command.ExecuteScalar(), lose_command.ExecuteScalar());
                 dataGridView1.DataSource = table;
             }
             catch { }
@@ -414,9 +414,9 @@ namespace MyDuel
                         MySqlCommand win_command = new MySqlCommand(wincount, mysql);
                         MySqlCommand play_command = new MySqlCommand(playcount, mysql);
                         MySqlCommand lose_command = new MySqlCommand(losecount, mysql);
-                        // Double형의 소수점문제
-                        table.Rows.Add(play_command.ExecuteScalar(), (Convert.ToInt32(win_command.ExecuteScalar()) / Convert.ToInt32(play_command.ExecuteScalar())) * 100 + "%",
-                            win_command.ExecuteScalar(), lose_command.ExecuteScalar());
+                        // Double형의 소수점문제 > math.Round > 소수점 올림 
+                        table.Rows.Add(play_command.ExecuteScalar(), Math.Round(Convert.ToDouble(win_command.ExecuteScalar())
+                                        / Convert.ToDouble(play_command.ExecuteScalar()), 2) * 100 + "%", win_command.ExecuteScalar(), lose_command.ExecuteScalar());
                         dataGridView1.DataSource = table;
                         // OK Click 이벤트에서도 정상작동
 
