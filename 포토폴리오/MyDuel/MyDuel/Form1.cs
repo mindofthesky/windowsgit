@@ -239,7 +239,7 @@ namespace MyDuel
              정확히는 4는 이미 저장된 값이기때문에 5부터 시작하게됨 5부터 다시 하기 위해서는 
              항상 auto_increment= 1 로 하는  set 3줄 코드를작성해야함 그 해결 방법은 
              다른방법으로 초기화 완료 > 24.01.05 해결 완료 '해결 방법 주석'을 확인 
-            
+             24로 시작되는 에러 발생중
              */
 
             // null이들어갈수없게 null 입력 못받게 포커스 
@@ -365,7 +365,7 @@ namespace MyDuel
                     //item.SubItems.Add("dd"+aa); >> 정적인 값이 맞는데 
                     // 리스트값을 자동스크롤바
 
-                    listView1.Items[listView1.Items.Count - 1].EnsureVisible();
+                    //listView1.Items[listView1.Items.Count - 1].EnsureVisible();
 
                     // 정적변수를 선언한이유는 
                     // 여기서 0을 클릭과 동시에 다시 0으로 변환되기때문에 그래서 승률이라는 개념에 값을 넣어주기 제한됨
