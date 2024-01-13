@@ -43,7 +43,9 @@ namespace MyDuel
 
             dataGridView1.DataSource = table;
             // 데이터 전달 됨 
-            listView1.Items.Add(Form1.listcut);
+            
+            // 빈칸의 원인 
+            //listView1.Items.Add(Form1.listcut);
             // 명시적 값만 가능함
 
             // DB를 들고온다면 전혀 문제없이 구현이 가능하지않을까?
@@ -65,13 +67,13 @@ namespace MyDuel
             //string emermindeck = string.Format("SELECT FROM myduel where ={0}",textBox2.Text);
             //현재 버그는 item > 빈칸 하나 24-1-12
 
-
-            _Connection = string.Format("Server ={0};Port={1};DataBase={2};Uid={3};Pwd={4};", _Server, _port, _Database, _id, _pwd);
-            // item[0] 내덱
             
+            _Connection = string.Format("Server={0};Port={1};DataBase={2};Uid={3};Pwd={4};", _Server, _port, _Database, _id, _pwd);
+            // item[0] 내덱
+            // 첫번쨰 칸 빈칸은 왜 발생하는가 
             ListViewItem item = new ListViewItem(myDeck);
-            item.SubItems[1].Text= otherDeck;
-
+            item.SubItems.Add(otherDeck);
+            listView1.Items.Add(item);
 
             DataTable table = new DataTable();
             table.Columns.Add("총 플레이수", typeof(string));

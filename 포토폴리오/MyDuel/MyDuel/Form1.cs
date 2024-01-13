@@ -58,13 +58,13 @@ namespace MyDuel
             comboBox2.SelectedIndex = 0;
             comboBox3.SelectedIndex = 0;
             
-            listView1.Columns[0].Width = 50;
+            listView1.Columns[0].Width = 49;
             listView1.Columns[1].Width = 70;
             listView1.Columns[2].Width = 50;
             listView1.Columns[3].Width = 50;
             listView1.Columns[4].Width = 80;
             listView1.Columns[5].Width = 80;
-            listView1.Columns[6].Width = 90;
+            listView1.Columns[6].Width = 85;
             listView1.Columns[7].Width = 55;
             
             #endregion
@@ -395,7 +395,7 @@ namespace MyDuel
                     table.Columns.Add("패배", typeof(int));
                     //리스트뷰2값은 동적으로 계속변경되어야함 리스트 뷰는 값이 변경되면안되는 분야고 동적으로 되지않기때문에 리스트뷰는 제한됨
                     // 동적으로 바꿀수 있는건 DataGrid가 아닌가? 정답! 
-                    double list2count = listView1.Items.Count;
+                    string list2count = listView1.Items.ToString();
 
                     #region table1 DB 변환
                     try
@@ -577,7 +577,7 @@ namespace MyDuel
 
                     #region 폼2에 보낼 데이터 
                     // 성공함 그런데 이런 데이터만 가선안됨
-                    //listcut = Convert.ToString(list2count);
+                    listcut = Convert.ToString(list2count);
                     // 데이터를 보낼바에는중복적인 데이터를 사용하게 만들고 
                     // 디비를 구현하는게 더 나음 > 디비구현의 이유
                     #endregion
