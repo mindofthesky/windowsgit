@@ -65,12 +65,12 @@ namespace MyDuel
             //test 용코드 
             //string mydeck = string.Format("SELECT count(win_lose) as 승리 FROM myduel where mydeck= '퓨어리';");
             //string emermindeck = string.Format("SELECT FROM myduel where ={0}",textBox2.Text);
-            //현재 버그는 item > 빈칸 하나 24-1-12
+            //현재 버그는 item > 빈칸 하나 24-1-12 > 사유 listcut 이전 from2 데이터를 받아오는데 썼던 더미코드가 살아있었다> 1-13
 
             
             _Connection = string.Format("Server={0};Port={1};DataBase={2};Uid={3};Pwd={4};", _Server, _port, _Database, _id, _pwd);
             // item[0] 내덱
-            // 첫번쨰 칸 빈칸은 왜 발생하는가 
+            // 첫번쨰 칸 빈칸은 왜 발생하는가  >> 더미코드때문에 
             ListViewItem item = new ListViewItem(myDeck);
             item.SubItems.Add(otherDeck);
             listView1.Items.Add(item);

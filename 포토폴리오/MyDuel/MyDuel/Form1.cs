@@ -268,6 +268,7 @@ namespace MyDuel
                  실행후 mysql 비밀번호로 로그인이후 
                  Edit > preferences -> safe mode 제일 아래 해체후 workbrench 재시작 필요 
                  프로그램 재기동후 확인 > 빈칸없이 1234 순서대로 적용확인 
+                >> 아직도 숫자가 있는건지 확인중 
                  */
                 #endregion
                 check = false;
@@ -478,8 +479,8 @@ namespace MyDuel
                         MySqlCommand secondcommand = new MySqlCommand(secondcount, mysql);
                         // table insert
                         table2.Rows.Add(forntcommand.ExecuteScalar(), backcommand.ExecuteScalar(),
-                            Convert.ToDouble(turnfristcommand.ExecuteScalar()) / Convert.ToDouble(fristcommand.ExecuteScalar()) * 100 + "%",
-                            Convert.ToDouble(turnsecondcommand.ExecuteScalar()) / Convert.ToDouble(secondcommand.ExecuteScalar()) * 100 + "%");
+                            Math.Round(Convert.ToDouble(turnfristcommand.ExecuteScalar()) / Convert.ToDouble(fristcommand.ExecuteScalar()),2) * 100 + "%",
+                            Math.Round(Convert.ToDouble(turnsecondcommand.ExecuteScalar()) / Convert.ToDouble(secondcommand.ExecuteScalar()),2) * 100 + "%");
                         dataGridView2.DataSource = table2;
                     }
                     catch { }
