@@ -39,15 +39,17 @@ namespace MyDuel
         public static string datacut;
         #endregion
         #region Form 초기화값 
+        
         public Form1()
         {
+            // 실행시 첫 로드 첫행 로드 수정중
 
             InitializeComponent();
             _Connection = string.Format("Server ={0};Port={1};DataBase={2};Uid={3};Pwd={4};",_Server,_port,_Database,_id,_pwd);
             listView1.View = View.Details;
             listView1.GridLines = true;
             select();
-
+            
             
 
             #region combox Defect, listview 크기 
@@ -66,20 +68,22 @@ namespace MyDuel
             listView1.Columns[5].Width = 80;
             listView1.Columns[6].Width = 85;
             listView1.Columns[7].Width = 55;
-            
-            #endregion
-            
 
+            #endregion
+            dataGridView1.CurrentCell = null;
+            
             #region dataGrid 읽기모드
             dataGridView1.ReadOnly = true;
             dataGridView2.ReadOnly = true;
             dataGridView3.ReadOnly = true;
+            
+            
             #endregion
 
 
             #region 데이터 미리로드 
             // 처음시작이 얘니까 
-            
+
             #region table DB
             // 간단한 SELECT 구문
             DataTable? table = new DataTable();
@@ -114,6 +118,8 @@ namespace MyDuel
                 table.Rows.Add(play_command.ExecuteScalar(),Math.Round(Convert.ToDouble(win_command.ExecuteScalar()) 
                     / Convert.ToDouble(play_command.ExecuteScalar()),2) * 100 + "%", win_command.ExecuteScalar(), lose_command.ExecuteScalar());
                 dataGridView1.DataSource = table;
+                dataGridView1.ClearSelection();
+
             }
             catch { }
             #endregion
@@ -231,6 +237,7 @@ namespace MyDuel
         #region listview1, datagrid 1,2,3
         private void button1_Click(object sender, EventArgs e)
         {
+
             // 현재 오류 수정 > No 자동오름이 추가 20 > 으로되는거 수정필요
             /*
              Auto Increment 
@@ -722,7 +729,7 @@ namespace MyDuel
                 // 컬럼이 반응을하지만 아래의 값을 처리함으로 전혀 반응이 일어나지않게함
                 int colums = dataGridView1.CurrentCell.ColumnIndex;
                 int row = dataGridView1.CurrentCell.RowIndex;
-                dataGridView3.CurrentCell = dataGridView1[colums, row];
+                dataGridView3.CurrentCell = null;
                 // enter에 대한 이벤트 처리
                 e.Handled = true;
             }
