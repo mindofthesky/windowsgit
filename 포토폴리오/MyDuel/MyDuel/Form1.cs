@@ -4,6 +4,7 @@ using System.Data;
 using System.Data.Common;
 using System.Diagnostics;
 using System.Drawing;
+using System.Windows.Forms;
 
 namespace MyDuel
 {
@@ -48,14 +49,19 @@ namespace MyDuel
             _Connection = string.Format("Server ={0};Port={1};DataBase={2};Uid={3};Pwd={4};",_Server,_port,_Database,_id,_pwd);
             listView1.View = View.Details;
             listView1.GridLines = true;
+
+            dataGridView1.CurrentCell = null;
+            dataGridView2.CurrentCell = null;
+            dataGridView3.CurrentCell = null;
             select();
-            
-            
+
+
 
             #region combox Defect, listview 크기 
             // index = 0으로하면 0번째값부터 들고 오기때문에 먼저 타입을 받아오게해줌
             // dataGridView1,2,3 설정값 
             // AutoSizeColumnsMode > Fill 처리 , dataGridView1.AutoSizeRowsMode = displayed 처리  RowHeadersVisible = False 처리 
+            
             comboBox1.SelectedIndex = 0;
             comboBox2.SelectedIndex = 0;
             comboBox3.SelectedIndex = 0;
@@ -70,8 +76,7 @@ namespace MyDuel
             listView1.Columns[7].Width = 55;
 
             #endregion
-            dataGridView1.CurrentCell = null;
-            
+           
             #region dataGrid 읽기모드
             dataGridView1.ReadOnly = true;
             dataGridView2.ReadOnly = true;
@@ -111,17 +116,20 @@ namespace MyDuel
                 MySqlCommand lose_command = new MySqlCommand(losecount, mysql);
                 // CREATE TABLE 및 DROP TABLE 문의 경우 반환 값은 0입니다. 다른 형식의 문의 경우에는 반환 값이 -1입니다. 
 
-                // command -1 이 리턴한다면 쿼리가 잘못됬다는 뜻인데 > 근데 정상적으로 작동은함 DB에선 정상
-                //ExecuteScalar 하나의 값만 할거면 이걸 쓰자 
-                // 승률을 해야되는데 SQL형식으로 해야되는걸까?
-                // 소수점 없애고싶은데 Round로 소수점 삭제
+                // command -1 이 리턴한다면 쿼리가 잘못됬다는 뜻인데 > 근데 정상적으로 작동은함 DB에선 정상 >>  EndExecuteNonQuery() 로 생긴 에러
+                //ExecuteScalar 하나의 값만 할거면 이걸 쓰자 >> 해결
+                // 승률을 해야되는데 SQL형식으로 해야되는걸까 >> 예 
+                // 소수점 없애고싶은데 Round로 소수점 삭제 완료
+
                 table.Rows.Add(play_command.ExecuteScalar(),Math.Round(Convert.ToDouble(win_command.ExecuteScalar()) 
                     / Convert.ToDouble(play_command.ExecuteScalar()),2) * 100 + "%", win_command.ExecuteScalar(), lose_command.ExecuteScalar());
+                
                 dataGridView1.DataSource = table;
-                dataGridView1.ClearSelection();
+                
 
             }
             catch { }
+            dataGridView1.CurrentCell = null;
             #endregion
 
             #region table2 DB
@@ -237,6 +245,9 @@ namespace MyDuel
         #region listview1, datagrid 1,2,3
         private void button1_Click(object sender, EventArgs e)
         {
+            dataGridView1.CurrentCell = null;
+            dataGridView2.CurrentCell = null;
+            dataGridView3.CurrentCell = null;
 
             // 현재 오류 수정 > No 자동오름이 추가 20 > 으로되는거 수정필요
             /*
@@ -720,7 +731,7 @@ namespace MyDuel
         }
         #endregion
         
-        #region 드래그나 이런거 금지 할려했는데 아직 구현 x 
+        #region 드래그 금지
         private void dataGridView3_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.KeyCode == Keys.Enter)
