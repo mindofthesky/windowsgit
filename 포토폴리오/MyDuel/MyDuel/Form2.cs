@@ -17,7 +17,7 @@ namespace MyDuel
     {
 
        
-        double resivedata = 0;
+        
         string _Server = "localhost";
         string _port = "3306";
         string _Database = "test";
@@ -34,23 +34,16 @@ namespace MyDuel
             listView1.Columns[0].Width = 200;
             listView1.Columns[1].Width = 200;
             dataGridView1.ReadOnly = true;
-            //string mydeck = string.Format("SELECT * FORM myduel WHERE = {0}", textBox1.Text);
-            DataTable table = new DataTable();
-            table.Columns.Add("총 플레이수", typeof(string));
-            table.Columns.Add("상대덱 승수", typeof(string));
             
 
-
-            dataGridView1.DataSource = table;
             // 데이터 전달 됨 
-            
+
             // 빈칸의 원인 
             //listView1.Items.Add(Form1.listcut);
             // 명시적 값만 가능함
 
             // DB를 들고온다면 전혀 문제없이 구현이 가능하지않을까?
             // 이래서 디비를 구현한다고 보는데 >> 구현완료 승패 보기 완료 
-            //
         }
         public string select { get; set; }
         
@@ -59,9 +52,12 @@ namespace MyDuel
             string myDeck = this.textBox1.Text;
             //상대덱
             string otherDeck = this.textBox2.Text;
+            dataGridView1.ClearSelection();
+            
             // 아래 코드를 사용할거지만 test용 mydeck, erermindeck 
             string mydeck = string.Format("SELECT count(win_lose) as 승리 FROM myduel where mydeck= '{0}';", textBox1.Text);
             string emermindeck = string.Format("SELECT count(win_lose) as 승리 FROM myduel where mydeck='{0}' and otherdeck='{1}' and win_lose='승리';", textBox1.Text, textBox2.Text);
+            string count_deck = string.Format("select count(win_lose) from myduel where mydeck='{0}' and otherdeck='{1}';",textBox1.Text,textBox2.Text);
             //test 용코드 
             //string mydeck = string.Format("SELECT count(win_lose) as 승리 FROM myduel where mydeck= '퓨어리';");
             //string emermindeck = string.Format("SELECT FROM myduel where ={0}",textBox2.Text);
@@ -78,6 +74,7 @@ namespace MyDuel
             DataTable table = new DataTable();
             table.Columns.Add("총 플레이수", typeof(string));
             table.Columns.Add("상대덱 승수",typeof(string));
+            table.Columns.Add("상대덱 승률", typeof(string));
             try
             {
                 MySqlConnection mysql = new MySqlConnection(_Connection);
@@ -85,16 +82,13 @@ namespace MyDuel
                 
                 MySqlCommand deckcheck_command = new MySqlCommand(mydeck, mysql);
                 MySqlCommand otherdeck_command = new MySqlCommand(emermindeck, mysql);
-                table.Rows.Add(deckcheck_command.ExecuteScalar(), otherdeck_command.ExecuteScalar());
+                MySqlCommand count_deck_command = new MySqlCommand(count_deck, mysql);
+                table.Rows.Add(deckcheck_command.ExecuteScalar(), otherdeck_command.ExecuteScalar(),
+                                Math.Round(Convert.ToDouble(otherdeck_command.ExecuteScalar()) / Convert.ToDouble(count_deck_command.ExecuteScalar()), 1) * 100 + "%");
                 dataGridView1.DataSource = table;
             }
             catch (Exception ex) { MessageBox.Show("error"); }
-            
-
-            
-
-            
-            
+                 
         }
     }
 }

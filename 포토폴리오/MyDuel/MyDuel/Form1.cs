@@ -184,10 +184,7 @@ namespace MyDuel
             DataTable table3 = new DataTable();
             // 정상적으로 들어가는경우 
             // SELECT DISTINCT date as 날짜,  count(*) AS 판수, SUM(if(win_lose='승리', 1,0) AS win_cnt, SUM(if(win_lose='패배', 1, 0) AS lose_cnt FROM myduel GROUP BY date ORDER BY date DESC
-            table3.Columns.Add("날짜", typeof(string));
-            table3.Columns.Add("판수", typeof(string));
-            table3.Columns.Add("코인토스", typeof(string));
-            table3.Columns.Add("승률", typeof(string));
+            
             // 날짜 , 판수 데이터 !
             string date = string.Format("SELECT date AS 날짜 ,count(*) AS 판수, sum(if(win_lose='승리',1,0)) as 승리, sum(if(win_lose='패배',1,0)) as 패배 FROM myduel GROUP BY date ORDER BY date"); // 다 불러오지만 원하는 쿼리를 해야한다면 다중쿼리 코드 작성필요 
             //string date = string.Format("SELECT DISTINCT date FROM myduel;"); 
@@ -201,6 +198,7 @@ namespace MyDuel
              * SELECT DISTINCT count(turn) FROM myduel where date='231211'; 이쿼리가 끝나면
              * SELECT DISTINCT count(turn) FROM myduel where date='231212'; 이쿼리를 받아오고 
              * SELECT DISTINCT count(turn) FROM myduel where date={0} break 조건 {0} == Null break;
+             * >> 한줄로 해결완료 
              * 쿼리가 Null 만날때까지 계속해야함
              */
             
