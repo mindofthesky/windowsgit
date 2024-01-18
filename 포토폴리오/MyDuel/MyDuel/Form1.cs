@@ -43,8 +43,7 @@ namespace MyDuel
         
         public Form1()
         {
-            // 실행시 첫 로드 첫행 로드 수정중
-
+            
             InitializeComponent();
             _Connection = string.Format("Server ={0};Port={1};DataBase={2};Uid={3};Pwd={4};",_Server,_port,_Database,_id,_pwd);
             listView1.View = View.Details;
@@ -52,7 +51,14 @@ namespace MyDuel
 
             dataGridView1.CurrentCell = null;
             dataGridView2.CurrentCell = null;
+            // 첫번째행 클릭만 처리하면 끝인데 
             dataGridView3.CurrentCell = null;
+            /*
+             * 얘 안먹혀서 form에서 처리하니까 해결완료함
+             * multselect false 처리 
+            dataGridView1.AllowUserToAddRows = false;
+            dataGridView2.AllowUserToDeleteRows = false;
+            */
             select();
 
 
@@ -246,7 +252,7 @@ namespace MyDuel
             dataGridView1.CurrentCell = null;
             dataGridView2.CurrentCell = null;
             dataGridView3.CurrentCell = null;
-
+            
             // 현재 오류 수정 > No 자동오름이 추가 20 > 으로되는거 수정필요
             /*
              Auto Increment 
@@ -298,6 +304,8 @@ namespace MyDuel
                 check = true;
                 if (check == true)
                 {
+                    dataGridView1.AllowUserToAddRows = false;
+                    dataGridView2.AllowUserToDeleteRows = false;
                     #region CRUD INSERT 완료
                     /* DB의 배열값 
                      * no = 0 
@@ -738,7 +746,7 @@ namespace MyDuel
                 // 컬럼이 반응을하지만 아래의 값을 처리함으로 전혀 반응이 일어나지않게함
                 int colums = dataGridView1.CurrentCell.ColumnIndex;
                 int row = dataGridView1.CurrentCell.RowIndex;
-                dataGridView3.CurrentCell = null;
+                
                 // enter에 대한 이벤트 처리
                 e.Handled = true;
             }
