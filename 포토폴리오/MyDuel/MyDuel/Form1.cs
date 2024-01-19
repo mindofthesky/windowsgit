@@ -49,16 +49,16 @@ namespace MyDuel
             listView1.View = View.Details;
             listView1.GridLines = true;
 
-            dataGridView1.CurrentCell = null;
-            dataGridView2.CurrentCell = null;
+
             // 첫번째행 클릭만 처리하면 끝인데 
-            dataGridView3.CurrentCell = null;
+
             /*
              * 얘 안먹혀서 form에서 처리하니까 해결완료함
              * multselect false 처리 
             dataGridView1.AllowUserToAddRows = false;
             dataGridView2.AllowUserToDeleteRows = false;
             */
+            dataGridView1.CurrentCell = null;
             select();
 
 
@@ -125,17 +125,17 @@ namespace MyDuel
                 // command -1 이 리턴한다면 쿼리가 잘못됬다는 뜻인데 > 근데 정상적으로 작동은함 DB에선 정상 >>  EndExecuteNonQuery() 로 생긴 에러
                 //ExecuteScalar 하나의 값만 할거면 이걸 쓰자 >> 해결
                 // 승률을 해야되는데 SQL형식으로 해야되는걸까 >> 예 
-                // 소수점 없애고싶은데 Round로 소수점 삭제 완료
+                // 소수점 없애고싶은데 Math.Round(DB쿼리, 2)로 소수점 삭제 완료
 
                 table.Rows.Add(play_command.ExecuteScalar(),Math.Round(Convert.ToDouble(win_command.ExecuteScalar()) 
                     / Convert.ToDouble(play_command.ExecuteScalar()),2) * 100 + "%", win_command.ExecuteScalar(), lose_command.ExecuteScalar());
                 
                 dataGridView1.DataSource = table;
-                
+                dataGridView1.CurrentCell = null;
 
             }
             catch { }
-            dataGridView1.CurrentCell = null;
+            
             #endregion
 
             #region table2 DB
