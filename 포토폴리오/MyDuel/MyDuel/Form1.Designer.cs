@@ -214,7 +214,7 @@
             // 
             // columnHeader4
             // 
-            columnHeader4.Text = "전적";
+            columnHeader4.Text = "승패";
             // 
             // columnHeader5
             // 
@@ -265,7 +265,7 @@
             groupBox1.Size = new Size(375, 216);
             groupBox1.TabIndex = 18;
             groupBox1.TabStop = false;
-            groupBox1.Text = "groupBox1";
+            groupBox1.Text = "덱 전적";
             // 
             // dataGridView3
             // 
