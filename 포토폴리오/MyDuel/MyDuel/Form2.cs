@@ -44,11 +44,16 @@ namespace MyDuel
 
             // DB를 들고온다면 전혀 문제없이 구현이 가능하지않을까?
             // 이래서 디비를 구현한다고 보는데 >> 구현완료 승패 보기 완료 
+            
         }
         public string select { get; set; }
-        
+        static int count = 0;
         private void button1_Click(object sender, EventArgs e)
         {
+            //listView1.Clear();
+            // 2번 클릭부터 clear! 
+            count++;
+            
             string myDeck = this.textBox1.Text;
             //상대덱
             string otherDeck = this.textBox2.Text;
@@ -72,7 +77,14 @@ namespace MyDuel
             ListViewItem item = new ListViewItem(myDeck);
             item.SubItems.Add(otherDeck);
             listView1.Items.Add(item);
-
+            if (count % 2 == 0)
+            {
+                listView1.Clear();
+                // 다삭제는 아니다 
+                item = new ListViewItem(myDeck);
+                item.SubItems.Add(otherDeck);
+                listView1.Items.Add(item);
+            }
             DataTable table = new DataTable();
             table.Columns.Add("총 플레이수", typeof(string));
             table.Columns.Add("상대덱 승수",typeof(string));
