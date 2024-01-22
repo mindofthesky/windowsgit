@@ -75,15 +75,18 @@ namespace MyDuel
             // item[0] 내덱
             // 첫번쨰 칸 빈칸은 왜 발생하는가  >> 더미코드때문에 
             ListViewItem item = new ListViewItem(myDeck);
-            item.SubItems.Add(otherDeck);
-            listView1.Items.Add(item);
-            if (count % 2 == 0)
+            
+            if (count / 2 == 0)
             {
-                listView1.Clear();
-                // 다삭제는 아니다 
                 item = new ListViewItem(myDeck);
                 item.SubItems.Add(otherDeck);
                 listView1.Items.Add(item);
+                // 다삭제는 아니다 
+
+            }
+            else
+            {
+                listView1.Clear();
             }
             DataTable table = new DataTable();
             table.Columns.Add("총 플레이수", typeof(string));
