@@ -16,6 +16,6 @@ def solution(s):
     # 이유를 간단히 생각하면 
     c = [-1.2,-2.5,-3.6,-4.8]
     c = list(map(int,c))
-    # 다음과 같이 int형으로 잘라주기때문에 이생각은 문제를 덜풀었기때문에 생각함
+    # 다음과 같이 int형으로 잘라주기때문에 이생각은 문제를 많이 안풀었기때문에 생각함
     print(c)
     return str(min(answer)) + " " + str(max(answer))
