@@ -1,9 +1,4 @@
-# -*- coding: utf-8 -*-
-"""
-Created on Thu Feb  8 23:59:41 2024
 
-@author: mindo
-"""
 # 다이,철,돌
 # 다이아 0, 철 1 , 돌 2
 # 사용할 수 있는 곡괭이중 아무거나 하나를 선택해 광물을 캡니다.
@@ -64,6 +59,7 @@ def solution(picks, minerals):
     # 재분류 
     # [[5, 0, 0], [0, 5, 0], [0, 0, 0]]
        #정렬된 광물들을 다이아,철,돌 곡괭이 순서대로 캔다.
+    # while문으로 해야할줄 알았는데 이중포문으로 해결될지 생각을 못했다 
     for i in new_minerals:
         dia,iron,stone = i
         for j in range(len(picks)):
@@ -79,7 +75,7 @@ def solution(picks, minerals):
                    picks[j]-=1
                    answer += (25*dia) + (5*iron) + stone
                    break
-    # answer 로 호출해보면 15다 
+    # answer 로 호출해보면 15다  >> 물론 다잘랐을 경우 15, 50 이 나오는 값은 틀리지 않은저미다 
     print(answer)
     return answer
 solution(picks1, minerals1)
