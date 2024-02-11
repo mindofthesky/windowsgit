@@ -4,7 +4,7 @@ Created on Sat Feb 10 13:00:26 2024
 
 @author: mindo
 """
-n=4
+n=1
 MOD = 1000000007
 # n= 1 & 1개  n = 2 & 3개 n = 3 & 10개 n = 4 & n1+n2+n3
 # A 1 
@@ -17,11 +17,11 @@ def solution(n):
     answer = 0
     
     # 포문이있다고가정하자
-    # i값이 3과 j값이 n 행렬이 나타난다
+    # i값이 3과 j값이 n 행렬이 나타난다 | ★ 틀린접근 BFS 가아니라서 이중 포문을 쓸 필요가없다
     # 예측으로는 a1 회전 불가능한 하나 
     # a2 회전하여 3x2 2개 | 회전 불가능한 a1 이 포함된다 
-    # 동서남북 * 4  뒤집기 * 2 dx, dy이용한
-    # BFS라고 생각해 
+    # 동서남북 * 4  뒤집기 * 2 dx, dy이용한 | ★ BFS 아니니까 무조건 동서남북을 생각할 필요가 없다
+    # BFS라고 생각해         | 다시 고친 이유는 10만개에서 다 연산을 할수없으니까 BFS는 포기했어 아래 내용과 같이 
     # BFS를 하되 문제는 A = 1 0 로 취급한다면 
     #                      1 1 너무 많아진다
     # B 1 - 1 - 1 로 연결해서 동서남북하면 2개 타입밖에 존재하지않는다 
@@ -99,39 +99,46 @@ def solution(n):
     for i in range(4, n + 1):
         # 4부터는 계산을 해봐야하니까 
         remainder = i % 3
-        # 4일때 remainder = 1
+        # 4일때 나머지를 넣으니까 remainder = 1
         sum_value = cache[remainder]
+        # 4인 경우 remainder=1 > cache[1] = 0을 지칭 
         # cache = [8, 0, 2]
-        print("cache[remainder]",sum_value)
-        # 8 값 
-        plus = 4 if i % 3 == 0 else 2
-        # n=4 니까 5 볼수있으니 4만 연산한다 
+        print("---------------------------")
+        print("초기, 호출 된 cache[remainder] :",sum_value)
+        #sum_value = 0 = cache[1] = "0"
+        plus = 4 if i % 3 == 0 else 2        
+        # 1 ~ 3까지 볼수있으니 4만 연산한다 
         sum_value += dp[i - 1] * 1
-        print(i-1,i-2,i-3, i )
-        print("dp[i - 1] * 1",sum_value)
+        #print(i-1,i-2,i-3, i )
+        print("+=dp[i - 1] * 1 :" ,sum_value)
         # sum_value += dp[3]
         sum_value += dp[i - 2] * 2
-        print("dp[i - 2] * 2",sum_value)
+        print("+=dp[i - 2] * 2 :" ,sum_value)
         # sum_value += dp[2]
         sum_value += dp[i - 3] * 5
-        print("dp[i - 3] * 5" ,sum_value)
+        print("+=dp[i - 3] * 5 :" ,sum_value)
         # sum_value += dp[1]
+        print("plus값 : ",plus)
         sum_value += plus
         # 3의로 나눈 나머지가 0이라면 4개 추가되는경우지만 
         # 1,2 같은 경우는 1개 밖에 존재하지않는다 
-        print("plus",sum_value)
         sum_value %= MOD
-        # 캐시를 생각해야함 
+        print("타일링값 : ",sum_value)
+        # 1,2,3 이후 캐시를 사용하지않음 상관없음  
+        # n이 4이상일 일때는 2 2 4 가 반복
         cache[remainder] += dp[i - 1] * 2
-        print("cache[remainder] = dp[i - 1] * 2",cache[remainder])
+        print("cache[remainder] += dp[i - 1] * 2 =",cache[remainder])
         cache[remainder] += dp[i - 2] * 2
-        print("cache[remainder] = dp[i - 2] * 2",cache[remainder])
+        print("cache[remainder] += dp[i - 2] * 2 =",cache[remainder])
         cache[remainder] += dp[i - 3] * 4
-        print("cache[remainder] = dp[i - 3] * 4",cache[remainder])
+        print("cache[remainder] += dp[i - 3] * 4 =",cache[remainder])
         cache[remainder] %= MOD
-
+        print("총합 chach[remainder] :" ,cache[remainder])
         dp[i] = sum_value
-    #print(dp[n])
-    return dp[n]
+        print(dp[i],dp[i-1],dp[i-2],dp[i-3])
+        print("---------------------------")
+    answer = dp[n]
+    print(dp[n])
+    return answer
 
 solution(n)
