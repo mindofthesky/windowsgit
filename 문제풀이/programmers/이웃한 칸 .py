@@ -13,6 +13,8 @@ def solution(board, h, w):
         h_check = h + dh[i]
         w_check = w + dw[i]
         #print(h_check,w_check)
+        # 실패 런타임이유가
+        # -1 넣으면 > 무조건 dw > 무조건 -1을 반환하게되는데 이게 무한 루프임
         if (0 <= h_check <= len(board)-1) and (0 <= w_check <= len(board[0])-1):
             answer+=int(board[h][w] == board[h_check][w_check])
 
