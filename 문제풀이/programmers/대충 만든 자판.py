@@ -28,19 +28,34 @@ def solution(keymap, targets):
     # 접근이 복잡하게갔다
     
     for word in targets:
-        count =0
+        count = 0
         for char in word:
             flag = False
+            # 여기서 time을 101로 넣었지만 안넣어도될때까 있긴하지만
+            # 딱 걸리게하는 반례가 있다면 101로 해도괜찮다 
+            # 여기서 파이썬코드에서는 저 배열에서만에서는 0로해도 성립한다
             time = 101
+            # key 이중 포문으로 할려고 해서 복잡해진것같다 
+            # 접근은 같다 둘다 비교하면서 가야하니까 
+            # 최소값을 어떻게 넣지를 생각이 부족했다 
             for key in keymap:
                 if char in key:
+                    # index +1 이유는 배열은 0부터 시작하기때문에 0을 따로 넣어줘야함 
+                    # targets 'A' > keymap[0] = 0 , keymap[1] = -1
+                    # targets 'B' > keymap[0] = 1 , keymap[1] = 0
+                    # targets 'C' > keymap[0] = 3, keymap[1] = 1
+                    # targets 'D' > keymap[0] = 4 , keymap[1] = 4
+                    # 1 , 1 , 2,  5 = 9
                     time = min(key.index(char)+1,time)
                     flag = True
-                if not flag:
-                    count = -1 
-                    break
+            # 코드를 따라하다 여기서 에러 발생했지만 
+            # if문이 위 for에 들어가있어서 생긴에러 
+            if not flag:
+                count = -1 
+                break
             count += time
         answer.append(count)
+        # append는 접근방식이 같았다 
     print(answer)
     return answer
 
