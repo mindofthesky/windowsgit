@@ -15,6 +15,7 @@ def solution(s, skip, index):
         alpha = alpha.replace(sk, '')
     for a in s:
         index_result = (alpha.index(a) + index) % len(alpha)
+        print(index_result)
         answer += alpha[index_result]
         
     # 아래와 간 이유는 복잡하게 간이유는 뭐지?
