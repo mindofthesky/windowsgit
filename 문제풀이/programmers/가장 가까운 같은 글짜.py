@@ -13,7 +13,6 @@ s = "banana"
 # [-1, -1, -1, 2, 2, 2]
 def solution(s):
     answer = []
-    res = []
     # 딕셔너리형으로 해야될거같은데
     # 접근 정답
     # 지금도 문제인건 not in 코드 이해도가 낮다 
@@ -29,8 +28,7 @@ def solution(s):
             print(i-dic[s[i]])
             answer.append(i-dic[s[i]])
         # 값 치환
-        dic[s[i]] = i
-            
+        dic[s[i]] = i            
     print(answer)
     return answer
 
