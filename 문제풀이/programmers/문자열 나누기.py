@@ -15,6 +15,7 @@ def solution(s):
             if i == len(s)-1:    
                 answer1 +=1
             # 여기 코드는 상관이없지만  
+            
         else:
             res4 +=1
             if res4 == 2:
