@@ -5,9 +5,13 @@ startY = 7
 balls = [[7, 7], [2, 7], [7, 3]]	
 def solve(x, y, startX, startY, ballX, ballY):
     wall = []
+    # 구현 
     # 위쪽 벽
     # 단, x좌표가 같고 목표의 y가 더 크면 안된다.
-    if not (ballX == startX and ballY > startY):
+    # 두점 사이의 공식을 넣는문제
+    # 상하좌우를 봐야해서 DFS처럼 생각했는데 
+    # 그냥 구현인데 수학적으로 생각해야한다 
+    if not (ballX == startX and ballY > startY):        
         d2 = (ballX - startX)**2 + (ballY - 2*y+startY)**2
         wall.append(d2)
     # 아래쪽 벽

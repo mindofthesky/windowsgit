@@ -53,11 +53,13 @@ def solution(x, y, n):
     dp[x] = 0
     for i in range(x,y):
         if dp[y] != float('inf'):
+            print("값체크 : ",dp[y])
             return dp[y]
         for new_x in (i + n, 2* i, 3 * i):
             if MAX < new_x:
                 continue
             dp[new_x] = min(dp[new_x], dp[i] + 1)
+        print(dp[i],dp[-1])
     answer = dp[y] if dp[y] != float('inf') else -1
     print(res)
     answer1 = min(res)      
