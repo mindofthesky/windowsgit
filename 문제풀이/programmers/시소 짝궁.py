@@ -25,24 +25,25 @@ def solution(weights):
     # dic 형태로 개수를 세면 하나의 값은 처리가됨     
     for i in dic:
         x2 = i *2
-        if (x2 % 3 ) == 0:
+        print(answer2)
+        if (x2 % 3) == 0:
             if (int(x2/3) in dic):
                 answer2 += int(dic[i] * dic[x2 / 3])
-        if (x2 % 4 ) == 0:
+        if (x2 % 4) == 0:
             if (int(x2/4) in dic):
                 answer2 += int(dic[i] * dic[x2 / 4])
         x3= i * 3
-        if (x3 % 2 ) == 0:
+        if (x3 % 2) == 0:
             if (int(x3/2) in dic):
                 answer2 += int(dic[i] * dic[x3 / 2])
-        if (x3 % 4 ) == 0:
+        if (x3 % 4) == 0:
             if (int(x3/4) in dic):
                 answer2 += int(dic[i] * dic[x3 / 4])
         x4= i * 4
-        if (x4 % 2 ) == 0:
+        if (x4 % 2) == 0:
             if (int(x4/2) in dic):
                 answer2 += int(dic[i] * dic[x4 / 2])
-        if (x4 % 3 ) == 0:
+        if (x4 % 3) == 0:
             if (int(x4/3) in dic):
                 answer2 += int(dic[i] * dic[x4 / 3])
         print(answer2)
