@@ -15,7 +15,7 @@ def solution(id_list, report, k):
     answer = []
     answer = [0] * len(id_list)
     # 0, 0, 0, 0 으로 변경함 
-    print(answer)
+    print("answer ",answer)
     recode = {id: [] for id in id_list}
     # dict 데이터 선언 
     print("넣기전 데이터 ",recode) 
