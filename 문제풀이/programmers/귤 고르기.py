@@ -23,12 +23,14 @@ def solution(k, tangerine):
         else:
             dic[i] = 1
     print(dic)
-    # 정렬처리
+    # 내림 차순 정렬처리
     sortdic = sorted(dic.items(), key = lambda x : x[1] , reverse=True)
     print(sortdic)
     for i in range(len(sortdic)):
         k -= sortdic[i][1]
         answer +=1  
+        # 빼면서 갯수처리  
+        # 남는건 1개짜리기때문에 
         if k <= 0:
             break
     print(answer)
