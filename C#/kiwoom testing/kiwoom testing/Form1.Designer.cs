@@ -30,9 +30,9 @@ namespace kiwoom_testing
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea1 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend1 = new System.Windows.Forms.DataVisualization.Charting.Legend();
-            System.Windows.Forms.DataVisualization.Charting.Series series1 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea3 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend3 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.Series series3 = new System.Windows.Forms.DataVisualization.Charting.Series();
             this.axKHOpenAPI1 = new AxKHOpenAPILib.AxKHOpenAPI();
             this.button1 = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
@@ -50,21 +50,10 @@ namespace kiwoom_testing
             this.daychart = new System.Windows.Forms.DataVisualization.Charting.Chart();
             this.comboBox1 = new System.Windows.Forms.ComboBox();
             this.listBox2 = new System.Windows.Forms.ListBox();
-            this.conditionGridView = new System.Windows.Forms.DataGridView();
-            this.stockItemGridView = new System.Windows.Forms.DataGridView();
-            this.종목명 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.현재가 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.전일대비 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.등락률 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.거래량 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.시가 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.고가 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.저가 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.getConditionButton = new System.Windows.Forms.Button();
+            this.selebtn = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.axKHOpenAPI1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.daychart)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.conditionGridView)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.stockItemGridView)).BeginInit();
             this.SuspendLayout();
             // 
             // axKHOpenAPI1
@@ -81,7 +70,7 @@ namespace kiwoom_testing
             // 
             this.button1.Location = new System.Drawing.Point(12, 12);
             this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(88, 21);
+            this.button1.Size = new System.Drawing.Size(115, 21);
             this.button1.TabIndex = 1;
             this.button1.Text = "로그인";
             this.button1.UseVisualStyleBackColor = true;
@@ -90,22 +79,22 @@ namespace kiwoom_testing
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(12, 43);
+            this.label1.Location = new System.Drawing.Point(11, 43);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(38, 12);
+            this.label1.Size = new System.Drawing.Size(53, 12);
             this.label1.TabIndex = 2;
-            this.label1.Text = "label1";
+            this.label1.Text = "종목코드";
             // 
             // textBox1
             // 
-            this.textBox1.Location = new System.Drawing.Point(62, 39);
+            this.textBox1.Location = new System.Drawing.Point(66, 39);
             this.textBox1.Name = "textBox1";
             this.textBox1.Size = new System.Drawing.Size(100, 21);
             this.textBox1.TabIndex = 3;
             // 
             // button2
             // 
-            this.button2.Location = new System.Drawing.Point(177, 37);
+            this.button2.Location = new System.Drawing.Point(168, 38);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(75, 23);
             this.button2.TabIndex = 4;
@@ -115,7 +104,7 @@ namespace kiwoom_testing
             // 
             // button3
             // 
-            this.button3.Location = new System.Drawing.Point(106, 10);
+            this.button3.Location = new System.Drawing.Point(133, 10);
             this.button3.Name = "button3";
             this.button3.Size = new System.Drawing.Size(108, 23);
             this.button3.TabIndex = 5;
@@ -135,9 +124,9 @@ namespace kiwoom_testing
             // 
             this.txtTest.Location = new System.Drawing.Point(14, 305);
             this.txtTest.Name = "txtTest";
-            this.txtTest.Size = new System.Drawing.Size(135, 19);
+            this.txtTest.Size = new System.Drawing.Size(102, 19);
             this.txtTest.TabIndex = 7;
-            this.txtTest.Text = "리치박스테스트";
+            this.txtTest.Text = "계좌번호확인";
             this.txtTest.UseVisualStyleBackColor = true;
             this.txtTest.Click += new System.EventHandler(this.txtTest_Click);
             // 
@@ -189,29 +178,31 @@ namespace kiwoom_testing
             // 
             this.listBox1.FormattingEnabled = true;
             this.listBox1.ItemHeight = 12;
-            this.listBox1.Location = new System.Drawing.Point(280, 24);
+            this.listBox1.Location = new System.Drawing.Point(276, 66);
             this.listBox1.Name = "listBox1";
             this.listBox1.Size = new System.Drawing.Size(228, 220);
             this.listBox1.TabIndex = 14;
             // 
             // daychart
             // 
-            chartArea1.Name = "ChartArea1";
-            this.daychart.ChartAreas.Add(chartArea1);
-            legend1.Name = "Legend1";
-            this.daychart.Legends.Add(legend1);
-            this.daychart.Location = new System.Drawing.Point(280, 250);
+            chartArea3.Name = "ChartArea1";
+            this.daychart.ChartAreas.Add(chartArea3);
+            legend3.Enabled = false;
+            legend3.Name = "Legend1";
+            this.daychart.Legends.Add(legend3);
+            this.daychart.Location = new System.Drawing.Point(276, 296);
             this.daychart.Name = "daychart";
-            series1.ChartArea = "ChartArea1";
-            series1.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Candlestick;
-            series1.Legend = "Legend1";
-            series1.Name = "Series1";
-            series1.YValuesPerPoint = 4;
-            this.daychart.Series.Add(series1);
-            this.daychart.Size = new System.Drawing.Size(228, 268);
+            series3.ChartArea = "ChartArea1";
+            series3.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Candlestick;
+            series3.Legend = "Legend1";
+            series3.Name = "Series1";
+            series3.YValuesPerPoint = 4;
+            this.daychart.Series.Add(series3);
+            this.daychart.Size = new System.Drawing.Size(228, 222);
             this.daychart.TabIndex = 15;
             this.daychart.Text = "Kdaychart";
             this.daychart.AxisViewChanged += new System.EventHandler<System.Windows.Forms.DataVisualization.Charting.ViewEventArgs>(this.daychart_AxisViewChanged);
+            this.daychart.MouseMove += new System.Windows.Forms.MouseEventHandler(this.daychart_MouseMove);
             // 
             // comboBox1
             // 
@@ -220,7 +211,6 @@ namespace kiwoom_testing
             this.comboBox1.Name = "comboBox1";
             this.comboBox1.Size = new System.Drawing.Size(98, 20);
             this.comboBox1.TabIndex = 16;
-            this.comboBox1.SelectedIndexChanged += new System.EventHandler(this.comboBox1_SelectedIndexChanged);
             // 
             // listBox2
             // 
@@ -231,95 +221,33 @@ namespace kiwoom_testing
             this.listBox2.Size = new System.Drawing.Size(253, 124);
             this.listBox2.TabIndex = 17;
             // 
-            // conditionGridView
-            // 
-            this.conditionGridView.AllowUserToAddRows = false;
-            this.conditionGridView.AllowUserToDeleteRows = false;
-            this.conditionGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.conditionGridView.Location = new System.Drawing.Point(514, 24);
-            this.conditionGridView.Name = "conditionGridView";
-            this.conditionGridView.RowHeadersVisible = false;
-            this.conditionGridView.RowTemplate.Height = 23;
-            this.conditionGridView.Size = new System.Drawing.Size(198, 494);
-            this.conditionGridView.TabIndex = 18;
-            this.conditionGridView.SelectionChanged += new System.EventHandler(this.conditionGridView_SelectionChanged);
-            // 
-            // stockItemGridView
-            // 
-            this.stockItemGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.stockItemGridView.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.종목명,
-            this.현재가,
-            this.전일대비,
-            this.등락률,
-            this.거래량,
-            this.시가,
-            this.고가,
-            this.저가});
-            this.stockItemGridView.Location = new System.Drawing.Point(718, 24);
-            this.stockItemGridView.Name = "stockItemGridView";
-            this.stockItemGridView.RowHeadersVisible = false;
-            this.stockItemGridView.RowTemplate.Height = 23;
-            this.stockItemGridView.Size = new System.Drawing.Size(805, 494);
-            this.stockItemGridView.TabIndex = 19;
-            // 
-            // 종목명
-            // 
-            this.종목명.HeaderText = "종목명";
-            this.종목명.Name = "종목명";
-            // 
-            // 현재가
-            // 
-            this.현재가.HeaderText = "현재가";
-            this.현재가.Name = "현재가";
-            // 
-            // 전일대비
-            // 
-            this.전일대비.HeaderText = "전일대비";
-            this.전일대비.Name = "전일대비";
-            // 
-            // 등락률
-            // 
-            this.등락률.HeaderText = "등락률";
-            this.등락률.Name = "등락률";
-            // 
-            // 거래량
-            // 
-            this.거래량.HeaderText = "거래량";
-            this.거래량.Name = "거래량";
-            // 
-            // 시가
-            // 
-            this.시가.HeaderText = "시가";
-            this.시가.Name = "시가";
-            // 
-            // 고가
-            // 
-            this.고가.HeaderText = "고가";
-            this.고가.Name = "고가";
-            // 
-            // 저가
-            // 
-            this.저가.HeaderText = "저가";
-            this.저가.Name = "저가";
-            // 
             // getConditionButton
             // 
-            this.getConditionButton.Location = new System.Drawing.Point(155, 305);
+            this.getConditionButton.Location = new System.Drawing.Point(122, 304);
             this.getConditionButton.Name = "getConditionButton";
-            this.getConditionButton.Size = new System.Drawing.Size(53, 23);
+            this.getConditionButton.Size = new System.Drawing.Size(92, 23);
             this.getConditionButton.TabIndex = 20;
-            this.getConditionButton.Text = "신창섭";
+            this.getConditionButton.Text = "예수금 조회";
             this.getConditionButton.UseVisualStyleBackColor = true;
+            this.getConditionButton.Click += new System.EventHandler(this.getConditionButton_Click);
+            // 
+            // selebtn
+            // 
+            this.selebtn.Location = new System.Drawing.Point(247, 10);
+            this.selebtn.Name = "selebtn";
+            this.selebtn.Size = new System.Drawing.Size(78, 23);
+            this.selebtn.TabIndex = 21;
+            this.selebtn.Text = "조건식검색";
+            this.selebtn.UseVisualStyleBackColor = true;
+            this.selebtn.Click += new System.EventHandler(this.selebtn_Click);
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1530, 526);
+            this.ClientSize = new System.Drawing.Size(900, 521);
+            this.Controls.Add(this.selebtn);
             this.Controls.Add(this.getConditionButton);
-            this.Controls.Add(this.stockItemGridView);
-            this.Controls.Add(this.conditionGridView);
             this.Controls.Add(this.listBox2);
             this.Controls.Add(this.comboBox1);
             this.Controls.Add(this.daychart);
@@ -341,8 +269,6 @@ namespace kiwoom_testing
             this.Text = "Form1";
             ((System.ComponentModel.ISupportInitialize)(this.axKHOpenAPI1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.daychart)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.conditionGridView)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.stockItemGridView)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -367,17 +293,8 @@ namespace kiwoom_testing
         private System.Windows.Forms.DataVisualization.Charting.Chart daychart;
         private System.Windows.Forms.ComboBox comboBox1;
         private System.Windows.Forms.ListBox listBox2;
-        private System.Windows.Forms.DataGridView conditionGridView;
-        private System.Windows.Forms.DataGridView stockItemGridView;
         private System.Windows.Forms.Button getConditionButton;
-        private System.Windows.Forms.DataGridViewTextBoxColumn 종목명;
-        private System.Windows.Forms.DataGridViewTextBoxColumn 현재가;
-        private System.Windows.Forms.DataGridViewTextBoxColumn 전일대비;
-        private System.Windows.Forms.DataGridViewTextBoxColumn 등락률;
-        private System.Windows.Forms.DataGridViewTextBoxColumn 거래량;
-        private System.Windows.Forms.DataGridViewTextBoxColumn 시가;
-        private System.Windows.Forms.DataGridViewTextBoxColumn 고가;
-        private System.Windows.Forms.DataGridViewTextBoxColumn 저가;
+        private System.Windows.Forms.Button selebtn;
     }
 }
 
