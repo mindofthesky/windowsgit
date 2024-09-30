@@ -30,9 +30,9 @@ namespace kiwoom_testing
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea3 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend3 = new System.Windows.Forms.DataVisualization.Charting.Legend();
-            System.Windows.Forms.DataVisualization.Charting.Series series3 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea1 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend1 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.Series series1 = new System.Windows.Forms.DataVisualization.Charting.Series();
             this.axKHOpenAPI1 = new AxKHOpenAPILib.AxKHOpenAPI();
             this.button1 = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
@@ -52,8 +52,11 @@ namespace kiwoom_testing
             this.listBox2 = new System.Windows.Forms.ListBox();
             this.getConditionButton = new System.Windows.Forms.Button();
             this.selebtn = new System.Windows.Forms.Button();
+            this.comboBox2 = new System.Windows.Forms.ComboBox();
+            this.dataGridView1 = new System.Windows.Forms.DataGridView();
             ((System.ComponentModel.ISupportInitialize)(this.axKHOpenAPI1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.daychart)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.SuspendLayout();
             // 
             // axKHOpenAPI1
@@ -138,6 +141,7 @@ namespace kiwoom_testing
             this.button4.TabIndex = 10;
             this.button4.Text = "확인";
             this.button4.UseVisualStyleBackColor = true;
+            this.button4.Click += new System.EventHandler(this.button4_Click);
             // 
             // label2
             // 
@@ -182,23 +186,24 @@ namespace kiwoom_testing
             this.listBox1.Name = "listBox1";
             this.listBox1.Size = new System.Drawing.Size(228, 220);
             this.listBox1.TabIndex = 14;
+            this.listBox1.TabStop = false;
             // 
             // daychart
             // 
-            chartArea3.Name = "ChartArea1";
-            this.daychart.ChartAreas.Add(chartArea3);
-            legend3.Enabled = false;
-            legend3.Name = "Legend1";
-            this.daychart.Legends.Add(legend3);
-            this.daychart.Location = new System.Drawing.Point(276, 296);
+            chartArea1.Name = "ChartArea1";
+            this.daychart.ChartAreas.Add(chartArea1);
+            legend1.Enabled = false;
+            legend1.Name = "Legend1";
+            this.daychart.Legends.Add(legend1);
+            this.daychart.Location = new System.Drawing.Point(276, 292);
             this.daychart.Name = "daychart";
-            series3.ChartArea = "ChartArea1";
-            series3.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Candlestick;
-            series3.Legend = "Legend1";
-            series3.Name = "Series1";
-            series3.YValuesPerPoint = 4;
-            this.daychart.Series.Add(series3);
-            this.daychart.Size = new System.Drawing.Size(228, 222);
+            series1.ChartArea = "ChartArea1";
+            series1.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Candlestick;
+            series1.Legend = "Legend1";
+            series1.Name = "Series1";
+            series1.YValuesPerPoint = 4;
+            this.daychart.Series.Add(series1);
+            this.daychart.Size = new System.Drawing.Size(609, 226);
             this.daychart.TabIndex = 15;
             this.daychart.Text = "Kdaychart";
             this.daychart.AxisViewChanged += new System.EventHandler<System.Windows.Forms.DataVisualization.Charting.ViewEventArgs>(this.daychart_AxisViewChanged);
@@ -206,6 +211,7 @@ namespace kiwoom_testing
             // 
             // comboBox1
             // 
+            this.comboBox1.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBox1.FormattingEnabled = true;
             this.comboBox1.Location = new System.Drawing.Point(70, 333);
             this.comboBox1.Name = "comboBox1";
@@ -233,7 +239,7 @@ namespace kiwoom_testing
             // 
             // selebtn
             // 
-            this.selebtn.Location = new System.Drawing.Point(247, 10);
+            this.selebtn.Location = new System.Drawing.Point(374, 7);
             this.selebtn.Name = "selebtn";
             this.selebtn.Size = new System.Drawing.Size(78, 23);
             this.selebtn.TabIndex = 21;
@@ -241,11 +247,37 @@ namespace kiwoom_testing
             this.selebtn.UseVisualStyleBackColor = true;
             this.selebtn.Click += new System.EventHandler(this.selebtn_Click);
             // 
+            // comboBox2
+            // 
+            this.comboBox2.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBox2.FormattingEnabled = true;
+            this.comboBox2.Location = new System.Drawing.Point(247, 10);
+            this.comboBox2.Name = "comboBox2";
+            this.comboBox2.Size = new System.Drawing.Size(121, 20);
+            this.comboBox2.TabIndex = 22;
+            // 
+            // dataGridView1
+            // 
+            this.dataGridView1.AllowUserToAddRows = false;
+            this.dataGridView1.AllowUserToDeleteRows = false;
+            this.dataGridView1.AllowUserToResizeColumns = false;
+            this.dataGridView1.AllowUserToResizeRows = false;
+            this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridView1.Location = new System.Drawing.Point(510, 66);
+            this.dataGridView1.Name = "dataGridView1";
+            this.dataGridView1.ReadOnly = true;
+            this.dataGridView1.RowHeadersVisible = false;
+            this.dataGridView1.RowTemplate.Height = 23;
+            this.dataGridView1.Size = new System.Drawing.Size(375, 220);
+            this.dataGridView1.TabIndex = 23;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(900, 521);
+            this.ClientSize = new System.Drawing.Size(888, 521);
+            this.Controls.Add(this.dataGridView1);
+            this.Controls.Add(this.comboBox2);
             this.Controls.Add(this.selebtn);
             this.Controls.Add(this.getConditionButton);
             this.Controls.Add(this.listBox2);
@@ -269,6 +301,7 @@ namespace kiwoom_testing
             this.Text = "Form1";
             ((System.ComponentModel.ISupportInitialize)(this.axKHOpenAPI1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.daychart)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -295,6 +328,8 @@ namespace kiwoom_testing
         private System.Windows.Forms.ListBox listBox2;
         private System.Windows.Forms.Button getConditionButton;
         private System.Windows.Forms.Button selebtn;
+        private System.Windows.Forms.ComboBox comboBox2;
+        private System.Windows.Forms.DataGridView dataGridView1;
     }
 }
 
