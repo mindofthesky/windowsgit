@@ -1,0 +1,17 @@
+version: 0.0
+os: linux
+files:
+  - source: /
+    destination: /var/www/
+    overwrite: yes
+
+permissions:
+  - object: /var/www/
+    pattern: "**"
+    owner: ubuntu
+    group: ubuntu
+hooks:
+  ApplicationStart:
+    - location: deploy_apache.sh
+      timeout: 300
+      runas: ubuntu

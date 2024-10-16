@@ -1,0 +1,16 @@
+<svg width="129" height="128" viewBox="0 0 129 128" fill="none" xmlns="http://www.w3.org/2000/svg">
+<g id="Symbol_marketization">
+<g id="Group">
+<path id="Vector" d="M80.5 80L104.5 104" stroke="#A1AAB7" stroke-width="4" stroke-miterlimit="10"/>
+<path id="Vector_2" d="M24.5 24L48.5 48" stroke="#A1AAB7" stroke-width="4" stroke-miterlimit="10"/>
+<path id="Vector_3" d="M48.5 80L24.5 104" stroke="#A1AAB7" stroke-width="4" stroke-miterlimit="10"/>
+<path id="Vector_4" d="M104.5 24L80.5 48" stroke="#A1AAB7" stroke-width="4" stroke-miterlimit="10"/>
+</g>
+<rect id="Rectangle 10" x="14.5" y="14" width="20" height="20" fill="#A1AAB7"/>
+<rect id="Rectangle 11" x="94.5" y="14" width="20" height="20" fill="#A1AAB7"/>
+<rect id="Rectangle 12" x="94.5" y="94" width="20" height="20" fill="#A1AAB7"/>
+<rect id="Rectangle 13" x="14.5" y="94" width="20" height="20" fill="#A1AAB7"/>
+<path id="Exclude" fill-rule="evenodd" clip-rule="evenodd" d="M104.098 64.0001L64.5 24.4021L24.902 64.0001L64.5 103.598L104.098 64.0001ZM58.53 60.25H70.31C74.34 60.25 77.75 62.89 78.91 66.53C79.19 67.4 79.34 68.32 79.34 69.28C79.34 70.24 79.19 71.16 78.91 72.03C77.75 75.67 74.34 78.31 70.31 78.31H67.56V83.0001H61.28V78.31H49.83V72.03H70.31C71.83 72.03 73.06 70.8 73.06 69.28C73.06 67.76 71.83 66.53 70.31 66.53H58.53C53.54 66.53 49.5 62.49 49.5 57.5C49.5 56.54 49.65 55.62 49.93 54.75C51.09 51.11 54.5 48.47 58.53 48.47H61.28V44.0001H67.56V48.47H78.83V54.75H58.53C57.01 54.75 55.78 55.98 55.78 57.5C55.78 59.02 57.01 60.25 58.53 60.25Z" fill="black"/>
+<path id="Vector_5" d="M70.31 60.25H58.53C57.01 60.25 55.78 59.02 55.78 57.5C55.78 55.98 57.01 54.75 58.53 54.75H78.83V48.47H67.56V44H61.28V48.47H58.53C54.5 48.47 51.09 51.11 49.93 54.75C49.65 55.62 49.5 56.54 49.5 57.5C49.5 62.49 53.54 66.53 58.53 66.53H70.31C71.83 66.53 73.06 67.76 73.06 69.28C73.06 70.8 71.83 72.03 70.31 72.03H49.83V78.31H61.28V83H67.56V78.31H70.31C74.34 78.31 77.75 75.67 78.91 72.03C79.19 71.16 79.34 70.24 79.34 69.28C79.34 68.32 79.19 67.4 78.91 66.53C77.75 62.89 74.34 60.25 70.31 60.25Z" fill="#14FFF7"/>
+</g>
+</svg>

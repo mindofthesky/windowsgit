@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <link rel="icon" href="%PUBLIC_URL%/logo192.png" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#000000" />
+
+    <meta name="description" content="투자 페르소나 전문기업" />
+    <meta property="og:url" content="qtdata.co.kr" />
+    <meta property="og:site_name" content="퀀텀데이터" />
+    <meta property="og:title" content="퀀텀데이터" />
+    <meta property="og:description" content="투자 페르소나 전문기업" />
+    <meta property="og:image" content="/og-image.jpg" />
+
+    <link rel="canonical" href="https://www.qtdata.co.kr" />
+    <link rel="apple-touch-icon" href="%PUBLIC_URL%/logo192.png" />
+    <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
+    <link
+      rel="stylesheet"
+      as="style"
+      crossorigin="anonymous"
+      href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard-dynamic-subset.min.css"
+    />
+    <script
+      type="text/javascript"
+      src="//dapi.kakao.com/v2/maps/sdk.js?appkey=%REACT_APP_KAKAO_APP_KEY%&autoload=false&libraries=services"
+    ></script>
+
+    <script type="text/javascript">
+      function initializeKakaoMap() {
+        var container = document.getElementById("map");
+      }
+
+      kakao.maps.load(function () {
+        initializeKakaoMap();
+      });
+    </script>
+    <title>Qtdata Official</title>
+  </head>
+  <body>
+    <div id="root"></div>
+  </body>
+</html>

@@ -1,0 +1,57 @@
+export const newsItems = [
+  {
+    id: 1,
+    newsHref:
+      'https://biz.newdaily.co.kr/site/data/html/2024/06/17/2024061700277.html',
+    newsSrc: '/assets/news_thumbnail.jpg',
+    newsAlt: 'news01',
+    newsName: '뉴데일리',
+    newsTitle: '퀀텀데이터, 투자정보 어드바이저리 플랫폼 ‘주식박스’ 3분기 출시',
+    newsContent: '"주식투자 최적화…AI 투자 패러다임 변화 이끌 것"',
+    newsDate: '2024.06.17',
+  },
+  {
+    id: 2,
+    newsHref: 'https://daily.hankooki.com/news/articleView.html?idxno=1095593',
+    newsSrc: '/assets/news_thumbnail.jpg',
+    newsAlt: 'news02',
+    newsName: '데일리한국',
+    newsTitle: '퀀텀데이터, 투자정보 플랫폼 ‘주식박스’ 올해 3분기 출시',
+    newsContent: `퀀텀데이터가 주식투자에 최적화된 퍼넬 어드바이저리 플랫폼 '주식박스'를 3분기 출시한다고 17일 밝혔다.`,
+    newsDate: '2024.06.17',
+  },
+  {
+    id: 3,
+    newsHref: 'https://news.mtn.co.kr/news-detail/2024061712180177639',
+    newsSrc: '/assets/news_thumbnail.jpg',
+    newsAlt: 'news03',
+    newsName: '머니투데이방송',
+    newsTitle: '퀀텀데이터, 투자 어드바이저리 플랫폼 "주식박스" 3분기 출시',
+    newsContent: `투자전략 알고리즘 전문기업 퀀텀데이터가 투자정보 어드바이저리 플랫폼 '주식박스'를 오는 3분기 출시할 예정이라고 17일 밝혔다.`,
+    newsDate: '2024.06.17',
+  },
+  {
+    id: 4,
+    newsHref: 'https://www.newspim.com/news/view/20240617000614',
+    newsSrc: '/assets/news_thumbnail.jpg',
+    newsAlt: 'news04',
+    newsName: '뉴스핌',
+    newsTitle: `퀀텀데이터, 투자정보 어드바이저리 플랫폼 '주식박스' 오는 3분기 출시 예정`,
+    newsContent: `투자전략 알고리즘 전문기업 퀀텀데이터가 주식투자에 최적화된 퍼넬 어드바이저리 플랫폼 '주식박스'를 3분기 출시한다고 17일 밝혔다.`,
+    newsDate: '2024.06.17',
+  },
+  {
+    id: 5,
+    newsHref: 'https://www.fnnews.com/news/202406141547148849',
+    newsSrc: '/assets/news_thumbnail.jpg',
+    newsAlt: 'news05',
+    newsName: '파이낸셜뉴스',
+    newsTitle: '퀀텀데이터가 내놓을 ‘주식박스’···“상승 종목들 추려보자”',
+    newsContent:
+      '투자전략 알고리즘 전문기업 퀀텀데이터가 주식투자에 최적화된 퍼넬 어드바이저리 플랫폼 ‘주식박스’ 출시한다고 14일 알렸다. 출시 시기는 오는 3·4분기로 예정돼있다.',
+    newsDate: '2024.06.17',
+  },
+  {
+    id: 6,
+  },
+];

@@ -1,0 +1,21 @@
+<svg width="128" height="128" viewBox="0 0 128 128" fill="none" xmlns="http://www.w3.org/2000/svg">
+<g id="Symbol_program" clip-path="url(#clip0_687_4320)">
+<g id="Group 38683">
+<path id="Union" fill-rule="evenodd" clip-rule="evenodd" d="M110 30H106V37H100V63H106V70H110V63H116V37H110V30Z" fill="black"/>
+<path id="Union_2" fill-rule="evenodd" clip-rule="evenodd" d="M70 70H66V77H60V103H66V110H70V103H76V77H70V70Z" fill="#A1AAB7"/>
+<path id="Union_3" fill-rule="evenodd" clip-rule="evenodd" d="M90 56H86V63H80V89H86V96H90V89H96V63H90V56Z" fill="black"/>
+<path id="Union_4" fill-rule="evenodd" clip-rule="evenodd" d="M30 54H26V61H20V87H26V94H30V87H36V61H30V54Z" fill="black"/>
+<path id="Union_5" fill-rule="evenodd" clip-rule="evenodd" d="M50 40H46V47H40V73H46V80H50V73H56V47H50V40Z" fill="#A1AAB7"/>
+</g>
+<g id="Group 38681">
+<path id="Polygon 2" d="M119.3 8.45613L111.514 27.7273L98.7178 11.3488L119.3 8.45613Z" fill="#14FFF7"/>
+<path id="Vector 5" d="M111 15L74 41L52 26L20 48" stroke="#14FFF7" stroke-width="6"/>
+</g>
+<path id="Union_6" fill-rule="evenodd" clip-rule="evenodd" d="M14 8H8V114V120H14H120V114H14V8Z" fill="black"/>
+</g>
+<defs>
+<clipPath id="clip0_687_4320">
+<rect width="128" height="128" fill="white"/>
+</clipPath>
+</defs>
+</svg>
