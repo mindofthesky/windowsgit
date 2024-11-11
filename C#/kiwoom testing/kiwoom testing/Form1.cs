@@ -1109,6 +1109,7 @@ namespace kiwoom_testing
                     // 마지막 스크롤로 fouse 
                     listBox1.SelectedIndex = listBox1.Items.Count - 1;
                     listBox1.TopIndex = listBox1.SelectedIndex;
+                    listBox1.TabIndex = listBox1.SelectedIndex + 1;
                 
                 }
             
