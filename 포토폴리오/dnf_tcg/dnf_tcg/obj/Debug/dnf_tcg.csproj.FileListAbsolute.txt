@@ -1,0 +1,14 @@
+C:\Users\mindo\source\repos\dnf_tcg\dnf_tcg\obj\Debug\dnf_tcg.csproj.AssemblyReference.cache
+C:\Users\mindo\source\repos\dnf_tcg\dnf_tcg\obj\Debug\MainWindow.baml
+C:\Users\mindo\source\repos\dnf_tcg\dnf_tcg\obj\Debug\MainWindow.g.cs
+C:\Users\mindo\source\repos\dnf_tcg\dnf_tcg\obj\Debug\App.g.cs
+C:\Users\mindo\source\repos\dnf_tcg\dnf_tcg\obj\Debug\dnf_tcg_MarkupCompile.cache
+C:\Users\mindo\source\repos\dnf_tcg\dnf_tcg\obj\Debug\dnf_tcg.g.resources
+C:\Users\mindo\source\repos\dnf_tcg\dnf_tcg\obj\Debug\dnf_tcg.Properties.Resources.resources
+C:\Users\mindo\source\repos\dnf_tcg\dnf_tcg\obj\Debug\dnf_tcg.csproj.GenerateResource.cache
+C:\Users\mindo\source\repos\dnf_tcg\dnf_tcg\obj\Debug\dnf_tcg.csproj.CoreCompileInputs.cache
+C:\Users\mindo\source\repos\dnf_tcg\dnf_tcg\bin\Debug\dnf_tcg.exe.config
+C:\Users\mindo\source\repos\dnf_tcg\dnf_tcg\bin\Debug\dnf_tcg.exe
+C:\Users\mindo\source\repos\dnf_tcg\dnf_tcg\bin\Debug\dnf_tcg.pdb
+C:\Users\mindo\source\repos\dnf_tcg\dnf_tcg\obj\Debug\dnf_tcg.exe
+C:\Users\mindo\source\repos\dnf_tcg\dnf_tcg\obj\Debug\dnf_tcg.pdb
