@@ -71,6 +71,7 @@
   <ItemGroup>
     <Compile Include="models\Card.cs" />
     <Compile Include="models\DeckFactory.cs" />
+    <Compile Include="models\Field.cs" />
     <Compile Include="models\GameManager.cs" />
     <Compile Include="models\MonsterCard.cs" />
     <Compile Include="models\Player.cs" />

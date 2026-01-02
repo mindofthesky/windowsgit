@@ -1,0 +1,96 @@
+﻿using DnfTcg.Models;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Xml.Linq;
+
+namespace dnf_tcg.models
+{
+    public class SkillCard : Card
+    {
+        // Skill progression
+        public int Level { get; set; } = 0; // current mastery level
+        public int MaxLevel { get; set; } = 999;
+        public int LevelStep { get; set; } = 10; // how much level increases per use
+        public int InitialLevel { get; set; } = 0; // starting mastery
+
+        public int CubeCost { get; set; } = 0;
+        public Action<Player, Player, int> Effect { get; set; }
+
+        public int Damage { get; set; }
+
+        // Track when this skill was placed on the field so it doesn't trigger same turn
+        public int TurnPlaced { get; set; } = 0;
+
+        public SkillCard(string name, int levelReq, int cubeCost, Action<Player, Player, int> effect)
+        {
+            Name = name;
+            LevelRequirement = levelReq;
+            CubeCost = cubeCost;
+            Effect = effect;
+            Type = CardType.Skill;
+            Level = InitialLevel;
+            LevelStep = 10;
+        }
+
+        // overload to set initial level and step
+        public SkillCard(string name, int levelReq, int cubeCost, int initialLevel, int levelStep, Action<Player, Player, int> effect)
+        {
+            Name = name;
+            LevelRequirement = levelReq;
+            CubeCost = cubeCost;
+            Effect = effect;
+            Type = CardType.Skill;
+            InitialLevel = initialLevel;
+            Level = InitialLevel;
+            LevelStep = levelStep;
+        }
+
+        // legacy constructor (no cube cost)
+        public SkillCard(string name, int levelReq, Action<Player, Player, int> effect)
+            : this(name, levelReq, 0, effect)
+        {
+        }
+
+        public override void Play(Player self, Player enemy)
+        {
+            // Prevent usage on same turn placed
+            var currentTurn = GameManager.Instance?.TurnNumber ?? 0;
+            if (TurnPlaced == currentTurn)
+            {
+                Console.WriteLine($"{Name} was just placed and cannot be used this turn.");
+                return;
+            }
+
+            if (self.CubeShards < CubeCost)
+            {
+                Console.WriteLine($"{self.Name} does not have enough Cube Shards to use {Name}.");
+                return;
+            }
+
+            // pay cost
+            self.CubeShards -= CubeCost;
+
+            // increase mastery level in player's skillbook
+            if (self.Skills.ContainsKey(Name))
+            {
+                self.Skills[Name].Level += self.Skills[Name].LevelStep;
+                if (self.Skills[Name].Level > self.Skills[Name].MaxLevel)
+                    self.Skills[Name].Level = self.Skills[Name].MaxLevel;
+            }
+            else
+            {
+                // register this skill instance as learned
+                // ensure stored instance has proper initial level
+                if (this.Level == 0) this.Level = InitialLevel;
+                self.Skills[Name] = this;
+            }
+
+            // execute effect using learned level
+            Effect(self, enemy, self.Skills[Name].Level);
+            Console.WriteLine($"{self.Name} used {Name} (Lv {self.Skills[Name].Level}) and spent {CubeCost} Cube Shards.");
+        }
+    }
+}

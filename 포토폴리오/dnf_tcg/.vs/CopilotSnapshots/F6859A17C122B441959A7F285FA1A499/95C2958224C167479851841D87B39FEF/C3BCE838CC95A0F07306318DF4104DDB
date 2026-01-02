@@ -1,0 +1,231 @@
+﻿using DnfTcg.Models; // Player, Card 정의 포함
+using System.Collections.Generic;
+using System;
+using dnf_tcg.models;
+
+namespace DnfTcg.Models
+{
+    public class GameManager
+    {
+        public Player Player1 { get; set; }
+        public Player Player2 { get; set; }
+        public Player CurrentPlayer { get; set; }
+        public Player OpponentPlayer => CurrentPlayer == Player1 ? Player2 : Player1;
+        public int TurnNumber { get; private set; } = 1;
+        
+        public GameManager(Player p1, Player p2)
+        {
+            Player1 = p1;
+            Player2 = p2;
+            CurrentPlayer = Player1;
+        }
+
+        public void StartTurn()
+        {
+            Console.WriteLine($"\n=== TURN {TurnNumber} ===");
+            Console.WriteLine($"{CurrentPlayer.Name}'s turn begins. Lv{CurrentPlayer.Level}, HP: {CurrentPlayer.Health}, Hand: {CurrentPlayer.Hand.Count}");
+            CurrentPlayer.HasLeveledUpThisTurn = false;
+            AdjustHand(CurrentPlayer);
+        }
+        public void DrawCard()
+        {
+
+        }
+        public void BattlePhase()
+        {
+
+            if (TurnNumber == 1)
+            {
+                Console.Write("공격할수없습니다");
+                return;
+            }else
+            {
+                MonsterAttackPhase();
+                SkillDamagePhase();
+            }
+            
+        }
+
+        // 몬스터 공격 페이즈
+        public void MonsterAttackPhase()
+        {
+            if (TurnNumber >= 2)
+            {
+                var attacker = CurrentPlayer;
+                var defender = OpponentPlayer;
+
+                if (attacker.Field.Monster == null)
+                {
+                    Console.WriteLine("[배틀] 몬스터가 없어 직접 공격합니다!");
+                    defender.Health -= 500; // 기본 직접 공격 데미지
+                }
+                else if (defender.Field.Monster != null)
+                {
+                    int atk = attacker.Field.Monster.AttackPower;
+                    int defHp = defender.Field.Monster.CurrentHealth;
+
+                    Console.WriteLine($"[공격] {attacker.Field.Monster.Name} -> {defender.Field.Monster.Name} ({atk} 데미지)");
+                    defender.Field.Monster.CurrentHealth -= atk;
+
+                    // 몬스터가 죽었으면 묘지로
+                    if (defender.Field.Monster.CurrentHealth <= 0)
+                    {
+                        Console.WriteLine("[배틀] 상대 몬스터 파괴됨");
+                        defender.Graveyard.Add(defender.Field.Monster);
+                        defender.Field.Monster = null;
+                    }
+                }
+                else
+                {
+                    Console.WriteLine("수비 몬스터 없음 -> 직접 공격!");
+                    //defender.Health -= attacker.Field.Monster.Attack;
+                }
+            }
+        }
+
+        // 스킬 피해 페이즈
+        public void SkillDamagePhase()
+        {
+
+            if (TurnNumber >= 2)
+            {
+                var attacker = CurrentPlayer;
+                var defender = OpponentPlayer;
+
+                foreach (var skill in new[] { attacker.Field.Skill1, attacker.Field.Skill2, attacker.Field.Skill3 })
+                {
+                    if (skill == null) continue;
+
+                    // Skip skills placed this turn
+                    if (skill is dnf_tcg.models.SkillCard sc && sc.TurnPlaced == TurnNumber)
+                        continue;
+
+                    int damage = skill.Damage;
+                    Console.WriteLine($"[스킬] {skill.Name} 발동 -> {damage} 피해!");
+
+                    // 대상이 몬스터 우선, 없으면 플레이어
+                    if (defender.Field.Monster != null)
+                    {
+                        defender.Field.Monster.CurrentHealth -= damage;
+                        Console.WriteLine($"[스킬] 몬스터 {defender.Field.Monster.Name} 피해: {damage}");
+                        if (defender.Field.Monster.CurrentHealth <= 0)
+                        {
+                            Console.WriteLine("[스킬] 몬스터 파괴됨");
+                            defender.Graveyard.Add(defender.Field.Monster);
+                            defender.Field.Monster = null;
+                        }
+                    }
+                    else
+                    {
+                        defender.Health -= damage;
+                        Console.WriteLine($"[스킬] 직접 피해: {damage}");
+                    }
+                }
+            }
+        }
+
+        public void EndTurn()
+        {
+            AdjustHand(CurrentPlayer);
+            Console.WriteLine($"{CurrentPlayer.Name}'s turn ends.");
+            TurnNumber++;
+            CurrentPlayer = OpponentPlayer;
+            StartTurn();
+            int toDraw = 5 - CurrentPlayer.Hand.Count;
+            for (int i = 0; i < toDraw && CurrentPlayer.Deck.Count > 0; i++)
+            {
+                var drawn = CurrentPlayer.Deck[0];
+                CurrentPlayer.Deck.RemoveAt(0);
+                CurrentPlayer.Hand.Add(drawn);
+            }
+
+            // 핸드가 5장 초과면 묘지로 이동
+            while (CurrentPlayer.Hand.Count > 5)
+            {
+                var excessCard = CurrentPlayer.Hand[CurrentPlayer.Hand.Count - 1];
+                CurrentPlayer.Hand.RemoveAt(CurrentPlayer.Hand.Count - 1);
+                CurrentPlayer.Graveyard.Add(excessCard);
+            }
+
+        }
+
+        private void AdjustHand(Player player)
+        {
+            // Draw up to 5
+            if (player.Hand.Count < 5)
+            {
+                int drawCount = 5 - player.Hand.Count;
+                for (int i = 0; i < drawCount && player.Deck.Count > 0; i++)
+                {
+                    var drawn = player.Deck[0];
+                    player.Deck.RemoveAt(0);
+                    player.Hand.Add(drawn);
+                    Console.WriteLine($"{player.Name} draws: {drawn.Name}");
+                }
+            }
+            // Discard down to 5
+            else if (player.Hand.Count > 5)
+            {
+                Console.WriteLine($"{player.Name}, discard down to 5 cards.");
+                while (player.Hand.Count > 5)
+                {
+                    var toDiscard = player.Hand[0]; // Simplified: discard first
+                    player.Hand.RemoveAt(0);
+                    Console.WriteLine($"{player.Name} discards: {toDiscard.Name}");
+                }
+            }
+        }
+
+        public void PlayCard(Card card)
+        {
+            var player = CurrentPlayer;
+
+            if (card is dnf_tcg.models.SkillCard skillCard)
+            {
+                // 필드에 배치만 함
+                if (player.Field.Skill1 == null) { player.Field.Skill1 = skillCard; skillCard.TurnPlaced = TurnNumber; }
+                else if (player.Field.Skill2 == null) { player.Field.Skill2 = skillCard; skillCard.TurnPlaced = TurnNumber; }
+                else if (player.Field.Skill3 == null) { player.Field.Skill3 = skillCard; skillCard.TurnPlaced = TurnNumber; }
+                else
+                {
+                    Console.WriteLine("필드에 스킬을 더 이상 놓을 수 없습니다.");
+                    return;
+                }
+            }
+            else if (card is WeaponCard weapon)
+            {
+                // Equip and place on field
+                weapon.Play(player, OpponentPlayer);
+                player.Field.Weapon = weapon;
+            }
+            else if (card is ArmorCard armor)
+            {
+                armor.Play(player, OpponentPlayer);
+                player.Field.Armor = armor;
+            }
+            else if (card is MonsterCard monster)
+            {
+                // Summon and place on field
+                monster.Play(player, OpponentPlayer);
+                player.Field.Monster = monster;
+            }
+
+            // 카드 사용 후 핸드에서 제거
+            player.Hand.Remove(card);
+        }
+
+        public void LevelUpPlayer()
+        {
+            CurrentPlayer.LevelUp();
+        }
+        public void DrawCards(Player player, int count)
+        {
+            for (int i = 0; i < count && player.Deck.Count > 0; i++)
+            {
+                var card = player.Deck[0];
+                player.Deck.RemoveAt(0);
+                player.Hand.Add(card);
+            }
+        }
+    }
+}

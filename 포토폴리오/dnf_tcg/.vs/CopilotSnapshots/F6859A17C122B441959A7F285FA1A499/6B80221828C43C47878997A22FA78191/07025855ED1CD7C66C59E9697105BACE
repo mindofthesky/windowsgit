@@ -1,0 +1,71 @@
+﻿using DnfTcg.Models;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Xml.Linq;
+
+namespace dnf_tcg.models
+{
+    public class SkillCard : Card
+    {
+        public int Level { get; set; } = 1;
+        public int MaxLevel { get; set; } = 999;
+        public int CubeCost { get; set; } = 0;
+        public Action<Player, Player, int> Effect { get; set; }
+
+        public int Damage { get; set; }
+
+        // Track when this skill was placed on the field so it doesn't trigger same turn
+        public int TurnPlaced { get; set; } = 0;
+
+        public SkillCard(string name, int levelReq, int cubeCost, Action<Player, Player, int> effect)
+        {
+            Name = name;
+            LevelRequirement = levelReq;
+            CubeCost = cubeCost;
+            Effect = effect;
+            Type = CardType.Skill;
+        }
+
+        // 🔄 예전 3인자 생성자도 유지 (큐브 비용 기본 0)
+        public SkillCard(string name, int levelReq, Action<Player, Player, int> effect)
+            : this(name, levelReq, 0, effect)
+        {
+        }
+
+        public override void Play(Player self, Player enemy)
+        {
+            // Prevent usage on same turn placed
+            var currentTurn = GameManager.Instance?.TurnNumber ?? 0;
+            if (TurnPlaced == currentTurn)
+            {
+                Console.WriteLine($"{Name} was just placed and cannot be used this turn.");
+                return;
+            }
+
+            if (self.CubeShards < CubeCost)
+            {
+                Console.WriteLine($"{self.Name} does not have enough Cube Shards to use {Name}.");
+                return;
+            }
+
+            self.CubeShards -= CubeCost;
+
+            if (self.Skills.ContainsKey(Name))
+            {
+                self.Skills[Name].Level += 10;
+                if (self.Skills[Name].Level > MaxLevel)
+                    self.Skills[Name].Level = MaxLevel;
+            }
+            else
+            {
+                self.Skills[Name] = this;
+            }
+
+            Effect(self, enemy, self.Skills[Name].Level);
+            Console.WriteLine($"{self.Name} used {Name} (Lv {self.Skills[Name].Level}) and spent {CubeCost} Cube Shards.");
+        }
+    }
+}

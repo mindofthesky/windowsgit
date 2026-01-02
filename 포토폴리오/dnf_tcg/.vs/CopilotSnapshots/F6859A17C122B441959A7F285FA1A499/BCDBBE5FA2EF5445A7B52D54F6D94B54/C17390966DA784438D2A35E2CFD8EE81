@@ -1,0 +1,309 @@
+﻿using DnfTcg.Models;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Data;
+using System.Windows.Documents;
+using System.Windows.Input;
+using System.Windows.Media;
+using System.Windows.Media.Imaging;
+using System.Windows.Navigation;
+using System.Windows.Shapes;
+using System.Windows.Threading;
+using dnf_tcg.models; // add to access SkillCard and other lowercased namespace types
+
+namespace dnf_tcg
+{
+    /// <summary>
+    /// MainWindow.xaml에 대한 상호 작용 논리
+    /// </summary>
+    public partial class MainWindow : Window
+    {
+        GameManager game;
+
+        public MainWindow()
+        {
+            InitializeComponent();
+
+            var deck1 = DeckFactory.CreateStarterDeck();
+            var deck2 = DeckFactory.CreateStarterDeck();
+
+            var p1 = new Player { Name = "Player1", Deck = new List<Card>(deck1) };
+            var p2 = new Player { Name = "Player2", Deck = new List<Card>(deck2) };
+
+            game = new GameManager(p1, p2);
+            game.StartTurn();
+
+            RefreshUI();
+        }
+        // Updated SetFieldSlot to accept Card and make slot clickable to show details
+        void SetFieldSlot(Grid grid, int row, int col, Card card, Brush bg = null)
+        {
+            var block = new TextBlock
+            {
+                Text = card?.Name ?? string.Empty,
+                Background = bg ?? Brushes.White,
+                TextAlignment = TextAlignment.Center,
+                VerticalAlignment = VerticalAlignment.Center,
+                HorizontalAlignment = HorizontalAlignment.Center,
+                Margin = new Thickness(4),
+                FontWeight = FontWeights.Bold,
+                Tag = card
+            };
+
+            block.MouseLeftButtonUp += FieldSlot_Click;
+
+            Grid.SetRow(block, row);
+            Grid.SetColumn(block, col);
+            grid.Children.Add(block);
+        }
+
+        void RenderPlayerField()
+        {
+            var field = game.CurrentPlayer.Field;
+            PlayerFieldGrid.Children.Clear();
+
+            if (field.Monster != null) SetFieldSlot(PlayerFieldGrid, 0, 0, field.Monster, Brushes.LightBlue);
+            if (field.Skill1 != null) SetFieldSlot(PlayerFieldGrid, 0, 1, field.Skill1, Brushes.Orange);
+            if (field.Skill2 != null) SetFieldSlot(PlayerFieldGrid, 0, 2, field.Skill2, Brushes.Orange);
+            if (field.Skill3 != null) SetFieldSlot(PlayerFieldGrid, 0, 3, field.Skill3, Brushes.Orange);
+            if (field.Weapon != null) SetFieldSlot(PlayerFieldGrid, 0, 4, field.Weapon, Brushes.LightGray);
+            if (field.Armor != null) SetFieldSlot(PlayerFieldGrid, 0, 5, field.Armor, Brushes.LightGray);
+
+            if (field.Effect1 != null) SetFieldSlot(PlayerFieldGrid, 1, 0, field.Effect1, Brushes.LightGreen);
+            if (field.Effect2 != null) SetFieldSlot(PlayerFieldGrid, 1, 1, field.Effect2, Brushes.LightGreen);
+            if (field.Effect3 != null) SetFieldSlot(PlayerFieldGrid, 1, 2, field.Effect3, Brushes.LightGreen);
+            if (field.LevelUpCard != null) SetFieldSlot(PlayerFieldGrid, 1, 3, field.LevelUpCard, Brushes.Thistle);
+
+            // show current player's level on field (top-right)
+            var lvlBlock = new TextBlock
+            {
+                Text = $"Lv {game.CurrentPlayer.Level}",
+                FontWeight = FontWeights.Bold,
+                Foreground = Brushes.Purple,
+                HorizontalAlignment = HorizontalAlignment.Right,
+                VerticalAlignment = VerticalAlignment.Top,
+                Margin = new Thickness(4)
+            };
+            Grid.SetRow(lvlBlock, 0);
+            Grid.SetColumn(lvlBlock, 5);
+            PlayerFieldGrid.Children.Add(lvlBlock);
+        }
+
+        void RenderEnemyField()
+        {
+            var field = game.OpponentPlayer.Field;
+            EnemyFieldGrid.Children.Clear();
+
+            if (field.Monster != null) SetFieldSlot(EnemyFieldGrid, 0, 0, field.Monster, Brushes.LightBlue);
+            if (field.Skill1 != null) SetFieldSlot(EnemyFieldGrid, 0, 1, field.Skill1, Brushes.Orange);
+            if (field.Skill2 != null) SetFieldSlot(EnemyFieldGrid, 0, 2, field.Skill2, Brushes.Orange);
+            if (field.Skill3 != null) SetFieldSlot(EnemyFieldGrid, 0, 3, field.Skill3, Brushes.Orange);
+            if (field.Weapon != null) SetFieldSlot(EnemyFieldGrid, 0, 4, field.Weapon, Brushes.LightGray);
+            if (field.Armor != null) SetFieldSlot(EnemyFieldGrid, 0, 5, field.Armor, Brushes.LightGray);
+
+            if (field.Effect1 != null) SetFieldSlot(EnemyFieldGrid, 1, 0, field.Effect1, Brushes.LightGreen);
+            if (field.Effect2 != null) SetFieldSlot(EnemyFieldGrid, 1, 1, field.Effect2, Brushes.LightGreen);
+            if (field.Effect3 != null) SetFieldSlot(EnemyFieldGrid, 1, 2, field.Effect3, Brushes.LightGreen);
+            if (field.LevelUpCard != null) SetFieldSlot(EnemyFieldGrid, 1, 3, field.LevelUpCard, Brushes.Thistle);
+
+            // show opponent's level on enemy field (top-right)
+            var lvlBlock = new TextBlock
+            {
+                Text = $"Lv {game.OpponentPlayer.Level}",
+                FontWeight = FontWeights.Bold,
+                Foreground = Brushes.Purple,
+                HorizontalAlignment = HorizontalAlignment.Right,
+                VerticalAlignment = VerticalAlignment.Top,
+                Margin = new Thickness(4)
+            };
+            Grid.SetRow(lvlBlock, 0);
+            Grid.SetColumn(lvlBlock, 5);
+            EnemyFieldGrid.Children.Add(lvlBlock);
+        }
+
+        void RefreshUI()
+        {
+            var cp = game.CurrentPlayer;
+            var op = game.OpponentPlayer;
+
+            // build status text (unchanged)
+            var status = $"{cp.Name} - HP: {cp.Health} | Lv: {cp.Level} | 큐브: {(cp.Level < 50 ? 0 : cp.CubeShards)} | 턴 {game.TurnNumber}";
+            if (!string.IsNullOrEmpty(game.LastActionMessage))
+            {
+                status += "\n" + game.LastActionMessage;
+                game.LastActionMessage = null;
+            }
+            StatusText.Text = status;
+
+            // Hand UI (unchanged)
+            HandPanel.Children.Clear();
+            for (int i = 0; i < cp.Hand.Count; i++)
+            {
+                var card = cp.Hand[i];
+                var btn = new Button
+                {
+                    Content = $"{card.Name}\n(Lv{card.LevelRequirement})",
+                    Margin = new Thickness(5),
+                    Tag = i,
+                    Width = 100,
+                    Height = 60
+                };
+                btn.Click += CardButton_Click;
+                HandPanel.Children.Add(btn);
+            }
+
+            // Render fields
+            RenderPlayerField();
+            RenderEnemyField();
+
+            // Update grave lists
+            PlayerGraveList.Items.Clear();
+            foreach (var c in cp.Graveyard)
+                PlayerGraveList.Items.Add(c.Name);
+
+            OpponentGraveList.Items.Clear();
+            foreach (var c in op.Graveyard)
+                OpponentGraveList.Items.Add(c.Name);
+        }
+
+        public void LevelUp_Click(object sender, RoutedEventArgs e)
+        {
+            game.LevelUpPlayer();
+            ShowLevelGainEffect(10);
+            RefreshUI();
+        }
+
+        public void EndTurn_Click(object sender, RoutedEventArgs e)
+        {
+            game.EndTurn();
+            RefreshUI();
+        }
+
+        private void CardButton_Click(object sender, RoutedEventArgs e)
+        {
+            int index = (int)((Button)sender).Tag;
+            var card = game.CurrentPlayer.Hand[index];
+            game.PlayCard(card);
+            RefreshUI();
+        }
+        private bool hasDrawn = false;
+        private bool hasBattled = false;
+
+        private void DrawPhase_Click(object sender, RoutedEventArgs e)
+        {
+            if (!hasDrawn)
+            {
+                game.DrawCard();
+                hasDrawn = true;
+                RefreshUI();
+            }
+        }
+
+        private void BattlePhase_Click(object sender, RoutedEventArgs e)
+        {
+            if (game.TurnNumber > 1 && !hasBattled)
+            {
+                game.MonsterAttackPhase();
+                game.SkillDamagePhase();
+                hasBattled = true;
+                RefreshUI();
+            }
+            else if (game.TurnNumber == 1)
+            {
+                MessageBox.Show("첫 턴에는 공격할 수 없습니다.");
+            }
+        }
+
+        private void EndPhase_Click(object sender, RoutedEventArgs e)
+        {
+            var player = game.CurrentPlayer;
+            while (player.Hand.Count > 5)
+            {
+                var card = player.Hand.Last();
+                player.Hand.Remove(card);
+                player.Graveyard.Add(card);
+            }
+
+            game.EndTurn();
+            hasDrawn = false;
+            hasBattled = false;
+            RefreshUI();
+        }
+
+        // Click handler to show details of a field slot's card
+        private void FieldSlot_Click(object sender, MouseButtonEventArgs e)
+        {
+            var block = sender as TextBlock;
+            if (block == null) return;
+            var card = block.Tag as Card;
+            if (card == null)
+            {
+                StatusText.Text = "빈 슬롯";
+                return;
+            }
+
+            string details = $"{card.Name} (Type: {card.Type})";
+            if (card is MonsterCard m)
+            {
+                details += $" | ATK: {m.AttackPower} | HP: {m.CurrentHealth}/{m.MaxHealth}";
+            }
+            else if (card is WeaponCard w)
+            {
+                details += $" | ATK Bonus: {w.AttackBonus}";
+            }
+            else if (card is ArmorCard a)
+            {
+                details += $" | DEF Bonus: {a.DefenseBonus}";
+            }
+            else if (card is SkillCard s)
+            {
+                details += $" | Skill Lv: {s.Level} | CubeCost: {s.CubeCost}";
+            }
+
+            StatusText.Text = details;
+        }
+
+        // Show +N overlay on both fields briefly
+        private void ShowLevelGainEffect(int amount)
+        {
+            var pBlock = new TextBlock
+            {
+                Text = $"+{amount}",
+                Foreground = Brushes.MediumPurple,
+                FontSize = 24,
+                FontWeight = FontWeights.Bold,
+                HorizontalAlignment = HorizontalAlignment.Center,
+                VerticalAlignment = VerticalAlignment.Center,
+                Opacity = 0.95
+            };
+            var eBlock = new TextBlock
+            {
+                Text = $"+{amount}",
+                Foreground = Brushes.MediumPurple,
+                FontSize = 24,
+                FontWeight = FontWeights.Bold,
+                HorizontalAlignment = HorizontalAlignment.Center,
+                VerticalAlignment = VerticalAlignment.Center,
+                Opacity = 0.95
+            };
+
+            // Add overlays
+            Grid.SetRow(pBlock, 0); Grid.SetColumn(pBlock, 2); PlayerFieldGrid.Children.Add(pBlock);
+            Grid.SetRow(eBlock, 0); Grid.SetColumn(eBlock, 2); EnemyFieldGrid.Children.Add(eBlock);
+
+            var timer = new DispatcherTimer { Interval = TimeSpan.FromMilliseconds(800) };
+            timer.Tick += (s, e) =>
+            {
+                timer.Stop();
+                PlayerFieldGrid.Children.Remove(pBlock);
+                EnemyFieldGrid.Children.Remove(eBlock);
+            };
+            timer.Start();
+        }
+    }
+}

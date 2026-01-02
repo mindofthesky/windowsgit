@@ -12,3 +12,4 @@ C:\Users\mindo\source\repos\dnf_tcg\dnf_tcg\bin\Debug\dnf_tcg.exe
 C:\Users\mindo\source\repos\dnf_tcg\dnf_tcg\bin\Debug\dnf_tcg.pdb
 C:\Users\mindo\source\repos\dnf_tcg\dnf_tcg\obj\Debug\dnf_tcg.exe
 C:\Users\mindo\source\repos\dnf_tcg\dnf_tcg\obj\Debug\dnf_tcg.pdb
+C:\Users\mindo\source\repos\dnf_tcg\dnf_tcg\obj\Debug\dnf_tcg.exe.config
